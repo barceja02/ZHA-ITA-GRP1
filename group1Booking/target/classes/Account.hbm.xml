@@ -16,5 +16,6 @@
       <property name="userID" column="USER_ID" type="string"/>
       <property name="username" column="USERNAME" type="string"/>
       <property name="password" column="PASSWORD" type="string"/>
+      <property name="role" column="ROLE" type="string"/>
    </class>
 </hibernate-mapping>

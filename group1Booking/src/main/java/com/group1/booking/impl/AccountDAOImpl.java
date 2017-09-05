@@ -19,18 +19,15 @@ import org.springframework.stereotype.Repository;
 import com.group1.booking.configurations.HibernateContext;
 import com.group1.booking.dao.AccountDAO;
 import com.group1.booking.models.Account;
-
-
+import com.group1.booking.returnModels.Login;
 
 public class AccountDAOImpl implements AccountDAO {
-	
+
 	SessionFactory sessionFactory;
-	//Setter for HibernateSession-> Customize BeanSession since Autowired seems fucked up and shit
 
 	public void setHibernateSession(HibernateContext hibernateSession) {
 		sessionFactory = hibernateSession.GetSessionFactory();
 	}
-	
 
 	public String CreateAccount(Account account) {
 		// TODO Auto-generated method stub
@@ -40,7 +37,7 @@ public class AccountDAOImpl implements AccountDAO {
 		System.err.println(account.getPassword());
 		try {
 			tx = session.beginTransaction();
-			Account = (Account)session.save(account);
+			Account = (Account) session.save(account);
 			tx.commit();
 		} catch (HibernateException e) {
 			System.out.println("tangina");
@@ -52,19 +49,50 @@ public class AccountDAOImpl implements AccountDAO {
 		}
 		System.out.println(Account.getAcctID());
 		return "test";
-		
-//		return "accountCreated";
+
+		// return "accountCreated";
 	}
 
-	public String Login(String Username, String Password) {
-		// TODO Auto-generated method stub
+	//TENGKH 20170905: Login Transaction
+	public Login ToLogin(String Username, String Password) {
 
-		return "wazzza";
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		Account account = null;
+		Login login = new Login();
+		try {
+			tx = session.beginTransaction();
+			String sqlQuery = "FROM Account WHERE USERNAME = '" + Username + "' AND PASSWORD = '" + Password + "'";
+			List Account = session.createQuery(sqlQuery).list();
+			for (Iterator iterator = Account.iterator(); iterator.hasNext();) {
+				account = (Account) iterator.next();
+			}
+
+			if (Username.equals(account.getUsername()) && Password.equals(account.getPassword())) {
+				login.setIsSucces("true");
+				login.setUserid(account.getUserID());
+				login.setRole(account.getRole());
+				login.setUsername(account.getUsername());
+
+			} else {
+				login.setIsSucces("false");
+			}
+
+			tx.commit();
+
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return login;
 	}
 
 	public void UpdateAccount(Account account) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public Account SearchByAccountBy(String ACCT_ID) {
@@ -74,7 +102,7 @@ public class AccountDAOImpl implements AccountDAO {
 		Account account = null;
 		try {
 			tx = session.beginTransaction();
-			List Account = session.createQuery("FROM Account WHERE acctID = '" + ACCT_ID+"'").list();
+			List Account = session.createQuery("FROM Account WHERE acctID = '" + ACCT_ID + "'").list();
 			for (Iterator iterator = Account.iterator(); iterator.hasNext();) {
 				account = (Account) iterator.next();
 				System.err.print("AcctID" + account.getAcctID());
@@ -101,8 +129,8 @@ public class AccountDAOImpl implements AccountDAO {
 		List query;
 		try {
 			tx = session.beginTransaction();
-			 query =  session.createQuery("FROM Account").list();
-			 account = (ArrayList<Account>) query;
+			query = session.createQuery("FROM Account").list();
+			account = (ArrayList<Account>) query;
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null)
@@ -113,8 +141,5 @@ public class AccountDAOImpl implements AccountDAO {
 		}
 		return account;
 	}
-	
-	
-	
-	
+
 }
