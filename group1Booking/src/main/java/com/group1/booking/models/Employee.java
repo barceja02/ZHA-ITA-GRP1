@@ -5,7 +5,7 @@ public class Employee {
 	String organization;
 	String department;
 	String role;
-	String emp_id;
+	int emp_id;
 	String firstname;
 	String lastname;
 	public String getOrganization() {
@@ -26,10 +26,10 @@ public class Employee {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public String getEmp_id() {
+	public int getEmp_id() {
 		return emp_id;
 	}
-	public void setEmp_id(String emp_id) {
+	public void setEmp_id(int emp_id) {
 		this.emp_id = emp_id;
 	}
 	public String getFirstname() {

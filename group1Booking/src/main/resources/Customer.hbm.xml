@@ -8,8 +8,8 @@
       <meta attribute="class-description">
          Mapping definition for Account Class and GRP1_ACCOUNT table
       </meta>
-      <id name="customerId" type="string" column="CUST_ID">
-        <generator class="sequence-identity">
+      <id name="customerId" type="int" column="CUST_ID">
+        <generator class="sequence">
         	<param name="sequence">GRP1_CUST_DETAILS_CUST_ID_SEQ</param>
         </generator>
       </id>

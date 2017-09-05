@@ -8,8 +8,8 @@
       <meta attribute="class-description">
          Mapping definition for Account Class and GRP1_ACCOUNT table
       </meta>
-      <id name="bookingNum" type="string" column="BOOKING_NUM">
-        <generator class="sequence-identity">
+      <id name="bookingNum" type="int" column="BOOKING_NUM">
+        <generator class="sequence">
         	<param name="sequence">GRP1_BOOKINFO_BOOKING_NUM_SEQ</param>
         </generator>
       </id>

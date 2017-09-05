@@ -6,7 +6,7 @@ import java.util.List;
 import com.group1.booking.models.Account;
 import com.group1.booking.returnModels.Login;;
 
-public interface IAccountService {
+public interface IServices {
 	public Login ToLogin(String Username, String Password);
 	public Account SearchAccountById(String ACCT_ID);
 	public ArrayList<Account> searchAllAccounts();

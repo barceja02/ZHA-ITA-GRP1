@@ -10,7 +10,7 @@ import com.group1.booking.impl.AccountDAOImpl;
 import com.group1.booking.models.Account;
 import com.group1.booking.returnModels.*;
 
-public class AccountServices implements IAccountService {
+public class Services implements IServices {
 
 	AccountDAO accountDao;
 
@@ -18,9 +18,9 @@ public class AccountServices implements IAccountService {
 		this.accountDao = accountDAOImpl;
 	}
 
-	public IAccountService getAccountServices() {
+	public IServices getAccountServices() {
 		ApplicationContext appContext = new ClassPathXmlApplicationContext("AppContext.xml");
-		IAccountService as = (IAccountService) appContext.getBean("AccountServices");
+		IServices as = (IServices) appContext.getBean("AccountServices");
 		return as;
 	}
 
@@ -45,7 +45,7 @@ public class AccountServices implements IAccountService {
 	}
 
 	public static void main(String[] args) {
-		IAccountService ias = new AccountServices().getAccountServices();
+		IServices ias = new Services().getAccountServices();
 		
 		//TENGKH: Local testing for login
 		Login login = ias.ToLogin("BITUIGA", "bituiga123");

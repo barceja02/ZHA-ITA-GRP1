@@ -1,7 +1,7 @@
 package com.group1.booking.models;
 
 public class BookingInfo {
-	String bookingNum;
+	int bookingNum;
 	String shipperId;
 	String consigneeId;
 	String containerNumber;
@@ -17,10 +17,10 @@ public class BookingInfo {
 	String createDate;
 	String updateDate;
 	String isActive;
-	public String getBookingNum() {
+	public int getBookingNum() {
 		return bookingNum;
 	}
-	public void setBookingNum(String bookingNum) {
+	public void setBookingNum(int bookingNum) {
 		this.bookingNum = bookingNum;
 	}
 	public String getShipperId() {

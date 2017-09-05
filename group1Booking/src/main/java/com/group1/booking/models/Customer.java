@@ -1,11 +1,20 @@
 package com.group1.booking.models;
 
 public class Customer {
-	String customerId;
+	int customerId;
 	String firstname;
 	String lastname;
 	String address;
 	String role;
+	String contactNumber;
+	String mailAddress;
+	public int getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+
 	public String getFirstname() {
 		return firstname;
 	}
@@ -23,15 +32,6 @@ public class Customer {
 	}
 	public void setRole(String role) {
 		this.role = role;
-	}
-	String contactNumber;
-	String mailAddress;
-	
-	public String getCustomerId() {
-		return customerId;
-	}
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
 	}
 	public String getAddress() {
 		return address;
