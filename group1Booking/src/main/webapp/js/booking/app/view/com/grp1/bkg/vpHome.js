@@ -72,6 +72,8 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                 },
                                 {
                                     xtype: 'button',
+                                    id: 'btnLogout',
+                                    itemId: 'btnLogout',
                                     text: 'Logout'
                                 }
                             ]
