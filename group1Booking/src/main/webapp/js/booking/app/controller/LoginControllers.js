@@ -30,6 +30,17 @@ Ext.define('layout.controller.LoginControllers', {
 			jsonData : Ext.encode(user.data),
 			success : function(response) {
 				var res = Ext.decode(response.responseText);
+				var userInfo = Ext.create(modelId + 'loginResponse', {
+					userId : res.userId,
+					role :  res.role,
+					userName :  res.userName,
+					isSuccess :  res.isSuccess
+				});
+				console.log(userInfo.data.isSuccess);
+				if(userInfo.data.isSuccess === "true"){
+					this.vpHome = Ext.create('layout.view.com.grp1.bkg.vpHome');
+					this.vpHome.show();
+				}
 			},
 			failure : function(response) {
 				var jsonn = '{isSuccess: "true",role: "userkoto",userId: 123}';
@@ -39,8 +50,6 @@ Ext.define('layout.controller.LoginControllers', {
 			}
 		});
 
-		this.vpHome = Ext.create('layout.view.com.grp1.bkg.vpHome');
-		this.vpHome.show();
 	},
 
 	init : function(application) {
