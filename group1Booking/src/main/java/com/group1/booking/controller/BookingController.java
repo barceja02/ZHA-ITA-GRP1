@@ -42,7 +42,7 @@ public class BookingController {
 	public @ResponseBody String login(@RequestBody String test)
 			throws JsonParseException, JsonMappingException, IOException {
 			
-		return "{isSuccess: \"true\",role: \"csv\",userId: 123,username: \"nonie\"}";
+		return "{isSuccess: \"true\",role: \"userkoto\",userId: 123}";
 	}
 
 	@RequestMapping(value = "/get", method = RequestMethod.GET)

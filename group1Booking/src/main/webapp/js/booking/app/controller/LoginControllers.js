@@ -30,9 +30,6 @@ Ext.define('layout.controller.LoginControllers', {
 			jsonData : Ext.encode(user.data),
 			success : function(response) {
 				var res = Ext.decode(response.responseText);
-				Ext.getCmp('lblUsername').setValue(res.username);
-				Ext.getCmp('lblUserId').setValue(res.userId);
-				
 			},
 			failure : function(response) {
 				var jsonn = '{isSuccess: "true",role: "userkoto",userId: 123}';

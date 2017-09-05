@@ -15,17 +15,22 @@
 
 // @require @packageOverrides
 Ext.Loader.setConfig({
-	enabled : true
+    enabled: true
 });
 
-Ext.application({
-	appFolder : '../group1Booking/js/sample/app',
-	views : [ 'MyViewport' ],
-	controllers : [ 'MyController' ],
-	name : 'ExampleHW',
 
-	launch : function() {
-		Ext.create('ExampleHW.view.MyViewport');
-	}
+Ext.application({
+	appFolder:'../group1Booking/js/sample/app',
+    views: [
+        'MyViewport'
+    ],
+    controllers: [
+        'MyController'
+    ],
+    name: 'ExampleHW',
+
+    launch: function() {
+        Ext.create('ExampleHW.view.MyViewport');
+    }
 
 });
