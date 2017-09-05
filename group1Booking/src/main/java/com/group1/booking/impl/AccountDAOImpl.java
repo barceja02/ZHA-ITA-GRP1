@@ -53,7 +53,7 @@ public class AccountDAOImpl implements AccountDAO {
 		// return "accountCreated";
 	}
 
-	//TENGKH 20170905: Login Transaction
+	// TENGKH 20170905: Login Transaction
 	public Login ToLogin(String Username, String Password) {
 
 		Session session = sessionFactory.openSession();
@@ -64,17 +64,21 @@ public class AccountDAOImpl implements AccountDAO {
 			tx = session.beginTransaction();
 			String sqlQuery = "FROM Account WHERE USERNAME = '" + Username + "' AND PASSWORD = '" + Password + "'";
 			List Account = session.createQuery(sqlQuery).list();
-			for (Iterator iterator = Account.iterator(); iterator.hasNext();) {
-				account = (Account) iterator.next();
-			}
+			if (!Account.isEmpty()) {
 
-			if (Username.equals(account.getUsername()) && Password.equals(account.getPassword())) {
-				login.setIsSucces("true");
-				login.setUserid(account.getUserID());
-				login.setRole(account.getRole());
-				login.setUsername(account.getUsername());
+				for (Iterator iterator = Account.iterator(); iterator.hasNext();) {
+					account = (Account) iterator.next();
+				}
 
-			} else {
+				if (Username.equals(account.getUsername()) && Password.equals(account.getPassword())) {
+					login.setIsSucces("true");
+					login.setUserid(account.getUserID());
+					login.setRole(account.getRole());
+					login.setUsername(account.getUsername());
+
+				} 
+			}else {
+				//return null;
 				login.setIsSucces("false");
 			}
 
