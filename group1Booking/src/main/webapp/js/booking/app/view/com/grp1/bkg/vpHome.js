@@ -17,13 +17,12 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
     extend: 'Ext.container.Viewport',
 
     requires: [
-        'Ext.toolbar.Spacer',
+        'Ext.toolbar.Toolbar',
+        'Ext.toolbar.Fill',
         'Ext.tab.Panel',
         'Ext.tab.Tab',
         'Ext.form.Panel',
         'Ext.form.field.Date',
-        'Ext.toolbar.Toolbar',
-        'Ext.toolbar.Fill',
         'Ext.grid.Panel',
         'Ext.grid.column.Number',
         'Ext.grid.column.Date',
@@ -51,9 +50,31 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                     },
                     items: [
                         {
-                            xtype: 'tbspacer',
+                            xtype: 'toolbar',
                             flex: 1,
-                            height: 10
+                            items: [
+                                {
+                                    xtype: 'tbfill'
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    disabled: true,
+                                    id: 'lblUsername',
+                                    itemId: 'lblUsername',
+                                    fieldLabel: 'Username'
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    disabled: true,
+                                    id: 'lblUserId',
+                                    itemId: 'lblUserId',
+                                    fieldLabel: 'UserID'
+                                },
+                                {
+                                    xtype: 'button',
+                                    text: 'Logout'
+                                }
+                            ]
                         }
                     ]
                 },
