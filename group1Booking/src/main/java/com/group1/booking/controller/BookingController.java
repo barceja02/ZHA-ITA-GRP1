@@ -22,8 +22,8 @@ public class BookingController {
 	ObjectMapper jsonMapper = new ObjectMapper();
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model) {
-		ModelAndView modelAndView = new ModelAndView("/js/sample/sample.html");
+	public ModelAndView home(Locale locale, Model model) { 
+		ModelAndView modelAndView = new ModelAndView("/js/booking/booking.html");
 		return modelAndView;
 	}
 
@@ -36,6 +36,13 @@ public class BookingController {
 	public @ResponseBody String post(@RequestBody String test)
 			throws JsonParseException, JsonMappingException, IOException {
 		return "hello";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public @ResponseBody String login(@RequestBody String test)
+			throws JsonParseException, JsonMappingException, IOException {
+			
+		return "{isSuccess: \"true\",role: \"userkoto\",userId: 123}";
 	}
 
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
