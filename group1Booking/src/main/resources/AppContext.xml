@@ -9,14 +9,22 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 <!--Bean instance for Hibernate Context -->
-<bean id = "HibernateContext" class="com.oocl.configurations.HibernateContext">
+<bean id = "HibernateContext" class="com.group1.booking.configurations.HibernateContext" scope="prototype">
 </bean>
-<bean id= "AccountDAOImpl" class = "com.oocl.daoimpl.AccountDAOImpl">
-	<property name="hibernateSession" ><ref local="HibernateContext"/></property>
-</bean>
-<bean id="AccountServices" class = "com.oocl.service.AccountServices">
+	<bean id= "AccountDAOImpl" class = "com.group1.booking.impl.AccountDAOImpl">
+		<property name="hibernateSession" ><ref local="HibernateContext"/></property>
+	</bean>
+	
+	<bean id= "BookingInfoDAOImpl" class = "com.group1.booking.impl.BookingInfoDAOImpl">
+		<property name="hibernateSession" ><ref local="HibernateContext"/></property>
+	</bean>
+	
+	
+<bean id="Services" class = "com.group1.booking.service.Services">
 	<property name="accountDAOImpl" ><ref local="AccountDAOImpl"/>
 	</property>
+	
+	
 </bean>
 
 <!--Define Pojo this is for the Spring to handle our instantiation

@@ -4,17 +4,18 @@
  "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
 
 <hibernate-mapping>
-   <class name="com.oocl.models.Account" table="GRP1_ACCOUNT">
+   <class name="com.group1.booking.models.Account" table="GRP1_ACCOUNT">
       <meta attribute="class-description">
          Mapping definition for Account Class and GRP1_ACCOUNT table
       </meta>
-      <id name="_acctID" type="string" column="ACCT_ID">
-        <generator class="sequence-identity">
+      <id name="acctID" type="int" column="ACCT_ID">
+        <generator class="sequence">
         	<param name="sequence">GRP1_ACCOUNT_ACCT_ID_SEQ</param>
         </generator>
       </id>
-      <property name="_userID" column="USER_ID" type="string"/>
-      <property name="_username" column="USERNAME" type="string"/>
-      <property name="_password" column="PASSWORD" type="string"/>
+      <property name="userID" column="USER_ID" type="string"/>
+      <property name="username" column="USERNAME" type="string"/>
+      <property name="password" column="PASSWORD" type="string"/>
+      <property name="role" column="ROLE" type="string"/>
    </class>
 </hibernate-mapping>

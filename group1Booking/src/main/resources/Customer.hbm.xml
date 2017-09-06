@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name="com.group1.booking.models.Customer" table="grp1_customer_details">
+      <meta attribute="class-description">
+         Mapping definition for Account Class and GRP1_ACCOUNT table
+      </meta>
+      <id name="customerId" type="int" column="CUST_ID">
+        <generator class="sequence">
+        	<param name="sequence">GRP1_CUST_DETAILS_CUST_ID_SEQ</param>
+        </generator>
+      </id>
+      <property name="firstname" column="FIRSTNAME" type="string"/>
+      <property name="lastname" column="LASTNAME" type="string"/>
+      <property name="address" column="ADDRESS" type="string"/>
+      <property name="contactNumber" column="CONTAINER_NUM" type="string"/>
+      <property name="mailAddress" column="EMAIL_ADDRESS" type="string"/>
+      </class>
+</hibernate-mapping>
