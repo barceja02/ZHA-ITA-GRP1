@@ -20,7 +20,7 @@ public class Services implements IServices {
 
 	public IServices getAccountServices() {
 		ApplicationContext appContext = new ClassPathXmlApplicationContext("AppContext.xml");
-		IServices as = (IServices) appContext.getBean("AccountServices");
+		IServices as = (IServices) appContext.getBean("Services");
 		return as;
 	}
 

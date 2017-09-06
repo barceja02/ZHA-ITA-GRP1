@@ -7,6 +7,7 @@ import java.util.Locale;
 //import javax.servlet.http.HttpServletRequest;
 
 import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
@@ -17,10 +18,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.group1.booking.service.*;
+
 @Controller
 public class BookingController {
 	ObjectMapper jsonMapper = new ObjectMapper();
-
+	Services service = new Services();
+	IServices serv = service.getAccountServices();
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model) { 
 		ModelAndView modelAndView = new ModelAndView("/js/booking/booking.html");
@@ -39,10 +44,10 @@ public class BookingController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public @ResponseBody String login(@RequestBody String test)
+	public @ResponseBody String login(@RequestBody String params)
 			throws JsonParseException, JsonMappingException, IOException {
-			
-		return "{isSuccess: \"true\",role: \"userkoto\",userId: 123}";
+		//return "{isSuccess: \"true\",role: \"userkoto\",userId: 123}";
+		return jsonMapper.writeValueAsString(serv.ToLogin("TENGKH", "tengkh123"));
 	}
 
 	@RequestMapping(value = "/get", method = RequestMethod.GET)

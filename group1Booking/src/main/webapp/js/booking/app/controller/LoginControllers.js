@@ -31,21 +31,23 @@ Ext.define('layout.controller.LoginControllers', {
 			success : function(response) {
 				var res = Ext.decode(response.responseText);
 				var userInfo = Ext.create(modelId + 'loginResponse', {
-					userId : res.userId,
+					userId : res.userid,
 					role :  res.role,
-					userName :  res.userName,
-					isSuccess :  res.isSuccess
+					userName :  res.username,
+					isSuccess :  res.isSucces
 				});
 				console.log(userInfo.data.isSuccess);
 				if(userInfo.data.isSuccess === "true"){
 					this.vpHome = Ext.create('layout.view.com.grp1.bkg.vpHome');
 					this.vpHome.show();
 				}
+				else{
+					alert("Wrong username/password");
+				}
 			},
 			failure : function(response) {
-				var jsonn = '{isSuccess: "true",role: "userkoto",userId: 123}';
-				var res = Ext.decode(jsonn);
-				console.log(res);
+				alert("Login Failed");
+				console.log(response);
 				console.log("Update function ajax request failed");
 			}
 		});
