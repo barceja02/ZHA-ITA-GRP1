@@ -1,8 +1,11 @@
 package com.group1.booking.controller;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import org.codehaus.jackson.JsonNode;
 
 //import javax.servlet.http.HttpServletRequest;
 
@@ -25,9 +28,9 @@ public class BookingController {
 	ObjectMapper jsonMapper = new ObjectMapper();
 	Services service = new Services();
 	IServices serv = service.getAccountServices();
-	
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model) { 
+	public ModelAndView home(Locale locale, Model model) {
 		ModelAndView modelAndView = new ModelAndView("/js/booking/booking.html");
 		return modelAndView;
 	}
@@ -36,23 +39,26 @@ public class BookingController {
 	 * return as json if returned value is object. if only one line of string return
 	 * use string
 	 */
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public @ResponseBody String post(@RequestBody String test)
 			throws JsonParseException, JsonMappingException, IOException {
 		return "hello";
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody String login(@RequestBody String params)
 			throws JsonParseException, JsonMappingException, IOException {
-		//return "{isSuccess: \"true\",role: \"userkoto\",userId: 123}";
-		return jsonMapper.writeValueAsString(serv.ToLogin("TENGKH", "tengkh123"));
+		JsonNode rootNode = new ObjectMapper().readTree(new StringReader(params)); //convert to readable note
+		//rootNode.get("parameter") returns the value of the parameter
+		String username = rootNode.get("username").toString().replace("\"", "");
+		String password = rootNode.get("password").toString().replace("\"", "");
+		return jsonMapper.writeValueAsString(serv.ToLogin(username, password));
 	}
 
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public @ResponseBody String getAccounts() throws JsonParseException, JsonMappingException, IOException {
-//		return jsonMapper.writeValueAsString(accounts);
+		// return jsonMapper.writeValueAsString(accounts);
 		return "hello";
 	}
 }

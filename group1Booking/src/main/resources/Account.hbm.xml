@@ -13,7 +13,7 @@
         	<param name="sequence">GRP1_ACCOUNT_ACCT_ID_SEQ</param>
         </generator>
       </id>
-      <property name="userID" column="USER_ID" type="string"/>
+      <property name="custID" column="CUST_ID" type="string"/>
       <property name="username" column="USERNAME" type="string"/>
       <property name="password" column="PASSWORD" type="string"/>
       <property name="role" column="ROLE" type="string"/>

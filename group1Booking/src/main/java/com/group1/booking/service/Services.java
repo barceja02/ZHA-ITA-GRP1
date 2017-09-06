@@ -48,11 +48,11 @@ public class Services implements IServices {
 		IServices ias = new Services().getAccountServices();
 		
 		//TENGKH: Local testing for login
-		Login login = ias.ToLogin("BITUIGA", "bituiga123");
+		/*Login login = ias.ToLogin("BITUIGA", "bituiga123");
 		System.out.println("isSuccess: " + login.getIsSucces());
 		System.out.println("Username: " + login.getUsername());
-		System.out.println("UserId: " + login.getUserid());
-		System.out.println("Role: " + login.getRole());
+		System.out.println("UserId: " + login.getAccountId());
+		System.out.println("Role: " + login.getRole());*/
 	}
 
 }

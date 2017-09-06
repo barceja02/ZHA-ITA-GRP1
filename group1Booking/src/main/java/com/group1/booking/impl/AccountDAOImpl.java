@@ -72,7 +72,8 @@ public class AccountDAOImpl implements AccountDAO {
 
 				if (Username.equals(account.getUsername()) && Password.equals(account.getPassword())) {
 					login.setIsSucces("true");
-					login.setUserid(account.getUserID());
+					//login.setUserid(account.getAcctID());
+					login.setAccountId(String.valueOf(account.getAcctID()));
 					login.setRole(account.getRole());
 					login.setUsername(account.getUsername());
 
@@ -110,7 +111,7 @@ public class AccountDAOImpl implements AccountDAO {
 			for (Iterator iterator = Account.iterator(); iterator.hasNext();) {
 				account = (Account) iterator.next();
 				System.err.print("AcctID" + account.getAcctID());
-				System.out.print("  UserId" + account.getUserID());
+				System.out.print("  UserId" + account.getCustID());
 				System.out.print("  Username" + account.getUsername());
 				System.out.print("  Password" + account.getPassword());
 			}

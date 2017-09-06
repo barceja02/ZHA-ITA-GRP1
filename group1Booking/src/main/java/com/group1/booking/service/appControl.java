@@ -1,7 +1,9 @@
 package com.group1.booking.service;
 
 import java.io.IOException;
+import java.io.StringReader;
 
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -21,7 +23,9 @@ public class appControl {
 		String json = "{\"isSuccess\": \"true\",\"role\": \"userkoto\",\"userId\": 123}";
 		ObjectMapper map = new ObjectMapper();
 		Object input = map.readValue(json,Object.class);
-		System.out.println(input);
+		JsonNode rootNode = new ObjectMapper().readTree(new StringReader(json));
+		JsonNode aField = rootNode.get("role");
+		System.out.println(aField.toString());
 	}	
 	
 	
