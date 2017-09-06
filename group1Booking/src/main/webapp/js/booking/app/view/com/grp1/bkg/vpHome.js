@@ -22,7 +22,7 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
         'Ext.tab.Panel',
         'Ext.tab.Tab',
         'Ext.form.Panel',
-        'Ext.form.field.Date',
+        'Ext.form.field.ComboBox',
         'Ext.grid.Panel',
         'Ext.grid.column.Number',
         'Ext.grid.column.Date',
@@ -139,7 +139,7 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                                         },
                                                                         {
                                                                             xtype: 'textfield',
-                                                                            fieldLabel: 'Created By:'
+                                                                            fieldLabel: 'Container No:'
                                                                         }
                                                                     ]
                                                                 },
@@ -152,41 +152,48 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                                     },
                                                                     items: [
                                                                         {
-                                                                            xtype: 'datefield',
-                                                                            fieldLabel: 'FromDate:'
+                                                                            xtype: 'combobox',
+                                                                            flex: 1,
+                                                                            fieldLabel: 'From City:'
                                                                         },
                                                                         {
-                                                                            xtype: 'datefield',
-                                                                            fieldLabel: 'To Date:'
+                                                                            xtype: 'combobox',
+                                                                            flex: 1,
+                                                                            fieldLabel: 'To City:'
                                                                         }
                                                                     ]
                                                                 }
                                                             ]
                                                         },
                                                         {
-                                                            xtype: 'container',
-                                                            flex: 1,
-                                                            layout: {
-                                                                type: 'hbox',
-                                                                align: 'stretch'
-                                                            }
-                                                        },
-                                                        {
                                                             xtype: 'toolbar',
                                                             flex: 1,
                                                             items: [
+                                                                {
+                                                                    xtype: 'button',
+                                                                    text: 'View Booking'
+                                                                },
+                                                                {
+                                                                    xtype: 'button',
+                                                                    text: 'Edit Booking'
+                                                                },
+                                                                {
+                                                                    xtype: 'button',
+                                                                    text: 'Create Booking'
+                                                                },
                                                                 {
                                                                     xtype: 'tbfill'
                                                                 },
                                                                 {
                                                                     xtype: 'button',
-                                                                    text: 'Search',
-                                                                    listeners: {
-                                                                        click: {
-                                                                            fn: me.onButtonClick,
-                                                                            scope: me
-                                                                        }
-                                                                    }
+                                                                    id: 'btnSearchBooking',
+                                                                    itemId: 'btnSearchBooking',
+                                                                    text: 'Search'
+                                                                },
+                                                                {
+                                                                    xtype: 'button',
+                                                                    iconAlign: 'right',
+                                                                    text: 'Reset'
                                                                 }
                                                             ]
                                                         }
@@ -228,28 +235,6 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                         }
                                                     ]
                                                 }
-                                            ],
-                                            dockedItems: [
-                                                {
-                                                    xtype: 'toolbar',
-                                                    dock: 'bottom',
-                                                    frame: true,
-                                                    layout: {
-                                                        type: 'hbox',
-                                                        align: 'bottom'
-                                                    },
-                                                    items: [
-                                                        {
-                                                            xtype: 'tbfill',
-                                                            frame: false
-                                                        },
-                                                        {
-                                                            xtype: 'button',
-                                                            iconAlign: 'right',
-                                                            text: 'Reset'
-                                                        }
-                                                    ]
-                                                }
                                             ]
                                         }
                                     ]
@@ -270,11 +255,6 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
         });
 
         me.callParent(arguments);
-    },
-
-    onButtonClick: function(button, e, eOpts) {
-        var x = Ext.create('layout.view.MyViewport1');
-        x.show();
     }
 
 });

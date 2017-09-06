@@ -40,6 +40,7 @@ Ext.define('layout.controller.LoginControllers', {
 				if(userInfo.data.isSuccess === "true"){
 					this.vpHome = Ext.create('layout.view.com.grp1.bkg.vpHome');
 					this.vpHome.show();
+					Ext.getCmp('lblUsername').setValue(userInfo.username);
 				}
 				else{
 					alert("Wrong username/password");

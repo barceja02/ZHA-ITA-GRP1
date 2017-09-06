@@ -21,14 +21,16 @@ Ext.Loader.setConfig({
 Ext.application({
 	appFolder:'../group1Booking/js/booking/app',
     models: [
-        'loginInfo'
+        'loginInfo',
+        'loginResponse'
     ],
     views: [
         'com.grp1.bkg.vpLogin',
         'com.grp1.bkg.vpHome'
     ],
     controllers: [
-        'LoginControllers'
+        'LoginControllers',
+        'HomeController'
     ],
     name: 'layout',
 
