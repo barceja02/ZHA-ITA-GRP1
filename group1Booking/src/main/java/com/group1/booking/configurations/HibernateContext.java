@@ -10,7 +10,7 @@ public class HibernateContext{
 	public HibernateContext() {
 		try {
 			factory = new Configuration().configure().buildSessionFactory();
-			System.out.println("test");
+			
 		} catch (Throwable ex) {
 			System.err.println("Failed to create sessionFactory object." + ex);
 			throw new ExceptionInInitializerError(ex);
@@ -18,6 +18,7 @@ public class HibernateContext{
 	}
 
 	public SessionFactory GetSessionFactory() {		
+		System.out.println("test");
 		return factory;
 	}
 }
