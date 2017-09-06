@@ -2,6 +2,8 @@ package com.group1.booking.models;
 
 public class Customer {
 	int customerId;
+	String companyName;
+	int isActive;
 	String firstname;
 	String lastname;
 	String address;
@@ -14,7 +16,12 @@ public class Customer {
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
-
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 	public String getFirstname() {
 		return firstname;
 	}
@@ -51,6 +58,10 @@ public class Customer {
 	public void setMailAddress(String mailAddress) {
 		this.mailAddress = mailAddress;
 	}
-
-	
+	public int getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(int isActive) {
+		this.isActive = isActive;
+	}
 }
