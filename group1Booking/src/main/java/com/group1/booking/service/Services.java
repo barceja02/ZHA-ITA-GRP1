@@ -29,9 +29,9 @@ public class Services implements IServices {
 		return accountDao.ToLogin(Username, Password);
 	}
 
-	public Account SearchAccountById(int acctID) {
+	public Account SearchAccountById(String Username) {
 		// TODO Auto-generated method stub
-		return accountDao.SearchByAccountBy(acctID);
+		return accountDao.SearchByAccountBy(Username);
 	}
 
 	public ArrayList<Account> searchAllAccounts() {

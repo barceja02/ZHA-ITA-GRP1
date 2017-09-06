@@ -25,37 +25,14 @@ public class AccountDAOImpl implements AccountDAO {
 
 	SessionFactory sessionFactory;
 	public String sqlQuery;
+
 	public void setHibernateSession(HibernateContext hibernateSession) {
 		sessionFactory = hibernateSession.GetSessionFactory();
 	}
 
-	public String CreateAccount(Account account) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		Account Account = null;
-		System.err.println(account.getPassword());
-		try {
-			tx = session.beginTransaction();
-			Account = (Account) session.save(account);
-			tx.commit();
-		} catch (HibernateException e) {
-			System.out.println("tangina");
-			if (tx != null)
-				tx.rollback();
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		System.out.println(Account.getAcctID());
-		return "test";
-
-		// return "accountCreated";
-	}
-
 	// TENGKH 20170905: Login Transaction
 	public Login ToLogin(String Username, String Password) {
-
+		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		Account account = null;
@@ -93,19 +70,15 @@ public class AccountDAOImpl implements AccountDAO {
 		return login;
 	}
 
-	public void UpdateAccount(Account account) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public Account SearchByAccountBy(int acctID) {
+	// TENGKH 20170906: to search by username for Admin CRUD
+	public Account SearchByAccountBy(String Username) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		Account account = null;
 		try {
 			tx = session.beginTransaction();
-			sqlQuery = "FROM Account WHERE ACCT_ID = " + acctID;
+			sqlQuery = "FROM Account WHERE USERNAME = '" + Username + "'";
 			List Account = session.createQuery(sqlQuery).list();
 			for (Iterator iterator = Account.iterator(); iterator.hasNext();) {
 				account = (Account) iterator.next();
@@ -115,14 +88,46 @@ public class AccountDAOImpl implements AccountDAO {
 			if (tx != null)
 				tx.rollback();
 			e.printStackTrace();
-		} finally { 
+		} finally {
 			session.close();
 		}
 		return account;
 	}
+	
+	//TENGKH: to create an account
+	//NOTE: before creating an account, customer must first be created in the CUSTOMER_DETAILS table
+	public String CreateAccount(Account account) {
+		// TODO Auto-generated method stub
+
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		Account Account = null;
+		System.err.println(account.getPassword());
+		try {
+			tx = session.beginTransaction();
+			Account = (Account) session.save(account);
+			tx.commit();
+		} catch (HibernateException e) {
+			System.out.println("tangina");
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		System.out.println(Account.getAcctID());
+		return "test";
+
+	}
+
+	public void UpdateAccount(Account account) {
+		// TODO Auto-generated method stub
+
+	}
 
 	public ArrayList<Account> searchAllAccounts() {
 		// TODO Auto-generated method stub
+
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = null;
 		ArrayList<Account> account = null;

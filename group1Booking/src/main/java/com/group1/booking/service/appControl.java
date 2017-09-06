@@ -13,18 +13,18 @@ public class appControl {
 		IServices as = getAccountServices();
 		
 		//TENGKH 20170905: testing login transaction
-		Login loginresult = as.ToLogin("BURGOKA", "burgoka123");
+		/*Login loginresult = as.ToLogin("BURGOKA", "burgoka123");
 		System.err.println(loginresult.getIsSucces());
 		System.err.println(loginresult.getRole());
 		System.err.println(loginresult.getUsername());
-		System.err.println(loginresult.getCustid());
+		System.err.println(loginresult.getCustid());*/
 		
 		//TENGKH 20170905: testing search account by
-		/*Account accountById = as.SearchAccountById(2017003);
+		Account accountById = as.SearchAccountById("BURGOKA");
 		System.err.println(accountById.getUsername());
 		System.err.println(accountById.getPassword());
 		System.err.println(accountById.getAcctID());
-		System.err.println(accountById.getRole());*/
+		System.err.println(accountById.getRole());
 		
 		
 	}	
