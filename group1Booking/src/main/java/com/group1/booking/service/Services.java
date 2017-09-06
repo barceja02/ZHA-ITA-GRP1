@@ -29,9 +29,9 @@ public class Services implements IServices {
 		return accountDao.ToLogin(Username, Password);
 	}
 
-	public Account SearchAccountById(String ACCT_ID) {
+	public Account SearchAccountById(int acctID) {
 		// TODO Auto-generated method stub
-		return accountDao.SearchByAccountBy(ACCT_ID);
+		return accountDao.SearchByAccountBy(acctID);
 	}
 
 	public ArrayList<Account> searchAllAccounts() {
@@ -51,7 +51,7 @@ public class Services implements IServices {
 		Login login = ias.ToLogin("BITUIGA", "bituiga123");
 		System.out.println("isSuccess: " + login.getIsSucces());
 		System.out.println("Username: " + login.getUsername());
-		System.out.println("UserId: " + login.getUserid());
+		System.out.println("UserId: " + login.getCustid());
 		System.out.println("Role: " + login.getRole());
 	}
 

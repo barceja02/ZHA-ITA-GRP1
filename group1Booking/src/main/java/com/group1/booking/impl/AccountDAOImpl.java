@@ -24,7 +24,7 @@ import com.group1.booking.returnModels.Login;
 public class AccountDAOImpl implements AccountDAO {
 
 	SessionFactory sessionFactory;
-
+	public String sqlQuery;
 	public void setHibernateSession(HibernateContext hibernateSession) {
 		sessionFactory = hibernateSession.GetSessionFactory();
 	}
@@ -62,7 +62,7 @@ public class AccountDAOImpl implements AccountDAO {
 		Login login = new Login();
 		try {
 			tx = session.beginTransaction();
-			String sqlQuery = "FROM Account WHERE USERNAME = '" + Username + "' AND PASSWORD = '" + Password + "'";
+			sqlQuery = "FROM Account WHERE USERNAME = '" + Username + "' AND PASSWORD = '" + Password + "'";
 			List Account = session.createQuery(sqlQuery).list();
 			if (!Account.isEmpty()) {
 
@@ -72,13 +72,12 @@ public class AccountDAOImpl implements AccountDAO {
 
 				if (Username.equals(account.getUsername()) && Password.equals(account.getPassword())) {
 					login.setIsSucces("true");
-					login.setUserid(account.getUserID());
+					login.setCustid(account.getCustID());
 					login.setRole(account.getRole());
 					login.setUsername(account.getUsername());
 
-				} 
-			}else {
-				//return null;
+				}
+			} else {
 				login.setIsSucces("false");
 			}
 
@@ -99,27 +98,24 @@ public class AccountDAOImpl implements AccountDAO {
 
 	}
 
-	public Account SearchByAccountBy(String ACCT_ID) {
+	public Account SearchByAccountBy(int acctID) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		Account account = null;
 		try {
 			tx = session.beginTransaction();
-			List Account = session.createQuery("FROM Account WHERE acctID = '" + ACCT_ID + "'").list();
+			sqlQuery = "FROM Account WHERE ACCT_ID = " + acctID;
+			List Account = session.createQuery(sqlQuery).list();
 			for (Iterator iterator = Account.iterator(); iterator.hasNext();) {
 				account = (Account) iterator.next();
-				System.err.print("AcctID" + account.getAcctID());
-				System.out.print("  UserId" + account.getUserID());
-				System.out.print("  Username" + account.getUsername());
-				System.out.print("  Password" + account.getPassword());
 			}
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
 			e.printStackTrace();
-		} finally {
+		} finally { 
 			session.close();
 		}
 		return account;

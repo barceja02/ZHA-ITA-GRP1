@@ -3,7 +3,7 @@ package com.group1.booking.returnModels;
 public class Login {
 	String isSucces;
 	String role;
-	String userid;
+	String custid;
 	String username;
 
 	public String getIsSucces() {
@@ -30,12 +30,14 @@ public class Login {
 		this.username = username;
 	}
 
-	public String getUserid() {
-		return userid;
+	public String getCustid() {
+		return custid;
 	}
 
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setCustid(String custid) {
+		this.custid = custid;
 	}
+
+
 
 }

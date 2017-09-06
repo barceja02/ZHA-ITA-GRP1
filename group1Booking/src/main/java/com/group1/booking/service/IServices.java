@@ -8,7 +8,7 @@ import com.group1.booking.returnModels.Login;;
 
 public interface IServices {
 	public Login ToLogin(String Username, String Password);
-	public Account SearchAccountById(String ACCT_ID);
+	public Account SearchAccountById(int acctID);
 	public ArrayList<Account> searchAllAccounts();
 	public String CreateAccount(Account account);
 }

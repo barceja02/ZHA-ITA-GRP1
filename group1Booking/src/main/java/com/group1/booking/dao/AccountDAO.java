@@ -13,6 +13,6 @@ public interface AccountDAO {
 
 	public Login ToLogin(String Username, String Password);//return String Success/fail
 	public void UpdateAccount(Account account);
-	public Account SearchByAccountBy(String ACCT_ID);
+	public Account SearchByAccountBy(int acctID);
 	public ArrayList<Account> searchAllAccounts();
 }
