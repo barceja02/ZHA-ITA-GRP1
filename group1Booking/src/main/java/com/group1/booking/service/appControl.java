@@ -10,6 +10,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.group1.booking.models.Account;
 import com.group1.booking.returnModels.Login;
 
 public class appControl {
@@ -17,15 +18,22 @@ public class appControl {
 	
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
 //		IServices as = getAccountServices();
-//		Login loginresult = as.ToLogin("TENGKH", "tengkh123");
-//		System.err.println(loginresult.getIsSucces());
 		
+		//TENGKH 20170905: testing login transaction
+		/*Login loginresult = as.ToLogin("BURGOKA", "burgoka123");
 		String json = "{\"isSuccess\": \"true\",\"role\": \"userkoto\",\"userId\": 123}";
-		ObjectMapper map = new ObjectMapper();
-		Object input = map.readValue(json,Object.class);
-		JsonNode rootNode = new ObjectMapper().readTree(new StringReader(json));
-		JsonNode aField = rootNode.get("role");
-		System.out.println(aField.toString());
+		System.err.println(loginresult.getRole());
+		System.err.println(loginresult.getUsername());
+		System.err.println(loginresult.getCustid());*/
+		
+		//TENGKH 20170905: testing search account by
+		Account accountById = as.SearchAccountById("BURGOKA");
+		System.err.println(accountById.getUsername());
+		System.err.println(accountById.getPassword());
+		System.err.println(accountById.getAcctID());
+		System.err.println(accountById.getRole());
+		
+		
 	}	
 	
 	

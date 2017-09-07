@@ -8,11 +8,14 @@ import com.group1.booking.returnModels.Login;
 
 //Interface for Account
 public interface AccountDAO {
-	
-	public String CreateAccount(Account account);//Return String success/fail
 
-	public Login ToLogin(String Username, String Password);//return String Success/fail
+	public String CreateAccount(Account account);
+
+	public Login ToLogin(String Username, String Password);
+
 	public void UpdateAccount(Account account);
-	public Account SearchByAccountBy(String ACCT_ID);
+
+	public Account SearchByAccountBy(String Username);
+
 	public ArrayList<Account> searchAllAccounts();
 }

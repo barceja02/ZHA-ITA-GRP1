@@ -3,6 +3,7 @@ package com.group1.booking.returnModels;
 public class Login {
 	String isSucces;
 	String role;
+	String custid;
 	String username;
 	String accountId;
 
@@ -30,14 +31,11 @@ public class Login {
 		this.username = username;
 	}
 
-	public String getAccountId() {
-		return accountId;
+	public String getCustid() {
+		return custid;
 	}
 
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
+	public void setCustid(String custid) {
+		this.custid = custid;
 	}
-
-
-
 }

@@ -14,6 +14,7 @@ public class Account {
 	String custID;
 	// @Id
 	// @GeneratedValue(strategy=GenerationType.SEQUENCE)
+	// @Column(name = "ACCT_ID")
 	int acctID;
 	// @Column(name="USERNAME")
 	String username;

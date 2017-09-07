@@ -24,13 +24,82 @@ import com.group1.booking.returnModels.Login;
 public class AccountDAOImpl implements AccountDAO {
 
 	SessionFactory sessionFactory;
+	public String sqlQuery;
 
 	public void setHibernateSession(HibernateContext hibernateSession) {
 		sessionFactory = hibernateSession.GetSessionFactory();
 	}
 
+	// TENGKH 20170905: Login Transaction
+	public Login ToLogin(String Username, String Password) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		Account account = null;
+		Login login = new Login();
+		try {
+			tx = session.beginTransaction();
+			sqlQuery = "FROM Account WHERE USERNAME = '" + Username + "' AND PASSWORD = '" + Password + "'";
+			List Account = session.createQuery(sqlQuery).list();
+			if (!Account.isEmpty()) {
+
+				for (Iterator iterator = Account.iterator(); iterator.hasNext();) {
+					account = (Account) iterator.next();
+				}
+
+				if (Username.equals(account.getUsername()) && Password.equals(account.getPassword())) {
+					login.setIsSucces("true");
+					login.setCustid(account.getCustID());
+					login.setAccountId(String.valueOf(account.getAcctID()));
+					login.setRole(account.getRole());
+					login.setUsername(account.getUsername());
+
+				}
+			} else {
+				login.setIsSucces("false");
+			}
+
+			tx.commit();
+
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return login;
+	}
+
+	// TENGKH 20170906: to search by username for Admin CRUD
+	public Account SearchByAccountBy(String Username) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		Account account = null;
+		try {
+			tx = session.beginTransaction();
+			sqlQuery = "FROM Account WHERE USERNAME = '" + Username + "'";
+			List Account = session.createQuery(sqlQuery).list();
+			for (Iterator iterator = Account.iterator(); iterator.hasNext();) {
+				account = (Account) iterator.next();
+			}
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return account;
+	}
+	
+	//TENGKH: to create an account
+	//NOTE: before creating an account, customer must first be created in the CUSTOMER_DETAILS table
 	public String CreateAccount(Account account) {
 		// TODO Auto-generated method stub
+
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		Account Account = null;
@@ -50,49 +119,6 @@ public class AccountDAOImpl implements AccountDAO {
 		System.out.println(Account.getAcctID());
 		return "test";
 
-		// return "accountCreated";
-	}
-
-	// TENGKH 20170905: Login Transaction
-	public Login ToLogin(String Username, String Password) {
-
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		Account account = null;
-		Login login = new Login();
-		try {
-			tx = session.beginTransaction();
-			String sqlQuery = "FROM Account WHERE USERNAME = '" + Username + "' AND PASSWORD = '" + Password + "'";
-			List Account = session.createQuery(sqlQuery).list();
-			if (!Account.isEmpty()) {
-
-				for (Iterator iterator = Account.iterator(); iterator.hasNext();) {
-					account = (Account) iterator.next();
-				}
-
-				if (Username.equals(account.getUsername()) && Password.equals(account.getPassword())) {
-					login.setIsSucces("true");
-					//login.setUserid(account.getAcctID());
-					login.setAccountId(String.valueOf(account.getAcctID()));
-					login.setRole(account.getRole());
-					login.setUsername(account.getUsername());
-
-				} 
-			}else {
-				//return null;
-				login.setIsSucces("false");
-			}
-
-			tx.commit();
-
-		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return login;
 	}
 
 	public void UpdateAccount(Account account) {
@@ -100,34 +126,9 @@ public class AccountDAOImpl implements AccountDAO {
 
 	}
 
-	public Account SearchByAccountBy(String ACCT_ID) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		Account account = null;
-		try {
-			tx = session.beginTransaction();
-			List Account = session.createQuery("FROM Account WHERE acctID = '" + ACCT_ID + "'").list();
-			for (Iterator iterator = Account.iterator(); iterator.hasNext();) {
-				account = (Account) iterator.next();
-				System.err.print("AcctID" + account.getAcctID());
-				System.out.print("  UserId" + account.getCustID());
-				System.out.print("  Username" + account.getUsername());
-				System.out.print("  Password" + account.getPassword());
-			}
-			tx.commit();
-		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return account;
-	}
-
 	public ArrayList<Account> searchAllAccounts() {
 		// TODO Auto-generated method stub
+
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = null;
 		ArrayList<Account> account = null;
