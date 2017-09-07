@@ -17,7 +17,7 @@ public class appControl {
 
 	
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
-//		IServices as = getAccountServices();
+		IServices as = getAccountServices();
 		
 		//TENGKH 20170905: testing login transaction
 		/*Login loginresult = as.ToLogin("BURGOKA", "burgoka123");
