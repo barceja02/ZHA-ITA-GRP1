@@ -1,29 +1,36 @@
 package com.group1.booking.service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.group1.booking.dao.AccountDAO;
+import com.group1.booking.dao.BookingInfoDAO;
 import com.group1.booking.dao.CustomerDAO;
 import com.group1.booking.impl.AccountDAOImpl;
+import com.group1.booking.impl.BookingInfoDAOImpl;
 import com.group1.booking.impl.CustomerDAOImpl;
 import com.group1.booking.models.Account;
+import com.group1.booking.models.BookingInfo;
 import com.group1.booking.models.Customer;
-import com.group1.booking.returnModels.*;
+import com.group1.booking.returnModels.Login;
 
 public class Services implements IServices {
 
 	//Beaned Ibject
 	AccountDAO accountDao;
 	CustomerDAO customerDao;
+	BookingInfoDAO bookingInfoDAO;
 	//Beaned Instanciation for the DAO IMPL to DAO interface
 	public void setAccountDAOImpl(AccountDAOImpl accountDAOImpl) {
 		this.accountDao = accountDAOImpl;
 	}
 	public void setCustomerDAOImpl(CustomerDAOImpl customerDAOImpl) {
 		this.customerDao = customerDAOImpl;
+	}
+	public void setBookingInfoDAOImpl(BookingInfoDAOImpl bookingInfoDAOImpl) {
+		this.bookingInfoDAO = bookingInfoDAOImpl;
 	}
 	
 	//inversion of Iservice 
@@ -105,6 +112,25 @@ public class Services implements IServices {
 	public String CreateCustomer(Customer customer, Account account) {
 		// TODO Auto-generated method stub
 		return customerDao.CreateCustomer(customer, account);
+	}
+	
+	//---------------BookingInfo
+	public ArrayList<BookingInfo> searchBookingInfoByCriteria(String bkgNumber, String cntrNumber, String frCity,
+			String toCity) {
+		// TODO Auto-generated method stub
+		return bookingInfoDAO.searchBookingInfoByCriteria(bkgNumber, cntrNumber, frCity, toCity);
+	}
+	public String insertBooking(BookingInfo booking) {
+		// TODO Auto-generated method stub
+		return bookingInfoDAO.insertBooking(booking);
+	}
+	public String updateBooking(BookingInfo booking) {
+		// TODO Auto-generated method stub
+		return bookingInfoDAO.updateBooking(booking);
+	}
+	public String deactivateBooking(ArrayList<String> bookingNumbers) {
+		// TODO Auto-generated method stub
+		return bookingInfoDAO.deactivateBooking(bookingNumbers);
 	}
 
 }

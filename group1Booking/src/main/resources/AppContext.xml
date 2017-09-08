@@ -28,12 +28,16 @@
 	</property>
 	<property name="customerDAOImpl" ><ref local="CustomerDAOImpl"/>
 	</property>
-	
+	<property name="bookingInfoDAOImpl" ><ref local="BookingInfoDAOImpl"/>
+	</property>
 	
 </bean>
 
 <!--Define Pojo this is for the Spring to handle our instantiation
-<bean id = "Account" class="com.oocl.models.Account"></bean>-->
+<bean id = "Account" class="com.oocl.models.Account"></bean>
+
+
+-->
 
 
 </beans>

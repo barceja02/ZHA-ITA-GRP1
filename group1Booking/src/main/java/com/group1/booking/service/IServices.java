@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.group1.booking.models.Account;
+import com.group1.booking.models.BookingInfo;
 import com.group1.booking.models.Customer;
 import com.group1.booking.returnModels.Login;;
 
@@ -28,4 +29,10 @@ public interface IServices {
 	public String DeleteCustomer(String id);
 	public Customer searchCriteria(String id, String CompanyName);
 	
+	//-----------------BookinfInfoDAO-------------
+	public ArrayList<BookingInfo> searchBookingInfoByCriteria(String bkgNumber, String cntrNumber, String frCity,
+			String toCity);
+	public String insertBooking(BookingInfo booking);
+	public String updateBooking(BookingInfo booking);
+	public String deactivateBooking(ArrayList<String> bookingNumbers);
 }

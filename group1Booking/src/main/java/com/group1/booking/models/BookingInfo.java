@@ -2,37 +2,39 @@ package com.group1.booking.models;
 
 public class BookingInfo {
 	int bookingNum;
-	String shipperId;
-	String consigneeId;
+	int shipperId;
+	int consigneeId;
 	String containerNumber;
 	String containerType;
 	String cargoNature;
 	String cargoDescrpiption;
-	String grossWeight;
-	String netWeight;
+	int grossWeight;
+	int netWeight;
 	String fromCity;
 	String toCity;
 	String createdBy;
 	String updatedBy;
 	String createDate;
 	String updateDate;
-	String isActive;
+	int isActive;
+	String grossUnit;
+	String netUnit;
 	public int getBookingNum() {
 		return bookingNum;
 	}
 	public void setBookingNum(int bookingNum) {
 		this.bookingNum = bookingNum;
 	}
-	public String getShipperId() {
+	public int getShipperId() {
 		return shipperId;
 	}
-	public void setShipperId(String shipperId) {
+	public void setShipperId(int shipperId) {
 		this.shipperId = shipperId;
 	}
-	public String getConsigneeId() {
+	public int getConsigneeId() {
 		return consigneeId;
 	}
-	public void setConsigneeId(String consigneeId) {
+	public void setConsigneeId(int consigneeId) {
 		this.consigneeId = consigneeId;
 	}
 	public String getContainerNumber() {
@@ -59,16 +61,16 @@ public class BookingInfo {
 	public void setCargoDescrpiption(String cargoDescrpiption) {
 		this.cargoDescrpiption = cargoDescrpiption;
 	}
-	public String getGrossWeight() {
+	public int getGrossWeight() {
 		return grossWeight;
 	}
-	public void setGrossWeight(String grossWeight) {
+	public void setGrossWeight(int grossWeight) {
 		this.grossWeight = grossWeight;
 	}
-	public String getNetWeight() {
+	public int getNetWeight() {
 		return netWeight;
 	}
-	public void setNetWeight(String netWeight) {
+	public void setNetWeight(int netWeight) {
 		this.netWeight = netWeight;
 	}
 	public String getFromCity() {
@@ -107,11 +109,43 @@ public class BookingInfo {
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
-	public String getIsActive() {
+	public int getIsActive() {
 		return isActive;
 	}
-	public void setIsActive(String isActive) {
+	public void setIsActive(int isActive) {
 		this.isActive = isActive;
+	}
+	public String getGrossUnit() {
+		return grossUnit;
+	}
+	public void setGrossUnit(String grossUnit) {
+		this.grossUnit = grossUnit;
+	}
+	public String getNetUnit() {
+		return netUnit;
+	}
+	public void setNetUnit(String netUnit) {
+		this.netUnit = netUnit;
+	}
+	public void setBooking (BookingInfo booking) {
+		
+		this.bookingNum = booking.getBookingNum();
+		this.shipperId = booking.getShipperId();
+		this.consigneeId = booking.getConsigneeId();
+		this.containerNumber = booking.getContainerNumber();
+		this.containerType = booking.getContainerType();
+		this.cargoNature = booking.getCargoNature();
+		this.cargoDescrpiption = booking.getCargoDescrpiption();
+		this.grossWeight = booking.getGrossWeight();
+		this.netWeight = booking.getNetWeight();
+		this.fromCity = booking.getFromCity();
+		this.toCity = booking.getToCity();
+		this.updatedBy = booking.getUpdatedBy();
+		this.updateDate = booking.getUpdateDate();
+		this.isActive = booking.getIsActive();
+		this.grossUnit = booking.getGrossUnit();
+		this.netUnit = booking.getNetUnit();
+		
 	}
 
 }
