@@ -44,6 +44,7 @@ public class Services implements IServices {
 	//----------For DOM testing 
 	public static void main(String[] args) {
 		IServices ias = new Services().getAccountServices();
+		
 //		Customer customer = new Customer();
 //		customer.setAddress("wazzzzzzzzzaaaaaaaa");
 //		customer.setCompanyName("wazzaaaa");
@@ -52,8 +53,23 @@ public class Services implements IServices {
 //		customer.setCustomerId(1002);
 //		System.err.println("sadfasdfasdfsadf "+ias.UpdateCustomer(customer));
 //		
+		Customer cust = new Customer();
+		Account acct = new Account();
+		//cust.setCustomerId(customerId);
+		cust.setFirstname("Cristina");
+		cust.setLastname("Li");
+		cust.setAddress("Adress1");
+		cust.setMailAddress("email1");
+		cust.setContactNumber("1");
+		cust.setRole("CUSTOMER");
+		cust.setCompanyName("OOCL");
 		
-		ias.DeleteCustomer("1002");
+		acct.setUsername("tengkh");
+		acct.setPassword("12345");
+		acct.setRole("Customer");
+
+		ias.CreateCustomer(cust, acct);
+//		ias.CreateAccount(acct);
 		
 //		//TENGKH: Local testing for login
 //		Login login = ias.ToLogin("BITUIGA", "bituiga123");
@@ -93,9 +109,10 @@ public class Services implements IServices {
 	}
 	
 	//---------------Customer
-	public ArrayList<Customer> searchAllReturnList() {
+	public ArrayList<Customer> searchAllCustomerReturnList() {
 		// TODO Auto-generated method stub
-		return customerDao.searchAllReturnList();
+		
+		return customerDao.searchAllCustomerReturnList();
 	}
 	public String UpdateCustomer(Customer customer) {
 		// TODO Auto-generated method stub
@@ -105,14 +122,19 @@ public class Services implements IServices {
 		// TODO Auto-generated method stub
 		return customerDao.DeleteCustomer(id);
 	}
-	public Customer searchCriteria(String id, String CompanyName) {
-		// TODO Auto-generated method stub
-		return customerDao.searchCriteria(id, CompanyName);
-	}
 	public String CreateCustomer(Customer customer, Account account) {
 		// TODO Auto-generated method stub
 		return customerDao.CreateCustomer(customer, account);
 	}
+	public ArrayList<Customer> searchCustomerCriteria(String id, String CompanyName) {
+		// TODO Auto-generated method stub
+		return customerDao.searchCustomerCriteria(id, CompanyName);
+	}
+	public ArrayList<Customer> searchCustomerCriteria(String CompanyName) {
+		// TODO Auto-generated method stub
+		return customerDao.searchCustomerCriteria(CompanyName);
+	}
+
 	
 	//---------------BookingInfo
 	public ArrayList<BookingInfo> searchBookingInfoByCriteria(String bkgNumber, String cntrNumber, String frCity,

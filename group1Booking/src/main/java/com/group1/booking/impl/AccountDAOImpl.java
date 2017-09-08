@@ -29,7 +29,7 @@ public class AccountDAOImpl implements AccountDAO {
 	public void setHibernateSession(HibernateContext hibernateSession) {
 		sessionFactory = hibernateSession.GetSessionFactory();
 	}
-
+	
 	// TENGKH 20170905: Login Transaction
 	public Login ToLogin(String Username, String Password) {
 		// TODO Auto-generated method stub
@@ -102,11 +102,11 @@ public class AccountDAOImpl implements AccountDAO {
 
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
-		Account Account = null;
+		String accountID = null;
 		System.err.println(account.getPassword());
 		try {
 			tx = session.beginTransaction();
-			Account = (Account) session.save(account);
+			accountID = session.save(account).toString();
 			tx.commit();
 		} catch (HibernateException e) {
 			System.out.println("tangina");
@@ -116,7 +116,7 @@ public class AccountDAOImpl implements AccountDAO {
 		} finally {
 			session.close();
 		}
-		System.out.println(Account.getAcctID());
+		
 		return "test";
 
 	}
@@ -147,5 +147,7 @@ public class AccountDAOImpl implements AccountDAO {
 		}
 		return account;
 	}
+
+	
 
 }

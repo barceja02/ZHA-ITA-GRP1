@@ -1,9 +1,11 @@
 package com.group1.booking.impl;
 
 import java.util.ArrayList;
-
+import java.util.Iterator;
+import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,24 +17,20 @@ import com.group1.booking.models.Customer;
 
 public class CustomerDAOImpl implements CustomerDAO{
 	SessionFactory sessionFactory;
-
+	//SessionFactory Bean Spring
 	public void setHibernateSession(HibernateContext hibernateSession) {
 		sessionFactory = hibernateSession.GetSessionFactory();
 	}
-
-	public ArrayList<Customer> searchAllReturnList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String CreateCustomer(Customer customer, Account account) {
+	//ALLARRA09_08_17: SearchAllcUSTOMER and return List of customer
+	@SuppressWarnings("unchecked")
+	public ArrayList<Customer> searchAllCustomerReturnList() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
-		Customer customerReturn= null;
+		List<Customer> tempHold = null;
 		try {
 			tx = session.beginTransaction();
-			customerReturn = (Customer) session.save(customer);
+			tempHold = (List<Customer>) session.createQuery("FROM Customer").list();
 			session.flush();
 			tx.commit();
 		}catch(HibernateException x) {
@@ -42,12 +40,34 @@ public class CustomerDAOImpl implements CustomerDAO{
 			session.close();
 		}
 		
-		account.setCustID((String.valueOf(customerReturn.getCustomerId())));
-		new AccountDAOImpl().CreateAccount(account);
-		
-		return String.valueOf(customerReturn.getCustomerId());
+		return (ArrayList<Customer>) tempHold;
 	}
 
+	//ALLARRA: CreateCustomer transaction
+	public String CreateCustomer(Customer customer, Account account) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		String customerReturn= null;
+		try {
+			tx = session.beginTransaction();
+			customerReturn =  session.save(customer).toString();
+			session.flush();
+			tx.commit();
+		}catch(HibernateException x) {
+			if(tx != null)
+				tx.rollback();
+		}finally{
+			session.close();
+		}
+		AccountDAOImpl accountDAO = new AccountDAOImpl();
+		accountDAO.setHibernateSession(new HibernateContext());
+		account.setCustID(customerReturn);
+		accountDAO.CreateAccount(account);
+		
+		return customerReturn;
+	}
+	//ALLARRA UpdateCustomer
 	public String UpdateCustomer(Customer customer) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
@@ -58,7 +78,13 @@ public class CustomerDAOImpl implements CustomerDAO{
 		try {
 			tx = session.beginTransaction();
 			Customer updateCustomer = (Customer) session.get(Customer.class, customer.getCustomerId());
+			updateCustomer.setCompanyName(customer.getCompanyName()==null||customer.getCompanyName()==""?updateCustomer.getCompanyName():customer.getCompanyName());
+			updateCustomer.setLastname(customer.getLastname()==null||customer.getLastname()==""?updateCustomer.getLastname():customer.getLastname());
 			updateCustomer.setFirstname(customer.getFirstname()==null||customer.getFirstname()==""?updateCustomer.getFirstname():customer.getFirstname());
+			updateCustomer.setRole(customer.getRole()==null||customer.getRole()==""?updateCustomer.getRole():customer.getRole());
+			updateCustomer.setAddress(customer.getAddress()==null||customer.getAddress()==""?updateCustomer.getAddress():customer.getAddress());
+			updateCustomer.setContactNumber(customer.getContactNumber()==null||customer.getContactNumber()==""?updateCustomer.getContactNumber():customer.getContactNumber());
+			updateCustomer.setMailAddress(customer.getMailAddress()==null||customer.getMailAddress()==""?updateCustomer.getMailAddress():customer.getMailAddress());
 			session.update(updateCustomer);
 			session.flush();
 			tx.commit();
@@ -101,9 +127,49 @@ public class CustomerDAOImpl implements CustomerDAO{
 		
 	}
 	
-	public Customer searchCriteria(String id, String CompanyName) {
-		// TODO Auto-generated method stub
-		return null;
+	//ALLARRA: Search Customer by criteria CompanyName
+	@SuppressWarnings("unchecked")
+	public ArrayList<Customer> searchCustomerCriteria(String CompanyName) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		List<Customer> tempHold = null;
+		try {
+			tx = session.beginTransaction();
+			Query query = session.createQuery("FROM Customer "
+					+ "WHERE companyName = :companyName");
+			query.setParameter("companyName", CompanyName);
+			tempHold = (List<Customer>) query.list();
+			session.flush();
+			tx.commit();
+		}catch(HibernateException x) {
+			if(tx != null)
+				tx.rollback();
+		}finally{
+			session.close();
+		}
+		return (ArrayList<Customer>) tempHold;
 	}
 
+	public ArrayList<Customer> searchCustomerCriteria(String id, String CompanyName) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		List<Customer> tempHold = null;
+		try {
+			tx = session.beginTransaction();
+			Query query = session.createQuery("FROM Customer "
+					+ "WHERE customerId = :id or companyName = :companyName");
+			query.setParameter("id", id);
+			query.setParameter("companyName", CompanyName);
+			tempHold = (List<Customer>) query.list();
+			session.flush();
+			tx.commit();
+		}catch(HibernateException x) {
+			if(tx != null)
+				tx.rollback();
+		}finally{
+			session.close();
+		}
+		return (ArrayList<Customer>) tempHold;
+	}
 }

@@ -23,11 +23,13 @@ public interface IServices {
 	
 	
 	//-----------------CustomerDAO-------------
-	public ArrayList<Customer> searchAllReturnList();
+
+	public ArrayList<Customer> searchAllCustomerReturnList();
 	public String CreateCustomer(Customer customer,Account account);
 	public String UpdateCustomer(Customer customer);
 	public String DeleteCustomer(String id);
-	public Customer searchCriteria(String id, String CompanyName);
+	public ArrayList<Customer> searchCustomerCriteria(String CompanyName);
+	public ArrayList<Customer> searchCustomerCriteria(String id, String CompanyName);
 	
 	//-----------------BookinfInfoDAO-------------
 	public ArrayList<BookingInfo> searchBookingInfoByCriteria(String bkgNumber, String cntrNumber, String frCity,
