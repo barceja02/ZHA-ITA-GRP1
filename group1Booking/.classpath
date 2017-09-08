@@ -28,12 +28,12 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/My Documents/MyJabberFiles/allarra@oocl.com/ojdbc8.jar">
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/ojdbc8.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/My Documents/MyJabberFiles/allarra@oocl.com/oracle.sqldeveloper.jdbcproxy.jar">
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/oracle.sqldeveloper.jdbcproxy.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>

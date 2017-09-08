@@ -50,6 +50,7 @@ public class AccountDAOImpl implements AccountDAO {
 				if (Username.equals(account.getUsername()) && Password.equals(account.getPassword())) {
 					login.setIsSucces("true");
 					login.setCustid(account.getCustID());
+					login.setAccountId(String.valueOf(account.getAcctID()));
 					login.setRole(account.getRole());
 					login.setUsername(account.getUsername());
 

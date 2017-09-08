@@ -1,5 +1,12 @@
 package com.group1.booking.service;
 
+import java.io.IOException;
+import java.io.StringReader;
+
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -9,12 +16,12 @@ import com.group1.booking.returnModels.Login;
 public class appControl {
 
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
 		IServices as = getAccountServices();
 		
 		//TENGKH 20170905: testing login transaction
 		/*Login loginresult = as.ToLogin("BURGOKA", "burgoka123");
-		System.err.println(loginresult.getIsSucces());
+		String json = "{\"isSuccess\": \"true\",\"role\": \"userkoto\",\"userId\": 123}";
 		System.err.println(loginresult.getRole());
 		System.err.println(loginresult.getUsername());
 		System.err.println(loginresult.getCustid());*/

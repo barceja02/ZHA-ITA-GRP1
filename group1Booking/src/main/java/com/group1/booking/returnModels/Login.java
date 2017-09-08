@@ -5,6 +5,15 @@ public class Login {
 	String role;
 	String custid;
 	String username;
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
+	}
+
+	String accountId;
 
 	public String getIsSucces() {
 		return isSucces;
@@ -37,7 +46,4 @@ public class Login {
 	public void setCustid(String custid) {
 		this.custid = custid;
 	}
-
-
-
 }
