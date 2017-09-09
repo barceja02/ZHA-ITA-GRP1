@@ -30,5 +30,8 @@
       <property name="isActive" column="IS_ACTIVE" type="int"/>
       <property name="grossUnit" column="GROSS_UNIT" type="string"/>  
       <property name="netUnit" column="NET_UNIT" type="string"/> 
+      <property name="isWeightValid" column="IS_WEIGHT_VALID" type="int"/> 
+      <property name="isCustomerGood" column="IS_GOOD_CUSTOMER" type="int"/> 
+      <property name="isDocumentApproved" column="IS_DOCUMENTS_APPROVED" type="int"/> 
    </class>
 </hibernate-mapping>

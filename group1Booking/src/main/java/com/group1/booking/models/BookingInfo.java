@@ -19,6 +19,27 @@ public class BookingInfo {
 	int isActive;
 	String grossUnit;
 	String netUnit;
+	int isWeightValid;
+	int isDocumentApproved;
+	int isCustomerGood;
+	public int getIsWeightValid() {
+		return isWeightValid;
+	}
+	public void setIsWeightValid(int isWeightValid) {
+		this.isWeightValid = isWeightValid;
+	}
+	public int getisDocumentApproved() {
+		return isDocumentApproved;
+	}
+	public void setisDocumentApproved(int isDocumentApproved) {
+		this.isDocumentApproved = isDocumentApproved;
+	}
+	public int getIsCustomerGood() {
+		return isCustomerGood;
+	}
+	public void setIsCustomerGood(int isCustomerGood) {
+		this.isCustomerGood = isCustomerGood;
+	}
 	public int getBookingNum() {
 		return bookingNum;
 	}
@@ -145,6 +166,9 @@ public class BookingInfo {
 		this.isActive = booking.getIsActive();
 		this.grossUnit = booking.getGrossUnit();
 		this.netUnit = booking.getNetUnit();
+		this.isCustomerGood = booking.getIsCustomerGood();
+		this.isWeightValid = booking.getIsWeightValid();
+		this.isDocumentApproved = booking.getisDocumentApproved();
 		
 	}
 

@@ -46,16 +46,19 @@ public class CustomerDAOImpl implements CustomerDAO{
 	//ALLARRA: CreateCustomer transaction
 	public String CreateCustomer(Customer customer, Account account) {
 		// TODO Auto-generated method stub
+		String isCreated;
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
-		String customerReturn= null;
+		Customer customerReturn= customer;
 		try {
 			tx = session.beginTransaction();
-			customerReturn =  session.save(customer).toString();
+			//customerReturn = (Customer) session.save(customer);
+			session.save(customer);
 			session.flush();
 			tx.commit();
 		}catch(HibernateException x) {
 			if(tx != null)
+				isCreated = "false";
 				tx.rollback();
 		}finally{
 			session.close();
@@ -65,7 +68,13 @@ public class CustomerDAOImpl implements CustomerDAO{
 		account.setCustID(customerReturn);
 		accountDAO.CreateAccount(account);
 		
-		return customerReturn;
+		/*accountDAO.setHibernateSession(new HibernateContext());*/
+		account.setRole(customer.getRole());
+		AccountDAOImpl accountDAO = new AccountDAOImpl();
+		isCreated = (accountDAO.CreateAccount(account).toString());
+		System.out.println("ACCOUNT IS CREATED: " + isCreated);
+		//return String.valueOf(customerReturn.getCustomerId() + " : " + isCreated );
+		return isCreated;
 	}
 	//ALLARRA UpdateCustomer
 	public String UpdateCustomer(Customer customer) {
