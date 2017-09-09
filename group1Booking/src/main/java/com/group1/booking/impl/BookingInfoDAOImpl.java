@@ -47,14 +47,16 @@ public class BookingInfoDAOImpl implements BookingInfoDAO {
 			if (!"".equals(frCity)) {
 				sql += " FROM_CITY = '" + frCity + "' AND";
 			}
-			sql += " 1=1";
+			sql += " IS_ACTIVE=1";
 
 			List BookingInfo = session.createQuery(sql).list();
 
 			for (Object object : BookingInfo) {
 				bookings.add((BookingInfo) object);
 			}
+
 		} catch (HibernateException e) {
+			e.printStackTrace();
 			return null;
 		} finally {
 			session.close();
@@ -64,11 +66,39 @@ public class BookingInfoDAOImpl implements BookingInfoDAO {
 
 	}
 
+	public boolean isBookingValid(BookingInfo booking) {
+		Session session = null;
+		try {
+			 session = sessionFactory.openSession();
+			session.getTransaction();
+
+			String sql = "FROM BookingInfo WHERE CONTAINER_NUM = '" + booking.getContainerNumber() + "'";
+
+			List BookingInfo = session.createSQLQuery(sql).list();
+			if (BookingInfo.isEmpty()) {
+				return true;
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return false;
+	}
+
 	public String insertBooking(BookingInfo booking) {
 
+		if (!isBookingValid(booking)) {
+			return "Container is already Used";
+		}
+		
 		Session session = sessionFactory.openSession();
 
-		String bkgNumber = "Failed";
+		String bkgNumber = "";
+		
 		try {
 			session.beginTransaction();
 
@@ -76,6 +106,7 @@ public class BookingInfoDAOImpl implements BookingInfoDAO {
 
 			session.getTransaction().commit();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "Failed";
 		} finally {
 			session.close();
@@ -87,7 +118,7 @@ public class BookingInfoDAOImpl implements BookingInfoDAO {
 
 	public String updateBooking(BookingInfo booking) {
 		Session session = null;
-		
+
 		try {
 			session = sessionFactory.openSession();
 
@@ -103,6 +134,7 @@ public class BookingInfoDAOImpl implements BookingInfoDAO {
 			session.getTransaction().commit();
 			session.close();
 		} catch (HibernateException e) {
+			e.printStackTrace();
 			return "Fail";
 		} finally {
 			session.close();
@@ -135,6 +167,7 @@ public class BookingInfoDAOImpl implements BookingInfoDAO {
 
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
+			e.printStackTrace();
 			return "Fail";
 		}
 
@@ -145,11 +178,11 @@ public class BookingInfoDAOImpl implements BookingInfoDAO {
 		ApplicationContext appContext = new ClassPathXmlApplicationContext("AppContext.xml");
 		BookingInfoDAOImpl dao = (BookingInfoDAOImpl) appContext.getBean("BookingInfoDAOImpl");
 		BookingInfo booking = new BookingInfo();
-		// ArrayList<BookingInfo> bookings =
-		// dao.searchBookingInfoByCriteria("201700023", "", "", "");
-		// for (BookingInfo bookingInfo : bookings) {
-		// booking = bookingInfo;
-		// }
+		ArrayList<BookingInfo> bookings = dao.searchBookingInfoByCriteria("201700023", "", "", "");
+		for (BookingInfo bookingInfo : bookings) {
+			System.err.println(bookingInfo);
+		}
+
 		// System.err.println(dao.insertBooking(booking));
 		// booking.setCargoNature("DG");
 		// booking.setContainerNumber("PUTA090817");
@@ -157,14 +190,14 @@ public class BookingInfoDAOImpl implements BookingInfoDAO {
 		// booking.setGrossUnit("lbs");
 		//
 		// System.err.println(dao.updateBooking(booking));
-
-		ArrayList<String> str = new ArrayList<String>();
-
-		str.add("201700020");
-		str.add("201700025");
-		str.add("201700023");
-
-		System.err.println(dao.deactivateBooking(str));
+		//
+		// ArrayList<String> str = new ArrayList<String>();
+		//
+		// str.add("201700020");
+		// str.add("201700025");
+		// str.add("201700023");
+		//
+		// System.err.println(dao.deactivateBooking(str));
 	}
 
 }
