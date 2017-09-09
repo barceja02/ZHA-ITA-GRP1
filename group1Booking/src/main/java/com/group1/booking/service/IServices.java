@@ -21,6 +21,10 @@ public interface IServices {
 
 	public String CreateAccount(Account account);
 	
+	public String UpdateAccountBy(Account account);
+	
+	public String DeleteAccountBy(String accountId);
+	
 	
 	//-----------------CustomerDAO-------------
 

@@ -23,13 +23,16 @@ import com.group1.booking.returnModels.Login;
 
 public class AccountDAOImpl implements AccountDAO {
 
-	SessionFactory sessionFactory;
 	public String sqlQuery;
 
+	HibernateContext hibernateContext;
+	SessionFactory sessionFactory;
+
 	public void setHibernateSession(HibernateContext hibernateSession) {
+		hibernateContext = hibernateSession;
 		sessionFactory = hibernateSession.GetSessionFactory();
 	}
-	
+
 	// TENGKH 20170905: Login Transaction
 	public Login ToLogin(String Username, String Password) {
 		// TODO Auto-generated method stub
@@ -104,10 +107,8 @@ public class AccountDAOImpl implements AccountDAO {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		Account Account = account;
-		System.err.println(account.getPassword());
 		try {
 			tx = session.beginTransaction();
-			//Account = (Account) session.save(account);
 			session.save(Account);
 			session.flush();
 			tx.commit();
@@ -120,13 +121,35 @@ public class AccountDAOImpl implements AccountDAO {
 		} finally {
 			session.close();
 		}
-		
+
 		return isSuccess;
 
 	}
 
-	public void UpdateAccount(Account account) {
+	public String UpdateAccountBy(Account account) {
 		// TODO Auto-generated method stub
+
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			sqlQuery = "FROM Account WHERE ACCT_ID = " + account.getAcctID();
+			List AccountInfo = session.createQuery(sqlQuery).list();
+			Account OldAccount = (Account) AccountInfo.iterator().next();
+			OldAccount.setAccount(account);
+			tx = session.getTransaction();
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null) {
+				tx.rollback();
+				e.printStackTrace();
+			}
+		} finally {
+			session.close();
+		}
+
+		String x = "sds";
+		return x;
 
 	}
 
@@ -152,6 +175,32 @@ public class AccountDAOImpl implements AccountDAO {
 		return account;
 	}
 
-	
+	public String DeleteAccountBy(String accountId) {
+		// TODO Auto-generated method stub
+
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		Account account = null;
+		sqlQuery = "FROM Account WHERE ACCT_ID = " + accountId;
+		try {
+			tx = session.beginTransaction();
+			List Account = session.createQuery(sqlQuery).list();
+			for (Iterator iterator = Account.iterator(); iterator.hasNext();) {
+				account = (Account) iterator.next();
+			}
+			session.delete(account);
+			tx = session.getTransaction();
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		String x = "sds";
+		return x;
+
+	}
 
 }
