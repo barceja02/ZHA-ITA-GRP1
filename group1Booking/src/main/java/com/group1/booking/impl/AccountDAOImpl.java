@@ -131,6 +131,7 @@ public class AccountDAOImpl implements AccountDAO {
 
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
+		String isUpdated = "false";
 		try {
 			tx = session.beginTransaction();
 			sqlQuery = "FROM Account WHERE ACCT_ID = " + account.getAcctID();
@@ -139,17 +140,18 @@ public class AccountDAOImpl implements AccountDAO {
 			OldAccount.setAccount(account);
 			tx = session.getTransaction();
 			tx.commit();
+			isUpdated = "true";
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
+				isUpdated = "false";
 				e.printStackTrace();
 			}
 		} finally {
 			session.close();
 		}
 
-		String x = "sds";
-		return x;
+		return isUpdated;
 
 	}
 
@@ -181,6 +183,7 @@ public class AccountDAOImpl implements AccountDAO {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		Account account = null;
+		String isDeleted = "false";
 		sqlQuery = "FROM Account WHERE ACCT_ID = " + accountId;
 		try {
 			tx = session.beginTransaction();
@@ -191,15 +194,17 @@ public class AccountDAOImpl implements AccountDAO {
 			session.delete(account);
 			tx = session.getTransaction();
 			tx.commit();
+			isDeleted = "true";
 		} catch (HibernateException e) {
 			if (tx != null)
+				isDeleted = "false";
 				tx.rollback();
 			e.printStackTrace();
+			
 		} finally {
 			session.close();
 		}
-		String x = "sds";
-		return x;
+		return isDeleted;
 
 	}
 
