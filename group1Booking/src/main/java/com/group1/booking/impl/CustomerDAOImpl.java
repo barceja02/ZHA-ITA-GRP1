@@ -46,15 +46,28 @@ public class CustomerDAOImpl implements CustomerDAO{
 	//ALLARRA: CreateCustomer transaction
 	public String CreateCustomer(Customer customer, Account account) {
 		// TODO Auto-generated method stub
-		String isCreated;
+		String isCreated= "false";
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		Customer customerReturn= customer;
 		try {
 			tx = session.beginTransaction();
 			//customerReturn = (Customer) session.save(customer);
-			session.save(customer);
+			customerReturn.setCustomerId((Integer)session.save(customer));
 			session.flush();
+			
+			
+			AccountDAOImpl accountDAO = new AccountDAOImpl();
+			accountDAO.setHibernateSession(new HibernateContext());
+			account.setCustID(String.valueOf(customerReturn.getCustomerId()));
+			accountDAO.CreateAccount(account);
+			
+			account.setRole(customer.getRole());
+			isCreated = (accountDAO.CreateAccount(account).toString());
+			if(isCreated.equals("false")) {
+				throw new HibernateException("failed to create Account initiating customer rollback");
+			}
+			isCreated = "true";
 			tx.commit();
 		}catch(HibernateException x) {
 			if(tx != null)
@@ -63,15 +76,8 @@ public class CustomerDAOImpl implements CustomerDAO{
 		}finally{
 			session.close();
 		}
-		AccountDAOImpl accountDAO = new AccountDAOImpl();
-		accountDAO.setHibernateSession(new HibernateContext());
-		account.setCustID(customerReturn);
-		accountDAO.CreateAccount(account);
 		
-		/*accountDAO.setHibernateSession(new HibernateContext());*/
-		account.setRole(customer.getRole());
-		AccountDAOImpl accountDAO = new AccountDAOImpl();
-		isCreated = (accountDAO.CreateAccount(account).toString());
+		
 		System.out.println("ACCOUNT IS CREATED: " + isCreated);
 		//return String.valueOf(customerReturn.getCustomerId() + " : " + isCreated );
 		return isCreated;

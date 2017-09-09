@@ -47,33 +47,17 @@ public class Services implements IServices {
 		
 		Customer cust = new Customer();
 		Account acct = new Account();
-		//cust.setCustomerId(customerId);
-		cust.setFirstname("Cristina");
-		cust.setLastname("Li");
-		cust.setAddress("Adress1");
-		cust.setMailAddress("email1");
-		cust.setContactNumber("1");
-		cust.setRole("CUSTOMER");
-		cust.setCompanyName("OOCL");
-		acct.setUsername("tengkh");
-		acct.setPassword("12345");
-		acct.setRole("Customer");
 
-		ias.CreateCustomer(cust, acct);
-//		ias.CreateAccount(acct);
-		
-		Customer cust = new Customer();
-		Account acct = new Account();
 		//cust.setCustomerId(customerId);
-		cust.setFirstname("Cristina");
-		cust.setLastname("Li");
-		cust.setAddress("Adress1");
-		cust.setMailAddress("email1");
-		cust.setContactNumber("1");
+		cust.setFirstname("MON");
+		cust.setLastname("ALLAREY");
+		cust.setAddress("Wazza st, brgy wazza, wazza city");
+		cust.setMailAddress("wazza@wazza.wazza");
+		cust.setContactNumber("1234");
 		cust.setRole("CUSTOMER");
-		cust.setCompanyName("OOCL");
-		acct.setUsername("tengkh");
-		acct.setPassword("12345");
+		cust.setCompanyName("Wazza Corporation");
+		acct.setUsername("wazzaBaby");
+		acct.setPassword("wazzap");
 		ias.CreateCustomer(cust, acct);
 		System.out.println("=============END===============");
 	
