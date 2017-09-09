@@ -22,7 +22,6 @@ public class Services implements IServices {
 	AccountDAO accountDao;
 	CustomerDAO customerDao;
 	BookingInfoDAO bookingInfoDAO;
-	//Beaned Instanciation for the DAO IMPL to DAO interface
 	public void setAccountDAOImpl(AccountDAOImpl accountDAOImpl) {
 		this.accountDao = accountDAOImpl;
 	}
@@ -44,26 +43,35 @@ public class Services implements IServices {
 	//----------For DOM testing 
 	public static void main(String[] args) {
 		IServices ias = new Services().getAccountServices();
-//		Customer customer = new Customer();
-//		customer.setAddress("wazzzzzzzzzaaaaaaaa");
-//		customer.setCompanyName("wazzaaaa");
-//		customer.setContactNumber("+639351534764");
-//		customer.setFirstname("Wazzap Mon");
-//		customer.setCustomerId(1002);
-//		System.err.println("sadfasdfasdfsadf "+ias.UpdateCustomer(customer));
-//		
-		
 		ias.DeleteCustomer("1002");
 		
-//		//TENGKH: Local testing for login
-//		Login login = ias.ToLogin("BITUIGA", "bituiga123");
-//		System.out.println("isSuccess: " + login.getIsSucces());
-//		System.out.println("Username: " + login.getUsername());
-//		System.out.println("UserId: " + login.getUserid());
-//		System.out.println("Role: " + login.getRole());
+		Customer cust = new Customer();
+		Account acct = new Account();
+		//cust.setCustomerId(customerId);
+		cust.setFirstname("Cristina");
+		cust.setLastname("Li");
+		cust.setAddress("Adress1");
+		cust.setMailAddress("email1");
+		cust.setContactNumber("1");
+		cust.setRole("CUSTOMER");
+		cust.setCompanyName("OOCL");
+		acct.setUsername("tengkh");
+		acct.setPassword("12345");
+		ias.CreateCustomer(cust, acct);
+		System.out.println(acct.toString());
 		
+	
+		/*Account accountById = ias.SearchAccountById("BITUIGA");
+		System.err.println(accountById.getPassword());*/
 		
+		//TENGKH: Local testing for login
+		/*Login login = ias.ToLogin("BITUIGA", "bituiga123");
+		System.out.println("isSuccess: " + login.getIsSucces());
+		System.out.println("Username: " + login.getUsername());
+		System.out.println("UserId: " + login.getUserid());
+		System.out.println("Role: " + login.getRole());*/
 	}
+		
 	
 	
 	

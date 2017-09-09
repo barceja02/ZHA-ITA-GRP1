@@ -29,10 +29,11 @@ public class CustomerDAOImpl implements CustomerDAO{
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
-		Customer customerReturn= null;
+		Customer customerReturn= customer;
 		try {
 			tx = session.beginTransaction();
-			customerReturn = (Customer) session.save(customer);
+			//customerReturn = (Customer) session.save(customer);
+			session.save(customer);
 			session.flush();
 			tx.commit();
 		}catch(HibernateException x) {
@@ -42,7 +43,10 @@ public class CustomerDAOImpl implements CustomerDAO{
 			session.close();
 		}
 		
+		AccountDAOImpl accountDAO = new AccountDAOImpl();
+		accountDAO.setHibernateSession(new HibernateContext());
 		account.setCustID((String.valueOf(customerReturn.getCustomerId())));
+		account.setRole(customer.getRole());
 		new AccountDAOImpl().CreateAccount(account);
 		
 		return String.valueOf(customerReturn.getCustomerId());

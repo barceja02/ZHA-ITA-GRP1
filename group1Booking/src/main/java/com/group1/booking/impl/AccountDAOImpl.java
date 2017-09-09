@@ -94,30 +94,35 @@ public class AccountDAOImpl implements AccountDAO {
 		}
 		return account;
 	}
-	
-	//TENGKH: to create an account
-	//NOTE: before creating an account, customer must first be created in the CUSTOMER_DETAILS table
+
+	// TENGKH: to create an account
+	// NOTE: before creating an account, customer must first be created in the
+	// CUSTOMER_DETAILS table
 	public String CreateAccount(Account account) {
 		// TODO Auto-generated method stub
-
+		String isCreate;
+		SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
-		Account Account = null;
+		Account Account = account;
 		System.err.println(account.getPassword());
 		try {
 			tx = session.beginTransaction();
-			Account = (Account) session.save(account);
+			//Account = (Account) session.save(account);
+			session.save(Account);
+			session.flush();
 			tx.commit();
+			isCreate = "true";
 		} catch (HibernateException e) {
-			System.out.println("tangina");
 			if (tx != null)
 				tx.rollback();
+			isCreate = "false";
 			e.printStackTrace();
 		} finally {
 			session.close();
 		}
 		System.out.println(Account.getAcctID());
-		return "test";
+		return isCreate;
 
 	}
 
