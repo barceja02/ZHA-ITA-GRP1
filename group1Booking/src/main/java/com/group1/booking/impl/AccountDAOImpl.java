@@ -100,7 +100,7 @@ public class AccountDAOImpl implements AccountDAO {
 	// CUSTOMER_DETAILS table
 	public String CreateAccount(Account account) {
 		// TODO Auto-generated method stub
-		String isCreate;
+		String isSuccess;
 		SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
@@ -112,17 +112,17 @@ public class AccountDAOImpl implements AccountDAO {
 			session.save(Account);
 			session.flush();
 			tx.commit();
-			isCreate = "true";
+			isSuccess = "true";
 		} catch (HibernateException e) {
 			if (tx != null)
 				tx.rollback();
-			isCreate = "false";
+			isSuccess = "false";
 			e.printStackTrace();
 		} finally {
 			session.close();
 		}
 		System.out.println(Account.getAcctID());
-		return isCreate;
+		return isSuccess;
 
 	}
 

@@ -58,8 +58,7 @@ public class Services implements IServices {
 		acct.setUsername("tengkh");
 		acct.setPassword("12345");
 		ias.CreateCustomer(cust, acct);
-		System.out.println(acct.toString());
-		
+		System.out.println("=============END===============");
 	
 		/*Account accountById = ias.SearchAccountById("BITUIGA");
 		System.err.println(accountById.getPassword());*/

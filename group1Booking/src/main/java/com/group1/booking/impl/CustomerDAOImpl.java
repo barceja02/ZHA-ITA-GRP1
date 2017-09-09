@@ -27,6 +27,7 @@ public class CustomerDAOImpl implements CustomerDAO{
 
 	public String CreateCustomer(Customer customer, Account account) {
 		// TODO Auto-generated method stub
+		String isCreated;
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		Customer customerReturn= customer;
@@ -38,18 +39,21 @@ public class CustomerDAOImpl implements CustomerDAO{
 			tx.commit();
 		}catch(HibernateException x) {
 			if(tx != null)
+				isCreated = "false";
 				tx.rollback();
 		}finally{
 			session.close();
 		}
 		
-		AccountDAOImpl accountDAO = new AccountDAOImpl();
-		accountDAO.setHibernateSession(new HibernateContext());
+		/*accountDAO.setHibernateSession(new HibernateContext());*/
 		account.setCustID((String.valueOf(customerReturn.getCustomerId())));
 		account.setRole(customer.getRole());
-		new AccountDAOImpl().CreateAccount(account);
+		AccountDAOImpl accountDAO = new AccountDAOImpl();
+		isCreated = (accountDAO.CreateAccount(account).toString());
+		System.out.println("ACCOUNT IS CREATED: " + isCreated);
 		
-		return String.valueOf(customerReturn.getCustomerId());
+		//return String.valueOf(customerReturn.getCustomerId() + " : " + isCreated );
+		return isCreated;
 	}
 
 	public String UpdateCustomer(Customer customer) {
