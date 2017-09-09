@@ -13,20 +13,25 @@
         	<param name="sequence">GRP1_BOOKINFO_BOOKING_NUM_SEQ</param>
         </generator>
       </id>
-      <property name="shipperId" column="SHIPPER_ID" type="string"/>
-      <property name="consigneeId" column="CONSIGNEE_ID" type="string"/>
+      <property name="shipperId" column="SHIPPER_ID" type="int"/>
+      <property name="consigneeId" column="CONSIGNEE_ID" type="int"/>
       <property name="containerNumber" column="CONTAINER_NUM" type="string"/>
       <property name="containerType" column="CONTAINER_TYPE" type="string"/>
       <property name="cargoNature" column="CARGO_NATURE" type="string"/>
       <property name="cargoDescrpiption" column="CARGO_DESCRIPTION" type="string"/>
-      <property name="grossWeight" column="GROSS_WEIGHT" type="string"/>
-      <property name="netWeight" column="NET_WEIGHT" type="string"/>
+      <property name="grossWeight" column="GROSS_WEIGHT" type="int"/>
+      <property name="netWeight" column="NET_WEIGHT" type="int"/>
       <property name="fromCity" column="FROM_CITY" type="string"/>
       <property name="toCity" column="TO_CITY" type="string"/>
       <property name="createdBy" column="CREATED_BY" type="string"/>
       <property name="updatedBy" column="UPDATED_BY" type="string"/>
       <property name="updateDate" column="UPDATE_DATE" type="string"/>
       <!-- <property name="createDate" column="CREATE_DATE" type="string"/> -->
-      <property name="isActive" column="IS_ACTIVE" type="string"/> 
+      <property name="isActive" column="IS_ACTIVE" type="int"/>
+      <property name="grossUnit" column="GROSS_UNIT" type="string"/>  
+      <property name="netUnit" column="NET_UNIT" type="string"/> 
+      <property name="isWeightValid" column="IS_WEIGHT_VALID" type="int"/> 
+      <property name="isCustomerGood" column="IS_GOOD_CUSTOMER" type="int"/> 
+      <property name="isDocumentApproved" column="IS_DOCUMENTS_APPROVED" type="int"/> 
    </class>
 </hibernate-mapping>

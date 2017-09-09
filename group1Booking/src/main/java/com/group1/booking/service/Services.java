@@ -1,29 +1,36 @@
 package com.group1.booking.service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.group1.booking.dao.AccountDAO;
+import com.group1.booking.dao.BookingInfoDAO;
 import com.group1.booking.dao.CustomerDAO;
 import com.group1.booking.impl.AccountDAOImpl;
+import com.group1.booking.impl.BookingInfoDAOImpl;
 import com.group1.booking.impl.CustomerDAOImpl;
 import com.group1.booking.models.Account;
+import com.group1.booking.models.BookingInfo;
 import com.group1.booking.models.Customer;
-import com.group1.booking.returnModels.*;
+import com.group1.booking.returnModels.Login;
 
 public class Services implements IServices {
 
 	//Beaned Ibject
 	AccountDAO accountDao;
 	CustomerDAO customerDao;
+	BookingInfoDAO bookingInfoDAO;
 	//Beaned Instanciation for the DAO IMPL to DAO interface
 	public void setAccountDAOImpl(AccountDAOImpl accountDAOImpl) {
 		this.accountDao = accountDAOImpl;
 	}
 	public void setCustomerDAOImpl(CustomerDAOImpl customerDAOImpl) {
 		this.customerDao = customerDAOImpl;
+	}
+	public void setBookingInfoDAOImpl(BookingInfoDAOImpl bookingInfoDAOImpl) {
+		this.bookingInfoDAO = bookingInfoDAOImpl;
 	}
 	
 	//inversion of Iservice 
@@ -37,26 +44,34 @@ public class Services implements IServices {
 	//----------For DOM testing 
 	public static void main(String[] args) {
 		IServices ias = new Services().getAccountServices();
-//		Customer customer = new Customer();
-//		customer.setAddress("wazzzzzzzzzaaaaaaaa");
-//		customer.setCompanyName("wazzaaaa");
-//		customer.setContactNumber("+639351534764");
-//		customer.setFirstname("Wazzap Mon");
-//		customer.setCustomerId(1002);
-//		System.err.println("sadfasdfasdfsadf "+ias.UpdateCustomer(customer));
-//		
 		
-		ias.DeleteCustomer("1002");
+		Customer cust = new Customer();
+		Account acct = new Account();
+
+		//cust.setCustomerId(customerId);
+		cust.setFirstname("MON");
+		cust.setLastname("ALLAREY");
+		cust.setAddress("Wazza st, brgy wazza, wazza city");
+		cust.setMailAddress("wazza@wazza.wazza");
+		cust.setContactNumber("1234");
+		cust.setRole("CUSTOMER");
+		cust.setCompanyName("Wazza Corporation");
+		acct.setUsername("wazzaBaby");
+		acct.setPassword("wazzap");
+		ias.CreateCustomer(cust, acct);
+		System.out.println("=============END===============");
+	
+		/*Account accountById = ias.SearchAccountById("BITUIGA");
+		System.err.println(accountById.getPassword());*/
 		
-//		//TENGKH: Local testing for login
-//		Login login = ias.ToLogin("BITUIGA", "bituiga123");
-//		System.out.println("isSuccess: " + login.getIsSucces());
-//		System.out.println("Username: " + login.getUsername());
-//		System.out.println("UserId: " + login.getUserid());
-//		System.out.println("Role: " + login.getRole());
-		
-		
+		//TENGKH: Local testing for login
+		/*Login login = ias.ToLogin("BITUIGA", "bituiga123");
+		System.out.println("isSuccess: " + login.getIsSucces());
+		System.out.println("Username: " + login.getUsername());
+		System.out.println("UserId: " + login.getUserid());
+		System.out.println("Role: " + login.getRole());*/
 	}
+		
 	
 	
 	
@@ -86,9 +101,10 @@ public class Services implements IServices {
 	}
 	
 	//---------------Customer
-	public ArrayList<Customer> searchAllReturnList() {
+	public ArrayList<Customer> searchAllCustomerReturnList() {
 		// TODO Auto-generated method stub
-		return customerDao.searchAllReturnList();
+		
+		return customerDao.searchAllCustomerReturnList();
 	}
 	public String UpdateCustomer(Customer customer) {
 		// TODO Auto-generated method stub
@@ -98,13 +114,37 @@ public class Services implements IServices {
 		// TODO Auto-generated method stub
 		return customerDao.DeleteCustomer(id);
 	}
-	public Customer searchCriteria(String id, String CompanyName) {
-		// TODO Auto-generated method stub
-		return customerDao.searchCriteria(id, CompanyName);
-	}
 	public String CreateCustomer(Customer customer, Account account) {
 		// TODO Auto-generated method stub
 		return customerDao.CreateCustomer(customer, account);
+	}
+	public ArrayList<Customer> searchCustomerCriteria(String id, String CompanyName) {
+		// TODO Auto-generated method stub
+		return customerDao.searchCustomerCriteria(id, CompanyName);
+	}
+	public ArrayList<Customer> searchCustomerCriteria(String CompanyName) {
+		// TODO Auto-generated method stub
+		return customerDao.searchCustomerCriteria(CompanyName);
+	}
+
+	
+	//---------------BookingInfo
+	public ArrayList<BookingInfo> searchBookingInfoByCriteria(String bkgNumber, String cntrNumber, String frCity,
+			String toCity) {
+		// TODO Auto-generated method stub
+		return bookingInfoDAO.searchBookingInfoByCriteria(bkgNumber, cntrNumber, frCity, toCity);
+	}
+	public String insertBooking(BookingInfo booking) {
+		// TODO Auto-generated method stub
+		return bookingInfoDAO.insertBooking(booking);
+	}
+	public String updateBooking(BookingInfo booking) {
+		// TODO Auto-generated method stub
+		return bookingInfoDAO.updateBooking(booking);
+	}
+	public String deactivateBooking(ArrayList<String> bookingNumbers) {
+		// TODO Auto-generated method stub
+		return bookingInfoDAO.deactivateBooking(bookingNumbers);
 	}
 
 }
