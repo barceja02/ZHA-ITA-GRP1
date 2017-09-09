@@ -101,7 +101,6 @@ public class AccountDAOImpl implements AccountDAO {
 	public String CreateAccount(Account account) {
 		// TODO Auto-generated method stub
 		String isSuccess;
-		SessionFactory sessionFactory=new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		Account Account = account;
