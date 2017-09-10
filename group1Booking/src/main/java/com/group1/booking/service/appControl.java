@@ -26,13 +26,13 @@ public class appControl {
 		System.err.println(loginresult.getUsername());
 		System.err.println(loginresult.getCustid());*/
 		
-		//TENGKH 20170905: testing search account by
-		Account accountById = as.SearchAccountById("BURGOKA");
-		System.err.println(accountById.getUsername());
-		System.err.println(accountById.getPassword());
-		System.err.println(accountById.getAcctID());
-		System.err.println(accountById.getRole());
-		
+//		//TENGKH 20170905: testing search account by
+//		Account accountById = as.SearchAccountById("BURGOKA");
+//		System.err.println(accountById.getUsername());
+//		System.err.println(accountById.getPassword());
+//		System.err.println(accountById.getAcctID());
+//		System.err.println(accountById.getRole());
+				
 		
 	}	
 	

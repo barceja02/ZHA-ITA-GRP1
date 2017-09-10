@@ -40,8 +40,8 @@ public class BookingController {
 	 * use string
 	 */
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public @ResponseBody String post(@RequestBody String test)
+	@RequestMapping(value = "/createBkg", method = RequestMethod.POST)
+	public @ResponseBody String createBkg(@RequestBody String test)
 			throws JsonParseException, JsonMappingException, IOException {
 		return "hello";
 	}
@@ -56,6 +56,11 @@ public class BookingController {
 		return jsonMapper.writeValueAsString(serv.ToLogin(username, password));
 	}
 
+	@RequestMapping(value = "/getParty", method = RequestMethod.GET)
+	public @ResponseBody String getParty() throws JsonParseException, JsonMappingException, IOException {
+		return jsonMapper.writeValueAsString(serv.searchAllCustomerReturnList());
+	}
+	
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public @ResponseBody String getAccounts() throws JsonParseException, JsonMappingException, IOException {
 		// return jsonMapper.writeValueAsString(accounts);

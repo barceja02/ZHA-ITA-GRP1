@@ -18,17 +18,26 @@
 	<bean id= "BookingInfoDAOImpl" class = "com.group1.booking.impl.BookingInfoDAOImpl">
 		<property name="hibernateSession" ><ref local="HibernateContext"/></property>
 	</bean>
+	<bean id= "CustomerDAOImpl" class = "com.group1.booking.impl.CustomerDAOImpl">
+		<property name="hibernateSession" ><ref local="HibernateContext"/></property>
+	</bean>
 	
 	
 <bean id="Services" class = "com.group1.booking.service.Services">
 	<property name="accountDAOImpl" ><ref local="AccountDAOImpl"/>
 	</property>
-	
+	<property name="customerDAOImpl" ><ref local="CustomerDAOImpl"/>
+	</property>
+	<property name="bookingInfoDAOImpl" ><ref local="BookingInfoDAOImpl"/>
+	</property>
 	
 </bean>
 
 <!--Define Pojo this is for the Spring to handle our instantiation
-<bean id = "Account" class="com.oocl.models.Account"></bean>-->
+<bean id = "Account" class="com.oocl.models.Account"></bean>
+
+
+-->
 
 
 </beans>

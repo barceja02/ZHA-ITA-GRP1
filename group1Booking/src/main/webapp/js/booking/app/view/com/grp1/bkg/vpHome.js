@@ -24,11 +24,18 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
         'Ext.form.Panel',
         'Ext.form.field.ComboBox',
         'Ext.grid.Panel',
+        'Ext.grid.View',
         'Ext.grid.column.Number',
+        'Ext.selection.CheckboxModel',
+        'Ext.form.RadioGroup',
+        'Ext.form.field.Radio',
+        'Ext.toolbar.Spacer',
         'Ext.grid.column.Date',
-        'Ext.grid.column.Boolean',
-        'Ext.grid.View'
+        'Ext.grid.column.Boolean'
     ],
+
+    id: 'com.grp1.bkg.vpHome',
+    itemId: 'com.grp1.bkg.vpHome',
 
     layout: {
         type: 'vbox',
@@ -42,8 +49,9 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
             items: [
                 {
                     xtype: 'container',
+                    flex: 1,
                     height: 30,
-                    width: 10,
+                    maxHeight: 30,
                     layout: {
                         type: 'hbox',
                         align: 'stretch'
@@ -59,21 +67,19 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                 {
                                     xtype: 'textfield',
                                     disabled: true,
-                                    id: 'lblUsername',
-                                    itemId: 'lblUsername',
+                                    id: 'txtfUsername',
                                     fieldLabel: 'Username'
                                 },
                                 {
                                     xtype: 'textfield',
                                     disabled: true,
-                                    id: 'lblUserId',
-                                    itemId: 'lblUserId',
-                                    fieldLabel: 'UserID'
+                                    id: 'txtfAcctId',
+                                    fieldLabel: 'AcctId'
                                 },
                                 {
                                     xtype: 'button',
                                     id: 'btnLogout',
-                                    itemId: 'btnLogout',
+                                    allowDepress: false,
                                     text: 'Logout'
                                 }
                             ]
@@ -101,6 +107,11 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                     id: 'pnlTabHome',
                                     itemId: 'pnlTabHome',
                                     title: 'Home',
+                                    tabConfig: {
+                                        xtype: 'tab',
+                                        id: 'tabHome',
+                                        itemId: 'tabHome'
+                                    },
                                     items: [
                                         {
                                             xtype: 'form',
@@ -133,12 +144,13 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                                     items: [
                                                                         {
                                                                             xtype: 'textfield',
-                                                                            id: 'com.grp1.txtf',
+                                                                            id: 'tabHometxtfBkgNo',
                                                                             width: 150,
                                                                             fieldLabel: 'Booking No:'
                                                                         },
                                                                         {
                                                                             xtype: 'textfield',
+                                                                            id: 'tabHomeTxtFCntrNo',
                                                                             fieldLabel: 'Container No:'
                                                                         }
                                                                     ]
@@ -154,16 +166,26 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                                         {
                                                                             xtype: 'combobox',
                                                                             flex: 1,
-                                                                            fieldLabel: 'From City:'
+                                                                            id: 'tabHomeTxtFFrmCity',
+                                                                            fieldLabel: 'From City'
                                                                         },
                                                                         {
                                                                             xtype: 'combobox',
                                                                             flex: 1,
-                                                                            fieldLabel: 'To City:'
+                                                                            id: 'tabHomeTxtFToCity',
+                                                                            fieldLabel: 'To City'
                                                                         }
                                                                     ]
                                                                 }
                                                             ]
+                                                        },
+                                                        {
+                                                            xtype: 'container',
+                                                            flex: 1,
+                                                            layout: {
+                                                                type: 'hbox',
+                                                                align: 'stretch'
+                                                            }
                                                         },
                                                         {
                                                             xtype: 'toolbar',
@@ -171,29 +193,30 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                             items: [
                                                                 {
                                                                     xtype: 'button',
+                                                                    id: 'homeBtnViewBkg',
+                                                                    itemId: 'homeBtnViewBkg',
                                                                     text: 'View Booking'
                                                                 },
                                                                 {
                                                                     xtype: 'button',
-                                                                    text: 'Edit Booking'
+                                                                    id: 'homeBtnCreateBkg',
+                                                                    itemId: 'homeBtnCreateBkg',
+                                                                    text: 'Create Booking'
                                                                 },
                                                                 {
                                                                     xtype: 'button',
-                                                                    text: 'Create Booking'
+                                                                    id: 'homeBtnEditBkg',
+                                                                    itemId: 'homeBtnEditBkg',
+                                                                    text: 'Edit Booking'
                                                                 },
                                                                 {
                                                                     xtype: 'tbfill'
                                                                 },
                                                                 {
                                                                     xtype: 'button',
-                                                                    id: 'btnSearchBooking',
-                                                                    itemId: 'btnSearchBooking',
+                                                                    id: 'tabHomebtnSearch',
+                                                                    itemId: 'tabHomebtnSearch',
                                                                     text: 'Search'
-                                                                },
-                                                                {
-                                                                    xtype: 'button',
-                                                                    iconAlign: 'right',
-                                                                    text: 'Reset'
                                                                 }
                                                             ]
                                                         }
@@ -209,29 +232,136 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                         {
                                                             xtype: 'gridpanel',
                                                             flex: 1,
+                                                            itemId: 'mygridpanel',
                                                             title: 'Bookings',
+                                                            store: 'BookingInfoStore',
                                                             columns: [
                                                                 {
-                                                                    xtype: 'gridcolumn',
-                                                                    dataIndex: 'string',
-                                                                    text: 'String'
+                                                                    xtype: 'numbercolumn',
+                                                                    dataIndex: 'BOOKING_NUM',
+                                                                    text: 'BOOKING_NUM'
                                                                 },
                                                                 {
                                                                     xtype: 'numbercolumn',
-                                                                    dataIndex: 'number',
-                                                                    text: 'Number'
+                                                                    dataIndex: 'SHIPPER_ID',
+                                                                    text: 'SHIPPER_ID'
                                                                 },
                                                                 {
-                                                                    xtype: 'datecolumn',
-                                                                    dataIndex: 'date',
-                                                                    text: 'Date'
+                                                                    xtype: 'numbercolumn',
+                                                                    dataIndex: 'CONSIGNEE_ID',
+                                                                    text: 'CONSIGNEE_ID'
                                                                 },
                                                                 {
-                                                                    xtype: 'booleancolumn',
-                                                                    dataIndex: 'bool',
-                                                                    text: 'Boolean'
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'CONTAINER_NUM',
+                                                                    text: 'CONTAINER_NUM'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'CONTAINER_TYPE',
+                                                                    text: 'CONTAINER_TYPE'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'CARGO_NATURE',
+                                                                    text: 'CARGO_NATURE'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'CARGO_DESCRIPTION',
+                                                                    text: 'CARGO_DESCRIPTION'
+                                                                },
+                                                                {
+                                                                    xtype: 'numbercolumn',
+                                                                    dataIndex: 'GROSS_WEIGHT',
+                                                                    text: 'GROSS_WEIGHT'
+                                                                },
+                                                                {
+                                                                    xtype: 'numbercolumn',
+                                                                    dataIndex: 'NET_WEIGHT',
+                                                                    text: 'NET_WEIGHT'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'FROM_CITY',
+                                                                    text: 'FROM_CITY'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'TO_CITY',
+                                                                    text: 'TO_CITY'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'CREATED_BY',
+                                                                    text: 'CREATED_BY'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'UPDATED_BY',
+                                                                    text: 'UPDATED_BY'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'UPDATE_DATE',
+                                                                    text: 'UPDATE_DATE'
+                                                                },
+                                                                {
+                                                                    xtype: 'numbercolumn',
+                                                                    dataIndex: 'IS_ACTIVE',
+                                                                    text: 'IS_ACTIVE'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'GROSS_UNIT',
+                                                                    text: 'GROSS_UNIT'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'NET_UNIT',
+                                                                    text: 'NET_UNIT'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'IS_WEIGHT_VALID',
+                                                                    text: 'IS_WEIGHT_VALID'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'IS_GOOD_CUSTOMER',
+                                                                    text: 'IS_GOOD_CUSTOMER'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'IS_DOCUMENTS_APPROVED',
+                                                                    text: 'IS_DOCUMENTS_APPROVED'
                                                                 }
-                                                            ]
+                                                            ],
+                                                            selModel: Ext.create('Ext.selection.CheckboxModel', {
+
+                                                            })
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            dockedItems: [
+                                                {
+                                                    xtype: 'toolbar',
+                                                    dock: 'bottom',
+                                                    frame: true,
+                                                    layout: {
+                                                        type: 'hbox',
+                                                        align: 'bottom'
+                                                    },
+                                                    items: [
+                                                        {
+                                                            xtype: 'tbfill',
+                                                            frame: false
+                                                        },
+                                                        {
+                                                            xtype: 'button',
+                                                            iconAlign: 'right',
+                                                            text: 'Reset'
                                                         }
                                                     ]
                                                 }
@@ -241,20 +371,397 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                 },
                                 {
                                     xtype: 'panel',
-                                    title: 'Tab 2'
+                                    id: 'tabCustomer',
+                                    itemId: 'tabCustomer',
+                                    title: 'Customer',
+                                    items: [
+                                        {
+                                            xtype: 'form',
+                                            bodyPadding: 10,
+                                            title: 'Search Customer',
+                                            items: [
+                                                {
+                                                    xtype: 'container',
+                                                    layout: {
+                                                        type: 'vbox',
+                                                        align: 'stretch'
+                                                    },
+                                                    items: [
+                                                        {
+                                                            xtype: 'container',
+                                                            flex: 1,
+                                                            layout: {
+                                                                type: 'hbox',
+                                                                align: 'stretch'
+                                                            },
+                                                            items: [
+                                                                {
+                                                                    xtype: 'container',
+                                                                    flex: 1,
+                                                                    layout: {
+                                                                        type: 'vbox',
+                                                                        align: 'stretch',
+                                                                        pack: 'end'
+                                                                    },
+                                                                    items: [
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            id: 'txtfCompanyName',
+                                                                            itemId: 'txtfCompanyName',
+                                                                            width: 150,
+                                                                            fieldLabel: 'Company Name:'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            id: 'txtfAddress',
+                                                                            fieldLabel: 'Address:'
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            xtype: 'container',
+                                                            flex: 1,
+                                                            layout: {
+                                                                type: 'hbox',
+                                                                align: 'stretch'
+                                                            }
+                                                        },
+                                                        {
+                                                            xtype: 'toolbar',
+                                                            flex: 1,
+                                                            items: [
+                                                                {
+                                                                    xtype: 'button',
+                                                                    id: 'tabCustomerBtnBrowse',
+                                                                    itemId: 'tabCustomerBtnBrowse',
+                                                                    text: 'Browse'
+                                                                },
+                                                                {
+                                                                    xtype: 'button',
+                                                                    id: 'tabCustomerBtnEdit',
+                                                                    itemId: 'tabCustomerBtnEdit',
+                                                                    text: 'Edit'
+                                                                },
+                                                                {
+                                                                    xtype: 'tbfill'
+                                                                },
+                                                                {
+                                                                    xtype: 'button',
+                                                                    id: 'btnSearch',
+                                                                    itemId: 'btnSearch',
+                                                                    text: 'Search'
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    xtype: 'container',
+                                                    layout: {
+                                                        type: 'vbox',
+                                                        align: 'stretch'
+                                                    },
+                                                    items: [
+                                                        {
+                                                            xtype: 'gridpanel',
+                                                            flex: 1,
+                                                            title: 'Customers',
+                                                            columns: [
+                                                                {
+                                                                    xtype: 'numbercolumn',
+                                                                    dataIndex: 'number',
+                                                                    text: 'Customer Id'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    text: 'Address'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    text: 'Contact Number'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    text: 'Email Address'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    text: 'Role'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    text: 'First Name'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    text: 'Last Name'
+                                                                },
+                                                                {
+                                                                    xtype: 'numbercolumn',
+                                                                    text: 'Is Active',
+                                                                    format: '0'
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            dockedItems: [
+                                                {
+                                                    xtype: 'toolbar',
+                                                    dock: 'bottom',
+                                                    frame: true,
+                                                    layout: {
+                                                        type: 'hbox',
+                                                        align: 'bottom'
+                                                    },
+                                                    items: [
+                                                        {
+                                                            xtype: 'tbfill',
+                                                            frame: false
+                                                        },
+                                                        {
+                                                            xtype: 'button',
+                                                            iconAlign: 'right',
+                                                            text: 'Reset'
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 },
                                 {
                                     xtype: 'panel',
-                                    title: 'Tab 3'
+                                    title: 'Admin',
+                                    tabConfig: {
+                                        xtype: 'tab',
+                                        id: 'tabAdmin',
+                                        itemId: 'tabAdmin'
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'container',
+                                            layout: {
+                                                type: 'vbox',
+                                                align: 'center'
+                                            },
+                                            items: [
+                                                {
+                                                    xtype: 'form',
+                                                    height: 500,
+                                                    id: 'tabAdminFormAccts',
+                                                    width: 500,
+                                                    bodyPadding: 10,
+                                                    title: 'Account Form',
+                                                    items: [
+                                                        {
+                                                            xtype: 'container',
+                                                            layout: {
+                                                                type: 'hbox',
+                                                                align: 'stretch'
+                                                            },
+                                                            items: [
+                                                                {
+                                                                    xtype: 'radiogroup',
+                                                                    flex: 1,
+                                                                    width: 400,
+                                                                    fieldLabel: 'Action',
+                                                                    items: [
+                                                                        {
+                                                                            xtype: 'radiofield',
+                                                                            id: 'tabAdminRbCreate',
+                                                                            itemId: 'tabAdminRbCreate',
+                                                                            name: 'ActionRb',
+                                                                            boxLabel: 'Create'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'radiofield',
+                                                                            id: 'tabAdminRbUpdate',
+                                                                            itemId: 'tabAdminRbUpdate',
+                                                                            name: 'ActionRb',
+                                                                            boxLabel: 'Update'
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            xtype: 'tbspacer',
+                                                            height: 20
+                                                        },
+                                                        {
+                                                            xtype: 'toolbar',
+                                                            items: [
+                                                                {
+                                                                    xtype: 'textfield',
+                                                                    id: 'tabAdminTxtfSearch',
+                                                                    fieldLabel: 'Search:'
+                                                                },
+                                                                {
+                                                                    xtype: 'button',
+                                                                    id: 'tabAdminBtnSearch',
+                                                                    itemId: 'tabAdminBtnSearch',
+                                                                    width: 75,
+                                                                    text: 'Search'
+                                                                },
+                                                                {
+                                                                    xtype: 'tbspacer'
+                                                                },
+                                                                {
+                                                                    xtype: 'button',
+                                                                    id: 'tabAdminBtnRefresh',
+                                                                    itemId: 'tabAdminBtnRefresh',
+                                                                    width: 75,
+                                                                    text: 'Refresh'
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            xtype: 'container',
+                                                            items: [
+                                                                {
+                                                                    xtype: 'tbspacer',
+                                                                    height: 10
+                                                                },
+                                                                {
+                                                                    xtype: 'gridpanel',
+                                                                    height: 200,
+                                                                    id: 'tabAdminGridAcctList',
+                                                                    title: 'Account List',
+                                                                    columns: [
+                                                                        {
+                                                                            xtype: 'gridcolumn',
+                                                                            dataIndex: 'string',
+                                                                            text: 'String'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'numbercolumn',
+                                                                            dataIndex: 'number',
+                                                                            text: 'Number'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'datecolumn',
+                                                                            dataIndex: 'date',
+                                                                            text: 'Date'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'booleancolumn',
+                                                                            dataIndex: 'bool',
+                                                                            text: 'Boolean'
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            xtype: 'container',
+                                                            items: [
+                                                                {
+                                                                    xtype: 'tbspacer',
+                                                                    height: 10
+                                                                },
+                                                                {
+                                                                    xtype: 'container',
+                                                                    layout: 'fit',
+                                                                    items: [
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            id: 'tabAdminTxtfUsername',
+                                                                            itemId: 'tabAdminTxtfUsername',
+                                                                            fieldLabel: 'Username'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'tbspacer',
+                                                                            height: 10
+                                                                        },
+                                                                        {
+                                                                            xtype: 'textfield',
+                                                                            id: 'tabAdminTxtfPassword',
+                                                                            itemId: 'tabAdminTxtfPassword',
+                                                                            fieldLabel: 'Password',
+                                                                            inputType: 'password'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'tbspacer',
+                                                                            height: 10
+                                                                        },
+                                                                        {
+                                                                            xtype: 'combobox',
+                                                                            id: 'tabAdminCbRole',
+                                                                            itemId: 'tabAdminCbRole',
+                                                                            fieldLabel: 'Role',
+                                                                            store: [
+                                                                                'Customer',
+                                                                                'CSV',
+                                                                                'Admin'
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            xtype: 'tbspacer',
+                                                                            height: 10
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    xtype: 'toolbar',
+                                                                    items: [
+                                                                        {
+                                                                            xtype: 'button',
+                                                                            id: 'tabAdminBtnSave',
+                                                                            itemId: 'tabAdminBtnSave',
+                                                                            width: 75,
+                                                                            text: 'Save'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'button',
+                                                                            id: 'tabAdminBtnDelete',
+                                                                            itemId: 'tabAdminBtnDelete',
+                                                                            width: 75,
+                                                                            text: 'Delete'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'tbfill'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'button',
+                                                                            id: 'tabAdminBtnReset',
+                                                                            itemId: 'tabAdminBtnReset',
+                                                                            width: 75,
+                                                                            text: 'Reset'
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
                             ]
                         }
                     ]
                 }
-            ]
+            ],
+            listeners: {
+                afterrender: {
+                    fn: me.onvpHomeAfterRender,
+                    scope: me
+                }
+            }
         });
 
         me.callParent(arguments);
+    },
+
+    onvpHomeAfterRender: function(component, eOpts) {
+        var store = Ext.getStore('LoginResponseStore');
+        Ext.getCmp('txtfUsername').setValue(store.data.items[0].data.username);
+        Ext.getCmp('txtfAcctId').setValue(store.data.items[0].data.accountId);
     }
 
 });

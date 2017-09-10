@@ -16,6 +16,7 @@ import com.group1.booking.impl.LocationDAOImpl;
 import com.group1.booking.models.Account;
 import com.group1.booking.models.BookingInfo;
 import com.group1.booking.models.Customer;
+import com.group1.booking.returnModels.CustomerReturnModel;
 import com.group1.booking.models.Location;
 import com.group1.booking.returnModels.Login;
 
@@ -56,6 +57,10 @@ public class Services implements IServices {
 		Customer cust = new Customer();
 		Account acct = new Account();
 
+		ArrayList<CustomerReturnModel> custs = ias.searchAllCustomerReturnList();
+		for(CustomerReturnModel a : custs) {
+			System.out.println(a.getCompanyName() + ", " + a.getID());
+		}
 		// cust.setCustomerId(customerId);
 		/*
 		 * cust.setFirstname("MON"); cust.setLastname("ALLAREY");
@@ -127,7 +132,7 @@ public class Services implements IServices {
 	}
 
 	// ---------------Customer
-	public ArrayList<Customer> searchAllCustomerReturnList() {
+	public ArrayList<CustomerReturnModel> searchAllCustomerReturnList() {
 		// TODO Auto-generated method stub
 
 		return customerDao.searchAllCustomerReturnList();

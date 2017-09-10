@@ -6,6 +6,7 @@ import java.util.List;
 import com.group1.booking.models.Account;
 import com.group1.booking.models.BookingInfo;
 import com.group1.booking.models.Customer;
+import com.group1.booking.returnModels.CustomerReturnModel;
 import com.group1.booking.models.Location;
 import com.group1.booking.returnModels.Login;;
 
@@ -29,7 +30,7 @@ public interface IServices {
 	
 	//-----------------CustomerDAO-------------
 
-	public ArrayList<Customer> searchAllCustomerReturnList();
+	public ArrayList<CustomerReturnModel> searchAllCustomerReturnList();
 	public String CreateCustomer(Customer customer,Account account);
 	public String UpdateCustomer(Customer customer);
 	public String DeleteCustomer(String id);

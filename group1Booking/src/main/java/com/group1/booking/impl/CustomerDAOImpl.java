@@ -14,6 +14,7 @@ import com.group1.booking.configurations.HibernateContext;
 import com.group1.booking.dao.CustomerDAO;
 import com.group1.booking.models.Account;
 import com.group1.booking.models.Customer;
+import com.group1.booking.returnModels.CustomerReturnModel;
 
 public class CustomerDAOImpl implements CustomerDAO {
 	HibernateContext hibernateContext;
@@ -27,7 +28,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	// ALLARRA09_08_17: SearchAllcUSTOMER and return List of customer
 	@SuppressWarnings("unchecked")
-	public ArrayList<Customer> searchAllCustomerReturnList() {
+	public ArrayList<CustomerReturnModel> searchAllCustomerReturnList() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
@@ -43,8 +44,15 @@ public class CustomerDAOImpl implements CustomerDAO {
 		} finally {
 			session.close();
 		}
+		ArrayList<CustomerReturnModel> crmList = new ArrayList<CustomerReturnModel>();
+		for(int z=0; z<tempHold.size();z++) {
+			CustomerReturnModel crm = new CustomerReturnModel();
+			crm.setID(String.valueOf(tempHold.get(z).getCustomerId()));
+			crm.setCompanyName(tempHold.get(z).getCompanyName());
+			crmList.add(crm);
+		}
 
-		return (ArrayList<Customer>) tempHold;
+		return crmList;
 	}
 
 	// ALLARRA: CreateCustomer transaction
