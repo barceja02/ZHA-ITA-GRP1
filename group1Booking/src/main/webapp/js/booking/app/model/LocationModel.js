@@ -22,16 +22,20 @@ Ext.define('layout.model.LocationModel', {
 
     fields: [
         {
-            name: 'LOC_CITY_CODE'
+            name: 'locID',
+			type: 'int'
         },
         {
-            name: 'LOC_CITY_NAME'
+            name: 'locCityCode',
+			type: 'string'
         },
         {
-            name: 'LOC_COUNTRY_CODE'
+            name: 'locCityName',
+			type: 'string'
         },
         {
-            name: 'LOC_COUNTRY_NAME'
+            name: 'locCountryName',
+			type: 'string'
         }
     ]
 });

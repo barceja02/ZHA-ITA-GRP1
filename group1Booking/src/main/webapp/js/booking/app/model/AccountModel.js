@@ -22,23 +22,23 @@ Ext.define('layout.model.AccountModel', {
 
     fields: [
         {
-            name: 'ACCT_ID',
+            name: 'acctID',
             type: 'int'
         },
         {
-            name: 'CUST_ID',
-            type: 'int'
-        },
-        {
-            name: 'USERNAME',
+            name: 'custID',
             type: 'string'
         },
         {
-            name: 'PASSWORD',
+            name: 'username',
             type: 'string'
         },
         {
-            name: 'ROLE',
+            name: 'password',
+            type: 'string'
+        },
+        {
+            name: 'role',
             type: 'string'
         }
     ]

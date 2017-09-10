@@ -17,6 +17,9 @@ var createbkg;
 var home;
 Ext.define('layout.controller.BookingController', {
     extend: 'Ext.app.Controller',
+  requires: [
+        'layout.controller.override.BookingController'
+    ],
     refs: [
         {
             ref: 'comgrp1bkgCreateBooking',
@@ -29,10 +32,32 @@ Ext.define('layout.controller.BookingController', {
     ],
 
     onHomeBtnViewBkgClick: function(button, e, eOpts) {
+        var grid = Ext.getCmp('mygridpanel');
+        if(grid.getSelectionModel().getSelection().length===1){
+        var selected = grid.getSelectionModel().getSelection();
+        var selectedBooking =[];
+        Ext.iterate(selected,function(key){
+        selectedBooking.push({BOOKING_NUM:key.data.BOOKING_NUM}) ;
         openBkgType = "view";
         createbkg = Ext.create('layout.view.com.grp1.bkg.CreateBooking');
+		Ext.getCmp('txtBkgNum').setValue(selectedBooking[0].BOOKING_NUM);
         createbkg.show();
         createbkg.setTitle("View");
+
+       
+
+        });
+        }else{
+            alert('Select only 1 record to view');
+        }
+
+
+
+
+
+
+
+
     },
 
     onHomeBtnCreateBkgClick: function(button, e, eOpts) {

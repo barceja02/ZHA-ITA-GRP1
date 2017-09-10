@@ -28,6 +28,10 @@ Ext.define('layout.controller.HomeController', {
         {
             ref: 'mygridpanel',
             selector: '#mygridpanel'
+        },
+        {
+            ref: 'homeBtnViewBkg',
+            selector: '#homeBtnViewBkg'
         }
     ],
 
@@ -73,6 +77,9 @@ Ext.define('layout.controller.HomeController', {
         this.control({
             "#tabHomebtnSearch": {
                 click: this.onTabHomebtnSearchClick
+            },
+            "#homeBtnViewBkg": {
+                click: this.onHomeBtnViewBkgClick
             }
         });
     }
