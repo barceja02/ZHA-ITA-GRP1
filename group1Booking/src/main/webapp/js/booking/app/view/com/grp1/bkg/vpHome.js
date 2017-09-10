@@ -238,105 +238,105 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                             store: 'BookingInfoStore',
                                                             columns: [
                                                                 {
-                                                                    xtype: 'numbercolumn',
-                                                                    dataIndex: 'BOOKING_NUM',
-                                                                    text: 'BOOKING_NUM'
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'bookingNum',
+                                                                    text: 'bookingNum'
                                                                 },
                                                                 {
-                                                                    xtype: 'numbercolumn',
-                                                                    dataIndex: 'SHIPPER_ID',
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'shipperId',
                                                                     text: 'SHIPPER_ID'
                                                                 },
                                                                 {
-                                                                    xtype: 'numbercolumn',
-                                                                    dataIndex: 'CONSIGNEE_ID',
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'consigneeId',
                                                                     text: 'CONSIGNEE_ID'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'CONTAINER_NUM',
+                                                                    dataIndex: 'containerNumber',
                                                                     text: 'CONTAINER_NUM'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'CONTAINER_TYPE',
+                                                                    dataIndex: 'containerType',
                                                                     text: 'CONTAINER_TYPE'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'CARGO_NATURE',
+                                                                    dataIndex: 'cargoNature',
                                                                     text: 'CARGO_NATURE'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'CARGO_DESCRIPTION',
+                                                                    dataIndex: 'cargoDescription',
                                                                     text: 'CARGO_DESCRIPTION'
                                                                 },
                                                                 {
                                                                     xtype: 'numbercolumn',
-                                                                    dataIndex: 'GROSS_WEIGHT',
+                                                                    dataIndex: 'grossWeight',
                                                                     text: 'GROSS_WEIGHT'
                                                                 },
                                                                 {
                                                                     xtype: 'numbercolumn',
-                                                                    dataIndex: 'NET_WEIGHT',
+                                                                    dataIndex: 'netWeight',
                                                                     text: 'NET_WEIGHT'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'FROM_CITY',
+                                                                    dataIndex: 'fromCity',
                                                                     text: 'FROM_CITY'
-                                                                },
+                                                                },  
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'TO_CITY',
+                                                                    dataIndex: 'toCity',
                                                                     text: 'TO_CITY'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'CREATED_BY',
+                                                                    dataIndex: 'createdBy',
                                                                     text: 'CREATED_BY'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'UPDATED_BY',
+                                                                    dataIndex: 'updatedBy',
                                                                     text: 'UPDATED_BY'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'UPDATE_DATE',
+                                                                    dataIndex: 'updateDate',
                                                                     text: 'UPDATE_DATE'
                                                                 },
                                                                 {
-                                                                    xtype: 'numbercolumn',
-                                                                    dataIndex: 'IS_ACTIVE',
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'isActive',
                                                                     text: 'IS_ACTIVE'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'GROSS_UNIT',
+                                                                    dataIndex: 'grossUnit',
                                                                     text: 'GROSS_UNIT'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'NET_UNIT',
+                                                                    dataIndex: 'netUnit',
                                                                     text: 'NET_UNIT'
-                                                                },
+                                                                }/*,
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'IS_WEIGHT_VALID',
+                                                                    dataIndex: 'isWeightValid',
                                                                     text: 'IS_WEIGHT_VALID'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'IS_GOOD_CUSTOMER',
+                                                                    dataIndex: 'isCustomerGood',
                                                                     text: 'IS_GOOD_CUSTOMER'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'IS_DOCUMENTS_APPROVED',
+                                                                    dataIndex: 'isDocumentApproved',
                                                                     text: 'IS_DOCUMENTS_APPROVED'
-                                                                }
+                                                                }*/
                                                             ],
                                                             selModel: Ext.create('Ext.selection.CheckboxModel', {
 

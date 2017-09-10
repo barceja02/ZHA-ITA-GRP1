@@ -53,12 +53,15 @@ Ext.define('layout.controller.HomeController', {
         			method : 'POST',
         			jsonData : Ext.encode(searchModel.data),
         			success : function(response) {
-        				var res = Ext.decode(response.responseText);
-        				console.log(res);
+        				debugger;
+        				//var res = Ext.decode(response.responseText);
+        				var res = JSON.parse(response.responseText);
                         var store = Ext.getStore('BookingInfoStore');
                         store.removeAll();
                         store.add(res);
-                        Ext.getCmp('#mygridpanel').getStore().reload();
+                        console.log(store);
+                        //Ext.getCmp('#mygridpanel').getStore().reload();
+                        //Ext.getCmp('#mygridpanel').getStore().load();
         			},
         			failure : function(response) {
         				alert("Login Failed");
@@ -67,7 +70,6 @@ Ext.define('layout.controller.HomeController', {
                         store.removeAll();
                         store.add([{BOOKING_NUM:123},{BOOKING_NUM:124}]);
                         console.log(store);
-                        //store.add(res);
         				console.log("Update function ajax request failed");
         			}
         		});

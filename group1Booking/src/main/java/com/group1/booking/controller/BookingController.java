@@ -64,8 +64,8 @@ public class BookingController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody String login(@RequestBody String params)
 			throws JsonParseException, JsonMappingException, IOException {
-		JsonNode rootNode = new ObjectMapper().readTree(new StringReader(params)); //convert to readable note
-		//rootNode.get("parameter") returns the value of the parameter
+		JsonNode rootNode = new ObjectMapper().readTree(new StringReader(params)); // convert to readable note
+		// rootNode.get("parameter") returns the value of the parameter
 		String username = rootNode.get("username").toString().replace("\"", "");
 		String password = rootNode.get("password").toString().replace("\"", "");
 		return jsonMapper.writeValueAsString(serv.ToLogin(username, password));
@@ -75,27 +75,27 @@ public class BookingController {
 	public @ResponseBody String getParty() throws JsonParseException, JsonMappingException, IOException {
 		return jsonMapper.writeValueAsString(serv.searchAllCustomerReturnList());
 	}
-	
+
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public @ResponseBody String getAccounts() throws JsonParseException, JsonMappingException, IOException {
 		// return jsonMapper.writeValueAsString(accounts);
 		return "hello";
 	}
-	
-	
+
 	@RequestMapping(value = "/homeSearch", method = RequestMethod.POST)
 	public @ResponseBody String bookingSearch(@RequestBody String params) throws JsonProcessingException, IOException {
-		JsonNode rootNode = new ObjectMapper().readTree(new StringReader(params)); //convert to readable note
-		//rootNode.get("parameter") returns the value of the parameter
+		JsonNode rootNode = new ObjectMapper().readTree(new StringReader(params)); // convert to readable note
+		// rootNode.get("parameter") returns the value of the parameter
 		String username = rootNode.get("bookingNo").toString().replace("\"", "");
 		String password = rootNode.get("containerNo").toString().replace("\"", "");
 		System.err.println(serv.searchBookingInfoByCriteria("201700000", "", "", "").size());
 		System.out.println(jsonMapper.writeValueAsString(serv.searchBookingInfoByCriteria("201700000", "", "", "")));
-		return jsonMapper.writeValueAsString(serv.searchBookingInfoByCriteria("201700000", "", "", ""));
+		return jsonMapper.writeValueAsString(serv.searchBookingInfoByCriteria("", "", "", "LGB"));
 	}
-	
+
 	@RequestMapping(value = "/createCustomer", method = RequestMethod.POST)
-	public @ResponseBody String createCustomer(@RequestBody String param) throws JsonParseException, JsonMappingException, IOException {
+	public @ResponseBody String createCustomer(@RequestBody String param)
+			throws JsonParseException, JsonMappingException, IOException {
 		CustomerAccountModel CA = jsonMapper.readValue(param, CustomerAccountModel.class);
 		Customer customer = new Customer();
 		Account account = new Account();
@@ -109,10 +109,10 @@ public class BookingController {
 		account.setUsername(CA.getUsername());
 		account.setPassword(CA.getPassword());
 		account.setRole(CA.getRole());
-		
-		serv.CreateCustomer(customer,account);
-		
-		return jsonMapper.writeValueAsString(serv.CreateCustomer(customer,account));
+
+		serv.CreateCustomer(customer, account);
+
+		return jsonMapper.writeValueAsString(serv.CreateCustomer(customer, account));
 	}
 	@RequestMapping(value = "/updateCustomer", method = RequestMethod.POST)
 	public @ResponseBody String updateCustomer(@RequestBody String param) throws JsonParseException, JsonMappingException, IOException {
@@ -132,10 +132,4 @@ public class BookingController {
 		
 		return jsonMapper.writeValueAsString(serv.UpdateCustomer(customer));
 	}
-	
-	
-	
-	
-	
-	
 }

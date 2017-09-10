@@ -46,7 +46,7 @@ Ext.define('layout.model.BookingInfoModel', {
             type: 'string'
         },
         {
-            name: 'cargoDescrpiption',
+            name: 'cargoDescription',
             type: 'string'
         },
         {
@@ -70,8 +70,8 @@ Ext.define('layout.model.BookingInfoModel', {
             type: 'string'
         },
         {
-            name: 'createDate',
-            type: 'string'
+        	name: 'createDate',
+        	type: 'string'
         },
         {
             name: 'updatedBy',
