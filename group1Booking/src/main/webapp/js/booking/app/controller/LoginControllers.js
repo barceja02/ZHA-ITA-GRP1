@@ -14,54 +14,58 @@
  */
 
 Ext.define('layout.controller.LoginControllers', {
-	extend : 'Ext.app.Controller',
+    extend: 'Ext.app.Controller',
 
-	onBtnLoginClick : function(button, e, eOpts) {
-		var modelId = 'layout.model.'
-			
-		var user = Ext.create(modelId + 'loginInfo', {
-		    username : Ext.getCmp('txtUsername').getValue(),
-		    password : Ext.getCmp('txtPassword').getValue()
-		});
-		
-		Ext.Ajax.request({
-			url : 'login',
-			method : 'POST',
-			jsonData : Ext.encode(user.data),
-			success : function(response) {
-				var res = Ext.decode(response.responseText);
-				var userInfo = Ext.create(modelId + 'loginResponse', {
-					userId : res.acctId,
-					role :  res.role,
-					userName :  res.username,
-					isSuccess :  res.isSucces
-				});
-				console.log(userInfo.data.isSuccess);
-				if(userInfo.data.isSuccess === "true"){
-					this.vpHome = Ext.create('layout.view.com.grp1.bkg.vpHome');
-					this.vpHome.show();
-				}
-				else{
-					alert("Wrong username/password");
-				}
-			},
-			failure : function(response) {
-				alert("Login Failed");
-				console.log(response);
-				console.log("Update function ajax request failed");
-			}
-		});
+    onBtnLoginClick: function(button, e, eOpts) {
+        		var modelId = 'layout.model.';
 
-	},
+        		var user = Ext.create(modelId + 'LoginModel', {
+                    username : Ext.getCmp('txfUsername').getValue(),
+                    password : Ext.getCmp('txfPassword').getValue()
+        		});
 
-	init : function(application) {
-		this.control({
-			"#btnLogin" : {
-				click : this.onBtnLoginClick
-			}
-		});
-	}
+        		Ext.Ajax.request({
+        			url : 'login',
+        			method : 'POST',
+        			jsonData : Ext.encode(user.data),
+        			success : function(response) {
+        				var res = Ext.decode(response.responseText);
+        				console.log(response);
+        				if(res.isSucces === "true"){
+                            var store = Ext.getStore('LoginResponseStore');
+                            store.removeAll();
+                            store.add({username:res.username,accountId:res.accountId,custId: res.custId,role: res.role,isSuccess:res.isSucces});
+        					this.vpHome = Ext.create('layout.view.com.grp1.bkg.vpHome');
+        					this.vpHome.show();
+        				}
+        				else{
+        					alert('Wrong Username/Password');
+        				}
+        			},
+        			failure : function(response) {
+        				var jsonn = '{isSuccess: "true",role: "userkoto",userId: 123}';
+        				var res = Ext.decode(jsonn);
+        				//console.log(res);
+                        ///////TO REMOVE//////
+                        //var store = Ext.getStore('LoginResponseStore');
+                        //store.removeAll();
+                        //    store.add({username:'FAILED',accountId:123,custId: 333,role: 'Customer',isSuccess:'true'});
+                        //console.log(store);
+                        //////////////////////
+                        //this.vpHome = Ext.create('layout.view.com.grp1.bkg.vpHome');
+        			    //this.vpHome.show();
+        				alert('Login Failed');
+        				console.log("Update function ajax request failed");
+        			}
+        		});
+    },
+
+    init: function(application) {
+        this.control({
+            "#btnLogin": {
+                click: this.onBtnLoginClick
+            }
+        });
+    }
 
 });
-
-

@@ -67,8 +67,7 @@ Ext.define('layout.view.com.grp1.bkg.vpLogin', {
                                     items: [
                                         {
                                             xtype: 'textfield',
-                                            id: 'txtUsername',
-                                            itemId: 'txtUsername',
+                                            id: 'txfUsername',
                                             fieldLabel: 'Username:',
                                             listeners: {
                                                 click: {
@@ -79,8 +78,7 @@ Ext.define('layout.view.com.grp1.bkg.vpLogin', {
                                         },
                                         {
                                             xtype: 'textfield',
-                                            id: 'txtPassword',
-                                            itemId: 'txtPassword',
+                                            id: 'txfPassword',
                                             fieldLabel: 'Password'
                                         }
                                     ]

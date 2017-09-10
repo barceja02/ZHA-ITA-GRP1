@@ -18,24 +18,39 @@ Ext.Loader.setConfig({
     enabled: true
 });
 
+
 Ext.application({
 	appFolder:'../group1Booking/js/booking/app',
-    models: [
-        'loginInfo',
-        'loginResponse'
+	models: [
+        'searchBookingByAny',
+        'LocationModel',
+        'CustomerModel',
+        'BookingInfoModel',
+        'AccountModel',
+        'LoginResponse',
+        'LoginModel'
+    ],
+    stores: [
+        'CustomerStore',
+        'AccountStore',
+        'LocationStore',
+        'LoginResponseStore',
+        'BookingInfoStore'
     ],
     views: [
-        'com.grp1.bkg.vpLogin',
-        'com.grp1.bkg.vpHome'
+        'com.grp1.bkg.vpHome',
+        'com.grp1.bkg.CreateBooking',
+		'com.grp1.bkg.vpLogin'
     ],
     controllers: [
         'LoginControllers',
-        'HomeController'
+        'HomeController',
+        'BookingController'
     ],
     name: 'layout',
 
     launch: function() {
-        Ext.create('layout.view.com.grp1.bkg.vpLogin');
+        this.vpLogin = Ext.create('layout.view.com.grp1.bkg.vpLogin');
     }
 
 });

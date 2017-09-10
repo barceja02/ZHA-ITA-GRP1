@@ -1,13 +1,17 @@
 D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\impl\AccountDAOImpl.java
 D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\service\appControl.java
+D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\dao\CustomerDAO.java
+D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\dao\LocationDAO.java
 D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\dao\AccountDAO.java
 D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\service\IServices.java
+D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\impl\CustomerDAOImpl.java
 D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\models\Employee.java
 D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\models\BookingInfo.java
 D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\controller\BookingController.java
 D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\dao\BookingInfoDAO.java
 D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\impl\BookingInfoDAOImpl.java
 D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\models\Customer.java
+D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\impl\LocationDAOImpl.java
 D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\service\Services.java
 D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\returnModels\Login.java
 D:\cenon2\ZHA-ITA-GRP1\group1Booking\src\main\java\com\group1\booking\configurations\HibernateContext.java
