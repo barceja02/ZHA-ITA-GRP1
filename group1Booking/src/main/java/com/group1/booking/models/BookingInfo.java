@@ -22,6 +22,13 @@ public class BookingInfo {
 	int isWeightValid;
 	int isDocumentApproved;
 	int isCustomerGood;
+	int isConfirmed;
+	public int getIsConfirmed() {
+		return isConfirmed;
+	}
+	public void setIsConfirmed(int isConfirmed) {
+		this.isConfirmed = isConfirmed;
+	}
 	public int getIsWeightValid() {
 		return isWeightValid;
 	}
