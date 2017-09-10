@@ -34,10 +34,6 @@ Ext.define('layout.controller.CreateCustomerController', {
         createCustomerWindow.show();
     },
 
-    onCreateCustomerBeforeClose: function(panel, eOpts) {
-        Ext.getCmp('com.grp1.bkg.vpHome').setDisabled(false);
-    },
-
     onCustomerbtnCreateClick: function(button, e, eOpts) {
         var modelId = 'layout.model.';
         var checkActive;
@@ -79,9 +75,6 @@ Ext.define('layout.controller.CreateCustomerController', {
         this.control({
             "#tabCustomerBtnCreate": {
                 click: this.onTabCustomerBtnCreateClick
-            },
-            "#CreateCustomer": {
-                beforeclose: this.onCreateCustomerBeforeClose
             },
             "#customerbtnCreate": {
                 click: this.onCustomerbtnCreateClick

@@ -478,12 +478,12 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                             store: 'CustomerStore',
                                                             columns: [
                                                                 {
-                                                                    xtype: 'numbercolumn',
-                                                                    text: 'MyNumberColumn24'
-                                                                },
-                                                                {
                                                                     xtype: 'gridcolumn',
                                                                     text: 'MyColumn56'
+                                                                },
+                                                                {
+                                                                    xtype: 'numbercolumn',
+                                                                    text: 'MyNumberColumn24'
                                                                 }
                                                             ]
                                                         }

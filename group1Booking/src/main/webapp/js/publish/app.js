@@ -40,7 +40,8 @@ Ext.application({
     views: [
         'com.grp1.bkg.vpHome',
         'com.grp1.bkg.CreateBooking',
-        'com.grp1.bkg.CreateCustomer'
+        'com.grp1.bkg.CreateCustomer',
+		 'com.grp1.bkg.vpLogin'
     ],
     controllers: [
         'LoginControllers',
