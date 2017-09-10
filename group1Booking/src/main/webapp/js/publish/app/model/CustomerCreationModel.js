@@ -66,7 +66,7 @@ Ext.define('layout.model.CustomerCreationModel', {
             type: 'string'
         },
         {
-            name: 'acctId',
+            name: 'acctID',
             type: 'int'
         }
     ]
