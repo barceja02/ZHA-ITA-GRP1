@@ -46,7 +46,7 @@ Ext.define('layout.model.BookingInfoModel', {
             type: 'string'
         },
         {
-            name: 'cargoDescription',
+            name: 'cargoDescrpiption',
             type: 'string'
         },
         {

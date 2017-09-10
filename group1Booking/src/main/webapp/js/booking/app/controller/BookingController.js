@@ -135,8 +135,8 @@ Ext.define('layout.controller.BookingController', {
         	if(isWtValid && isGoodCust && isDocApproved){
         		var bkg = Ext.create('layout.model.BookingInfoModel', {
         			bookingNum : 201700027,
-        			shipperId : 1001,
-        			consigneeId : 1003,
+        			shipperId : Ext.getCmp('txtShipper').getValue(),
+        			consigneeId : Ext.getCmp('txtConsignee').getValue(),
         			containerNumber : cntrNum,
         			containerType : cntrType,
         			cargoNature : cgoNature,
@@ -160,8 +160,8 @@ Ext.define('layout.controller.BookingController', {
         	}else{
         		var bkg = Ext.create('layout.model.BookingInfoModel', {
         			bookingNum : 201700027,
-        			shipperId : 1001,
-        			consigneeId : 1003,
+        			shipperId : Ext.getCmp('txtShipper').getValue(),
+        			consigneeId : Ext.getCmp('txtConsignee').getValue(),
         			containerNumber : cntrNum,
         			containerType : cntrType,
         			cargoNature : cgoNature,
