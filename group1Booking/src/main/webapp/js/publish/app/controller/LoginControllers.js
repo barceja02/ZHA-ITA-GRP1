@@ -31,7 +31,7 @@ Ext.define('layout.controller.LoginControllers', {
         			success : function(response) {
         				var res = Ext.decode(response.responseText);
         				console.log(response);
-        				if(res.isSuccess === "true"){
+        				if(res.isSucces === "true"){
                             var store = Ext.getStore('LoginResponseStore');
                             store.removeAll();
                             store.add({username:res.username,accountId:res.accountId,custId: res.custId,role: res.role,isSuccess:res.isSucces});

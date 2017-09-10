@@ -37,7 +37,7 @@ Ext.define('layout.controller.CreateCustomerController', {
     onCustomerbtnCreateClick: function(button, e, eOpts) {
         var modelId = 'layout.model.';
         var checkActive;
-        if(Ext.getCmp('customertxtfCustomer').getValue()===true){
+        if(Ext.getCmp('customerchkboxActive').getValue()===true){
             checkActive = 1;
         }else{
             checkActive = 0;

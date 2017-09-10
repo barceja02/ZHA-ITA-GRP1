@@ -20,6 +20,7 @@ Ext.Loader.setConfig({
 
 
 Ext.application({
+	appFolder:'../group1Booking/js/publish/app',
     models: [
         'searchBookingByAny',
         'LocationModel',
