@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.group1.booking.models.BookingInfo;
 import com.group1.booking.service.*;
 
 @Controller
@@ -41,9 +42,19 @@ public class BookingController {
 	 */
 
 	@RequestMapping(value = "/createBkg", method = RequestMethod.POST)
-	public @ResponseBody String createBkg(@RequestBody String test)
+	public @ResponseBody String createBkg(@RequestBody String params)
 			throws JsonParseException, JsonMappingException, IOException {
-		return "hello";
+		BookingInfo booking = jsonMapper.readValue(params, BookingInfo.class);
+		String response = serv.insertBooking(booking);
+		return response;
+	}
+	
+	@RequestMapping(value = "/editBkg", method = RequestMethod.POST)
+	public @ResponseBody String editBkg(@RequestBody String params)
+			throws JsonParseException, JsonMappingException, IOException {
+		BookingInfo booking = jsonMapper.readValue(params, BookingInfo.class);
+		String response = serv.updateBooking(booking);
+		return response;
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)

@@ -162,7 +162,6 @@ public class BookingInfoDAOImpl implements BookingInfoDAO {
 			}
 
 			session.getTransaction().commit();
-			session.close();
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
 			e.printStackTrace();

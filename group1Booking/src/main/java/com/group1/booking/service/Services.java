@@ -56,7 +56,6 @@ public class Services implements IServices {
 
 		Customer cust = new Customer();
 		Account acct = new Account();
-
 		ArrayList<CustomerReturnModel> custs = ias.searchAllCustomerReturnList();
 		for(CustomerReturnModel a : custs) {
 			System.out.println(a.getCompanyName() + ", " + a.getID());
