@@ -112,13 +112,26 @@ public class BookingController {
 		
 		serv.CreateCustomer(customer,account);
 		
-		
-		
-		
 		return jsonMapper.writeValueAsString(serv.CreateCustomer(customer,account));
-		
 	}
-	
+	@RequestMapping(value = "/updateCustomer", method = RequestMethod.POST)
+	public @ResponseBody String updateCustomer(@RequestBody String param) throws JsonParseException, JsonMappingException, IOException {
+		CustomerAccountModel CA = jsonMapper.readValue(param, CustomerAccountModel.class);
+		Customer customer = new Customer();
+//		Account account = new Account();
+		customer.setCompanyName(CA.getCompanyName());
+		customer.setAddress(CA.getAddress());
+		customer.setContactNumber(CA.getAddress());
+		customer.setFirstname(CA.getFirstname());
+		customer.setLastname(CA.getLastname());
+		customer.setMailAddress(CA.getMailAddress());
+		customer.setRole(CA.getRole());
+//		account.setUsername(CA.getUsername());
+//		account.setPassword(CA.getPassword());
+//		account.setRole(CA.getRole());
+		
+		return jsonMapper.writeValueAsString(serv.UpdateCustomer(customer));
+	}
 	
 	
 	
