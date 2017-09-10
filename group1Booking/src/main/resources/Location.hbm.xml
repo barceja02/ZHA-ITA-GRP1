@@ -8,11 +8,11 @@
       <meta attribute="class-description">
          Mapping definition for Location Class and GRP1_ACCOUNT table
       </meta>
-      <id name="locCityCode" type="string" column="LOC_CITY_CODE">
-      </id>
-     <!-- <property name="locCityCode" column="LOC_CITY_CODE" type="string"/> --> 
+      <id name="locID" type="int" column="LOC_ID">
+      </id> 
+      <property name="locCityCode" column="LOC_CITY_CODE" type="string"/>
       <property name="locCityName" column="LOC_CITY_NAME" type="string"/>
-      <property name="locCountryCode" column="LOC_COUNTRY_CODE" type="string"/>
       <property name="locCountryName" column="LOC_COUNTRY_NAME" type="string"/>
+      
    </class>
 </hibernate-mapping>

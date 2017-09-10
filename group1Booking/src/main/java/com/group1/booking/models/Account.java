@@ -63,5 +63,11 @@ public class Account {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public void setAccount(Account account) {
+		//this.username = account.getUsername();
+		this.password = account.getPassword();
+		this.role = account.getRole();
+	}
 
 }

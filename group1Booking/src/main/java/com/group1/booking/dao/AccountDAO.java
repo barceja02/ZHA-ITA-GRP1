@@ -13,9 +13,11 @@ public interface AccountDAO {
 
 	public Login ToLogin(String Username, String Password);
 
-	public void UpdateAccount(Account account);
+	public String UpdateAccountBy(Account account);
 
 	public Account SearchByAccountBy(String Username);
 
 	public ArrayList<Account> searchAllAccounts();
+	
+	public String DeleteAccountBy(String accountId);
 }
