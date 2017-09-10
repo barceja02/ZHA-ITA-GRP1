@@ -17,16 +17,27 @@ Ext.define('layout.store.ShipperConsigneeStore', {
     extend: 'Ext.data.Store',
 
     requires: [
-        'layout.model.ShipperConsigneeModel'
+        'layout.model.ShipperConsigneeModel',
+        'Ext.data.proxy.Ajax',
+        'Ext.data.reader.Json'
     ],
 
     constructor: function(cfg) {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-        	autoSync: true,
             model: 'layout.model.ShipperConsigneeModel',
-            storeId: 'ShipperConsigneeStore'
+            storeId: 'ShipperConsigneeStore',
+            proxy: {
+                type: 'ajax',
+                url: '../../getParty',
+                reader: {
+                    type: 'json',
+                    idProperty: 'id',
+                    root: 'data.rows',
+                    totalProperty: 'data.totalCount'
+                }
+            }
         }, cfg)]);
     }
 });
