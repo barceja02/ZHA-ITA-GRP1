@@ -27,9 +27,11 @@ Ext.application({
         'CustomerModel',
         'BookingInfoModel',
         'AccountModel',
+        'LoginModel',
         'LoginResponse',
         'LoginModel',
-        'ShipperConsigneeModel'
+        'ShipperConsigneeModel',
+        'CustomerCreationModel'
     ],
     stores: [
         'CustomerStore',
@@ -42,12 +44,14 @@ Ext.application({
     views: [
         'com.grp1.bkg.vpHome',
         'com.grp1.bkg.CreateBooking',
+        'com.grp1.bkg.CreateCustomer',
 		'com.grp1.bkg.vpLogin'
     ],
     controllers: [
         'LoginControllers',
         'HomeController',
-        'BookingController'
+        'BookingController',
+        'CreateCustomerController'
     ],
     name: 'layout',
 

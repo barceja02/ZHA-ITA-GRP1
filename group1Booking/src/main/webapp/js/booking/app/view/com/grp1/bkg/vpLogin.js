@@ -79,7 +79,8 @@ Ext.define('layout.view.com.grp1.bkg.vpLogin', {
                                         {
                                             xtype: 'textfield',
                                             id: 'txfPassword',
-                                            fieldLabel: 'Password'
+                                            fieldLabel: 'Password',
+                                            inputType: 'password'
                                         }
                                     ]
                                 },

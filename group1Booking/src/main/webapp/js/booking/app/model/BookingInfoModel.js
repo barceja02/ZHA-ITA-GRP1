@@ -22,83 +22,91 @@ Ext.define('layout.model.BookingInfoModel', {
 
     fields: [
         {
-            name: 'BOOKING_NUM',
+            name: 'bookingNum',
             type: 'int'
         },
         {
-            name: 'SHIPPER_ID',
+            name: 'shipperId',
             type: 'int'
         },
         {
-            name: 'CONSIGNEE_ID',
+            name: 'consigneeId',
             type: 'int'
         },
         {
-            name: 'CONTAINER_NUM',
+            name: 'containerNumber',
             type: 'string'
         },
         {
-            name: 'CONTAINER_TYPE',
+            name: 'containerType',
             type: 'string'
         },
         {
-            name: 'CARGO_NATURE',
+            name: 'cargoNature',
             type: 'string'
         },
         {
-            name: 'CARGO_DESCRIPTION',
+            name: 'cargoDescrpiption',
             type: 'string'
         },
         {
-            name: 'GROSS_WEIGHT',
-            type: 'float'
-        },
-        {
-            name: 'NET_WEIGHT',
-            type: 'float'
-        },
-        {
-            name: 'FROM_CITY',
-            type: 'string'
-        },
-        {
-            name: 'TO_CITY',
-            type: 'string'
-        },
-        {
-            name: 'CREATED_BY',
-            type: 'string'
-        },
-        {
-            name: 'UPDATED_BY',
-            type: 'string'
-        },
-        {
-            name: 'UPDATE_DATE',
-            type: 'string'
-        },
-        {
-            name: 'IS_ACTIVE',
+            name: 'grossWeight',
             type: 'int'
         },
         {
-            name: 'GROSS_UNIT',
+            name: 'netWeight',
+            type: 'int'
+        },
+        {
+            name: 'fromCity',
             type: 'string'
         },
         {
-            name: 'NET_UNIT',
+            name: 'toCity',
             type: 'string'
         },
         {
-            name: 'IS_WEIGHT_VALID',
+            name: 'createdBy',
             type: 'string'
         },
         {
-            name: 'IS_GOOD_CUSTOMER',
+            name: 'createDate',
             type: 'string'
         },
         {
-            name: 'IS_DOCUMENTS_APPROVED',
+            name: 'updatedBy',
+            type: 'string'
+        },
+        {
+            name: 'updateDate',
+            type: 'string'
+        },
+        {
+            name: 'isActive',
+            type: 'int'
+        },
+        {
+            name: 'grossUnit',
+            type: 'string'
+        },
+        {
+            name: 'netUnit',
+            type: 'string'
+        },
+        {
+            name: 'isWeightValid',
+            type: 'string'
+        },
+        {
+            name: 'isCustomerGood',
+            type: 'string'
+        },
+        {
+            name: 'isDocumentApproved',
+            type: 'string'
+        },
+        {
+            name: 'isConfirmed',
             type: 'string'
         }
     ]

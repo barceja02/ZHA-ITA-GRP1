@@ -17,6 +17,9 @@ var createbkg;
 var home;
 Ext.define('layout.controller.BookingController', {
     extend: 'Ext.app.Controller',
+  requires: [
+        'layout.controller.override.BookingController'
+    ],
     refs: [
         {
             ref: 'comgrp1bkgCreateBooking',
@@ -29,10 +32,32 @@ Ext.define('layout.controller.BookingController', {
     ],
 
     onHomeBtnViewBkgClick: function(button, e, eOpts) {
+        var grid = Ext.getCmp('mygridpanel');
+        if(grid.getSelectionModel().getSelection().length===1){
+        var selected = grid.getSelectionModel().getSelection();
+        var selectedBooking =[];
+        Ext.iterate(selected,function(key){
+        selectedBooking.push({BOOKING_NUM:key.data.BOOKING_NUM}) ;
         openBkgType = "view";
         createbkg = Ext.create('layout.view.com.grp1.bkg.CreateBooking');
+		Ext.getCmp('txtBkgNum').setValue(selectedBooking[0].BOOKING_NUM);
         createbkg.show();
         createbkg.setTitle("View");
+
+       
+
+        });
+        }else{
+            alert('Select only 1 record to view');
+        }
+
+
+
+
+
+
+
+
     },
 
     onHomeBtnCreateBkgClick: function(button, e, eOpts) {
@@ -63,42 +88,102 @@ Ext.define('layout.controller.BookingController', {
     onBtnCreateBkgClick: function(button, e, eOpts) {
         var cntrNum = Ext.getCmp('txtCntrNum').getValue(),
             cntrType = Ext.getCmp('cntrTypeComboBox').getValue(),
-            cgoNature = Ext.getCmp('cgoNatureRadioGrp').getValue(),
+            cgoNature,
             cgoDesc = Ext.getCmp('txtCgoDesc').getValue(),
-            grossWeight = Ext.getCmp('txtGrossWeight').getValue(),
-            grossUnit = Ext.getCmp('gUnitComboBox').getValue(),
-            netWeight = Ext.getCmp('txtNetWeight').getValue(),
-            netUnit = Ext.getCmp('nUnitComboBox').getValue(),
-            fromCity = Ext.getCmp('fromCityComboBox').getValue(),
-            toCity = Ext.getCmp('toCityComboBox').getValue(),
+            GrossWeight = Ext.getCmp('txtGrossWeight').getValue(),
+            GrossUnit = Ext.getCmp('gUnitComboBox').getValue(),
+            NetWeight = Ext.getCmp('txtNetWeight').getValue(),
+            NetUnit = Ext.getCmp('nUnitComboBox').getValue(),
+            FromCity = Ext.getCmp('fromCityComboBox').getValue(),
+            ToCity = Ext.getCmp('toCityComboBox').getValue(),
             shipper = Ext.getCmp('txtShipper').getValue(),
             consignee = Ext.getCmp('txtConsignee').getValue(),
+            isWtValid,
+        	isGoodCust,
+        	isDocApproved,
+        	isGC = Ext.getCmp('GCRadioButton').getValue(),
+        	isDG = Ext.getCmp('DGRadioButton').getValue(),
+        	isAW = Ext.getCmp('AWRadioButton').getValue(),
+        	isRF = Ext.getCmp('RFRadioButton').getValue(),
+        	isConfirmed;
+        if(isGC){
+        	cgoNature = 'GC';
+        }
+        if(isRF){
+        	cgoNature = 'RF';
+        }
+        if(isAW){
+        	cgoNature = 'AW';
+        }
+        if(isDG){
+        	cgoNature = 'DG';
+        }
+        /*
             isWtValid = Ext.getCmp('chkWtValid').getValue(),
         	isGoodCust = Ext.getCmp('chkGoodCust').getValue(),
-        	isDocApproved = Ext.getCmp('chkDocsApproved').getValue();
-
+        	isDocApproved = Ext.getCmp('chkDocsApproved').getValue(),
+        	*/
+        if(Ext.getCmp('chkWtValid').getValue() === true)
+        { isWtValid = 1; } else { isWtValid = 0; }
+        if(Ext.getCmp('chkGoodCust').getValue() === true)
+        { isGoodCust = 1; } else { isGoodCust = 0; }
+        if(Ext.getCmp('chkDocsApproved').getValue() === true)
+        { isDocApproved = 1; } else { isDocApproved = 0; }
+        
         //create or edit
-        if(cntrNum !== null && cntrType !== null && cgoDesc !== null && fromCity !== null && toCity !== null && shipper !== null && consignee !== null){
+        if(cntrNum !== null && cntrType !== null && cgoDesc !== null && FromCity !== null && ToCity !== null && shipper !== null && consignee !== null){
         	if(isWtValid && isGoodCust && isDocApproved){
         		var bkg = Ext.create('layout.model.BookingInfoModel', {
-        			BOOKING_NUM : 123,
-        			SHIPPER_ID : 1001,
-        			CONSIGNEE_ID : 1003,
-        			CONTAINER_NUM : cntrNum,
-        			CONTAINER_TYPE : cntrType,
-        			CARGO_NATURE : cgoNature,
-        			CARGO_DESCRIPTION : cgoDesc,
-        			GROSS_WEIGHT : grossWeight,
-        			NET_WEIGHT : netWeight,
-        			FROM_CITY : fromCity,
-        			TO_CITY : toCity,
-        			GROSS_UNIT : grossUnit,
-        			NET_UNIT : netUnit,
-        			IS_WEIGHT_VALID : isWtValid,
-        			IS_GOOD_CUSTOMER : isGoodCust,
-        			IS_DOCUMENTS_APPROVED : isDocApproved
+        			bookingNum : 201700027,
+        			shipperId : 1001,
+        			consigneeId : 1003,
+        			containerNumber : cntrNum,
+        			containerType : cntrType,
+        			cargoNature : cgoNature,
+        			cargoDescrpiption : cgoDesc,
+        			grossWeight : GrossWeight,
+        			netWeight : NetWeight,
+        			fromCity : FromCity,
+        			toCity : ToCity,
+        			createdBy : Ext.getCmp('txtfUsername').getValue(),
+        			createDate : "12/12/2017",
+        			updatedBy : Ext.getCmp('txtfUsername').getValue(),
+        			updateDate : "12/12/2017",
+        			isActive : 0,
+        			grossUnit : GrossUnit,
+        			netUnit : NetUnit,
+        			isWeightValid : isWtValid,
+        			isCustomerGood : isGoodCust,
+        			isDocumentApproved : isDocApproved,
+        			isConfirmed : 1
         		});
-        		if(openBkgType === "create"){
+        	}else{
+        		var bkg = Ext.create('layout.model.BookingInfoModel', {
+        			bookingNum : 201700027,
+        			shipperId : 1001,
+        			consigneeId : 1003,
+        			containerNumber : cntrNum,
+        			containerType : cntrType,
+        			cargoNature : cgoNature,
+        			cargoDescrpiption : cgoDesc,
+        			grossWeight : GrossWeight,
+        			netWeight : NetWeight,
+        			fromCity : FromCity,
+        			toCity : ToCity,
+        			createdBy : Ext.getCmp('txtfUsername').getValue(),
+        			createDate : "20170101",
+        			updatedBy : Ext.getCmp('txtfUsername').getValue(),
+        			updateDate : "20170101",
+        			isActive : 0,
+        			grossUnit : GrossUnit,
+        			netUnit : NetUnit,
+        			isWeightValid : isWtValid,
+        			isCustomerGood : isGoodCust,
+        			isDocumentApproved : isDocApproved,
+        			isConfirmed : 0
+        		});
+        	}
+        	if(openBkgType === "create"){
         			Ext.Ajax.request({
         				url : 'createBkg',
         				method : 'POST',
@@ -113,7 +198,7 @@ Ext.define('layout.controller.BookingController', {
         					console.log("Update function ajax request failed");
         				}
         			});
-        		}else if(openBkgType === "edit"){
+            }else if(openBkgType === "edit"){
         			Ext.Ajax.request({
         				url : 'editBkg',
         				method : 'POST',
@@ -123,13 +208,12 @@ Ext.define('layout.controller.BookingController', {
         					this.createbkg.close();
         				},
         				failure : function(response) {
-        					alert("Create Booking Failed");
+        					alert("Update Booking Failed");
         					console.log(response);
         					console.log("Update function ajax request failed");
         				}
         			});
         		}
-        	}
         	else{
                 Ext.Msg.alert("Can't Create Booking", "Validation Should be all true");
         	}

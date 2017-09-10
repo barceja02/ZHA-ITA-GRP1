@@ -22,35 +22,35 @@ Ext.define('layout.model.CustomerModel', {
 
     fields: [
         {
-            name: 'CUST_ID',
+            name: 'customerId',
             type: 'int'
         },
         {
-            name: 'COMPANY_NAME',
+            name: 'companyName',
             type: 'string'
         },
         {
-            name: 'FIRSTNAME',
+            name: 'firstname',
             type: 'string'
         },
         {
-            name: 'LASTNAME',
+            name: 'lastname',
             type: 'string'
         },
         {
-            name: 'ADDRESS',
+            name: 'address',
             type: 'string'
         },
         {
-            name: 'ROLE',
+            name: 'role',
             type: 'string'
         },
         {
-            name: 'CONTACT_NUM',
+            name: 'contactNumber',
             type: 'string'
         },
         {
-            name: 'EMAIL_ADDRESS',
+            name: 'mailAddress',
             type: 'string'
         },
         {

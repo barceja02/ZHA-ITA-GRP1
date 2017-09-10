@@ -108,26 +108,34 @@ Ext.define('layout.view.com.grp1.bkg.CreateBooking', {
                                     items: [
                                         {
                                             xtype: 'radiofield',
+                                            id: 'GCRadioButton',
                                             itemId: 'GCRadioButton',
                                             name: 'cargoTypeRadioButton',
+                                            value: 'GC',
                                             boxLabel: 'GC'
                                         },
                                         {
                                             xtype: 'radiofield',
+                                            id: 'RFRadioButton',
                                             itemId: 'RFRadioButton',
                                             name: 'cargoTypeRadioButton',
+                                            value: 'RF',
                                             boxLabel: 'RF'
                                         },
                                         {
                                             xtype: 'radiofield',
+                                            id: 'DGRadioButton',
                                             itemId: 'DGRadioButton',
                                             name: 'cargoTypeRadioButton',
+                                            value: 'DG',
                                             boxLabel: 'DG'
                                         },
                                         {
                                             xtype: 'radiofield',
+                                            id: 'AWRadioButton',
                                             itemId: 'AWRadioButton',
                                             name: 'cargoTypeRadioButton',
+                                            value: 'AW',
                                             boxLabel: 'AW'
                                         }
                                     ]
