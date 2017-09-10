@@ -2,35 +2,37 @@ package com.group1.booking.models;
 
 public class Location {
 	
-	String cityCode;
-	String cityName;
-	String countryCode;
-	String countryName;
+	int locID;
+	String locCityCode;
+	String locCityName;
+	String locCountryName;
 	
-	public String getCityCode() {
-		return cityCode;
+	public int getLocID() {
+		return locID;
 	}
-	public void setCityCode(String cityCode) {
-		this.cityCode = cityCode;
+	public void setLocID(int locID) {
+		this.locID = locID;
 	}
-	public String getCityName() {
-		return cityName;
+	public String getLocCityCode() {
+		return locCityCode;
 	}
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
+	public void setLocCityCode(String locCityCode) {
+		this.locCityCode = locCityCode;
 	}
-	public String getCountryCode() {
-		return countryCode;
+	public String getLocCityName() {
+		return locCityName;
 	}
-	public void setCountryCode(String countryCode) {
-		this.countryCode = countryCode;
+	public void setLocCityName(String locCityName) {
+		this.locCityName = locCityName;
 	}
-	public String getCountryName() {
-		return countryName;
+	public String getLocCountryName() {
+		return locCountryName;
 	}
-	public void setCountryName(String countryName) {
-		this.countryName = countryName;
+	public void setLocCountryName(String locCountryName) {
+		this.locCountryName = locCountryName;
 	}
+	
+
 	
 
 }

@@ -8,12 +8,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.group1.booking.dao.AccountDAO;
 import com.group1.booking.dao.BookingInfoDAO;
 import com.group1.booking.dao.CustomerDAO;
+import com.group1.booking.dao.LocationDAO;
 import com.group1.booking.impl.AccountDAOImpl;
 import com.group1.booking.impl.BookingInfoDAOImpl;
 import com.group1.booking.impl.CustomerDAOImpl;
+import com.group1.booking.impl.LocationDAOImpl;
 import com.group1.booking.models.Account;
 import com.group1.booking.models.BookingInfo;
 import com.group1.booking.models.Customer;
+import com.group1.booking.models.Location;
 import com.group1.booking.returnModels.Login;
 
 public class Services implements IServices {
@@ -22,7 +25,7 @@ public class Services implements IServices {
 	AccountDAO accountDao;
 	CustomerDAO customerDao;
 	BookingInfoDAO bookingInfoDAO;
-
+	LocationDAO locationDAO;
 	// Beaned Instanciation for the DAO IMPL to DAO interface
 	public void setAccountDAOImpl(AccountDAOImpl accountDAOImpl) {
 		this.accountDao = accountDAOImpl;
@@ -35,7 +38,10 @@ public class Services implements IServices {
 	public void setBookingInfoDAOImpl(BookingInfoDAOImpl bookingInfoDAOImpl) {
 		this.bookingInfoDAO = bookingInfoDAOImpl;
 	}
-
+	public void setLocationDAOImpl(LocationDAOImpl locationDAOImpl) {
+		this.locationDAO = locationDAOImpl;
+	}
+	
 	// inversion of Iservice
 	public IServices getAccountServices() {
 		ApplicationContext appContext = new ClassPathXmlApplicationContext("AppContext.xml");
@@ -75,8 +81,9 @@ public class Services implements IServices {
 		 * System.out.println("Role: " + login.getRole());
 		 */
 		//Mon Local Test
-			System.err.println(ias.searchCustomerByCriteria("wazza", "wazza").size());
-
+			System.err.println("asdfasdfsadfsdfadsfasdfasdf"+ias.searchCustomerByCriteria("wazza", "wazza").size());
+			System.err.println("asdfasdfasdfasdfasdfsadf" + ias.getAllLocation().size());
+			System.err.println("asdfasdfsadfasdfwazaaaa"+ias.getLocationByCityCode("HKG").getLocCityCode());
 		/*
 		 * acct.setAcctID(2017055); acct.setUsername("testBaby");
 		 * acct.setPassword("wazzap"); acct.setRole(""); acct.setCustID("1049");
@@ -166,6 +173,28 @@ public class Services implements IServices {
 	public String deactivateBooking(ArrayList<String> bookingNumbers) {
 		// TODO Auto-generated method stub
 		return bookingInfoDAO.deactivateBooking(bookingNumbers);
+	}
+
+	
+	//----------------LocationServices
+	public Location getLocationByCityCode(String cityCode) {
+		// TODO Auto-generated method stub
+		return locationDAO.getLocationByCityCode(cityCode);
+	}
+
+	public String createLocation(Location location) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String updateLocation(Location location) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<Location> getAllLocation() {
+		// TODO Auto-generated method stub
+		return locationDAO.getAllLocation();
 	}
 
 }

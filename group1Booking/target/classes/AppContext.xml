@@ -21,6 +21,11 @@
 	<bean id= "CustomerDAOImpl" class = "com.group1.booking.impl.CustomerDAOImpl">
 		<property name="hibernateSession" ><ref local="HibernateContext"/></property>
 	</bean>
+	<bean id="LocationDAOImpl" class = "com.group1.booking.impl.LocationDAOImpl">
+		<property name="hibernateSession">
+		<ref local="HibernateContext"/>
+		</property>
+	</bean>
 	
 	
 <bean id="Services" class = "com.group1.booking.service.Services">
@@ -30,7 +35,8 @@
 	</property>
 	<property name="bookingInfoDAOImpl" ><ref local="BookingInfoDAOImpl"/>
 	</property>
-	
+	<property name="locationDAOImpl"><ref local="LocationDAOImpl"/>
+	</property>
 </bean>
 
 <!--Define Pojo this is for the Spring to handle our instantiation
