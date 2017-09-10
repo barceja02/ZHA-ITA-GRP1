@@ -14,6 +14,7 @@ import com.group1.booking.impl.CustomerDAOImpl;
 import com.group1.booking.models.Account;
 import com.group1.booking.models.BookingInfo;
 import com.group1.booking.models.Customer;
+import com.group1.booking.returnModels.CustomerReturnModel;
 import com.group1.booking.returnModels.Login;
 
 public class Services implements IServices {
@@ -50,6 +51,10 @@ public class Services implements IServices {
 		Customer cust = new Customer();
 		Account acct = new Account();
 
+		ArrayList<CustomerReturnModel> custs = ias.searchAllCustomerReturnList();
+		for(CustomerReturnModel a : custs) {
+			System.out.println(a.getCompanyName() + ", " + a.getID());
+		}
 		// cust.setCustomerId(customerId);
 		/*
 		 * cust.setFirstname("MON"); cust.setLastname("ALLAREY");
@@ -75,7 +80,7 @@ public class Services implements IServices {
 		 * System.out.println("Role: " + login.getRole());
 		 */
 		//Mon Local Test
-			System.err.println(ias.searchCustomerByCriteria("wazza", "wazza").size());
+//			System.err.println(ias.searchCustomerByCriteria("wazza", "wazza").size());
 
 		/*
 		 * acct.setAcctID(2017055); acct.setUsername("testBaby");
@@ -120,7 +125,7 @@ public class Services implements IServices {
 	}
 
 	// ---------------Customer
-	public ArrayList<Customer> searchAllCustomerReturnList() {
+	public ArrayList<CustomerReturnModel> searchAllCustomerReturnList() {
 		// TODO Auto-generated method stub
 
 		return customerDao.searchAllCustomerReturnList();

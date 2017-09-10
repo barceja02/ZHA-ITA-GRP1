@@ -28,14 +28,16 @@ Ext.application({
         'BookingInfoModel',
         'AccountModel',
         'LoginResponse',
-        'LoginModel'
+        'LoginModel',
+        'ShipperConsigneeModel'
     ],
     stores: [
         'CustomerStore',
         'AccountStore',
         'LocationStore',
         'LoginResponseStore',
-        'BookingInfoStore'
+        'BookingInfoStore',
+        'ShipperConsigneeStore'
     ],
     views: [
         'com.grp1.bkg.vpHome',

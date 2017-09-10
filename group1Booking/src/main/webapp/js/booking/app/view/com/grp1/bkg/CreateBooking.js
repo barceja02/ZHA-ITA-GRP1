@@ -194,20 +194,27 @@ Ext.define('layout.view.com.grp1.bkg.CreateBooking', {
                                     name: 'toCityComboBox'
                                 },
                                 {
-                                    xtype: 'textfield',
+                                    xtype: 'combobox',
                                     id: 'txtShipper',
                                     itemId: 'txtShipper',
-                                    width: 438,
+                                    width: 440,
                                     fieldLabel: 'Shipper',
-                                    name: 'txtShipper'
+                                    autoSelect: false,
+                                    name: 'txtShipper',
+                                    displayField: 'companyName',
+                                    store: 'ShipperConsigneeStore',
+                                    valueField: 'id'
                                 },
                                 {
-                                    xtype: 'textfield',
+                                    xtype: 'combobox',
                                     id: 'txtConsignee',
                                     itemId: 'txtConsignee',
                                     width: 440,
                                     fieldLabel: 'Consignee',
-                                    name: 'txtConsignee'
+                                    name: 'txtConsignee',
+                                    displayField: 'companyName',
+                                    store: 'ShipperConsigneeStore',
+                                    valueField: 'id'
                                 },
                                 {
                                     xtype: 'checkboxgroup',

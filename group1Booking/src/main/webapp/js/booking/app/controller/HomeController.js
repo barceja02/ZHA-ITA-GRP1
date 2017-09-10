@@ -37,15 +37,14 @@ Ext.define('layout.controller.HomeController', {
             	var cntr = Ext.getCmp('tabHomeTxtFCntrNo').getValue();
             	var city = Ext.getCmp('tabHomeTxtFFrmCity').getValue();
             	var tcity = Ext.getCmp('tabHomeTxtFToCity').getValue();
+            	var searchModel = Ext.create(modelId + 'searchBookingByAny', {
+            		bookingNo : bkg,
+           			containerNo : cntr,
+           			frmCity : city,
+           			toCity : tcity
+           		});
 
-            		var searchModel = Ext.create(modelId + 'searchBookingByAny', {
-            			bookingNo : bkg,
-            			containerNo : cntr,
-            			frmCity : city,
-            			toCity : tcity
-            		});
-
-            	Ext.Ajax.request({
+        Ext.Ajax.request({
         			url : 'homeSearch',
         			method : 'POST',
         			jsonData : Ext.encode(searchModel.data),

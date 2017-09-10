@@ -77,42 +77,114 @@ Ext.define('layout.controller.BookingController', {
         	isGoodCust = Ext.getCmp('chkGoodCust').getValue(),
         	isDocApproved = Ext.getCmp('chkDocsApproved').getValue();
 
+        //create or edit
         if(cntrNum !== null && cntrType !== null && cgoDesc !== null && fromCity !== null && toCity !== null && shipper !== null && consignee !== null){
         	if(isWtValid && isGoodCust && isDocApproved){
-        		//save here
+        		var bkg = Ext.create('layout.model.BookingInfoModel', {
+        			BOOKING_NUM : 123,
+        			SHIPPER_ID : 1001,
+        			CONSIGNEE_ID : 1003,
+        			CONTAINER_NUM : cntrNum,
+        			CONTAINER_TYPE : cntrType,
+        			CARGO_NATURE : cgoNature,
+        			CARGO_DESCRIPTION : cgoDesc,
+        			GROSS_WEIGHT : grossWeight,
+        			NET_WEIGHT : netWeight,
+        			FROM_CITY : fromCity,
+        			TO_CITY : toCity,
+        			GROSS_UNIT : grossUnit,
+        			NET_UNIT : netUnit,
+        			IS_WEIGHT_VALID : isWtValid,
+        			IS_GOOD_CUSTOMER : isGoodCust,
+        			IS_DOCUMENTS_APPROVED : isDocApproved
+        		});
+        		if(openBkgType === "create"){
+        			Ext.Ajax.request({
+        				url : 'createBkg',
+        				method : 'POST',
+        				jsonData : Ext.encode(bkg.data),
+        				success : function(response){
+        					alert(response.responseText);
+        					this.createbkg.close();
+        				},
+        				failure : function(response) {
+        					alert("Create Booking Failed");
+        					console.log(response);
+        					console.log("Update function ajax request failed");
+        				}
+        			});
+        		}else if(openBkgType === "edit"){
+        			Ext.Ajax.request({
+        				url : 'editBkg',
+        				method : 'POST',
+        				jsonData : Ext.encode(bkg.data),
+        				success : function(response){
+        					alert(response.responseText);
+        					this.createbkg.close();
+        				},
+        				failure : function(response) {
+        					alert("Create Booking Failed");
+        					console.log(response);
+        					console.log("Update function ajax request failed");
+        				}
+        			});
+        		}
         	}
         	else{
                 Ext.Msg.alert("Can't Create Booking", "Validation Should be all true");
         	}
         }
-
         else{
            // Show error
          Ext.Msg.alert("Can't Create Booking", "Please complete all fields");
         }
-
-
     },
 
     onCreateBookingBeforeShow: function(component, eOpts) {
+    	var txtCntrNum = Ext.getCmp('txtCntrNum');
+    	var cntrTypeComboBox = Ext.getCmp('cntrTypeComboBox');
+    	var cgoNatureRadioGrp = Ext.getCmp('cgoNatureRadioGrp');
+    	var txtCgoDesc = Ext.getCmp('txtCgoDesc');
+    	var txtGrossWeight = Ext.getCmp('txtGrossWeight');
+    	var gUnitComboBox = Ext.getCmp('gUnitComboBox');
+    	var txtNetWeight = Ext.getCmp('txtNetWeight');
+    	var nUnitComboBox = Ext.getCmp('nUnitComboBox');
+    	var fromCityComboBox = Ext.getCmp('fromCityComboBox');
+    	var toCityComboBox = Ext.getCmp('toCityComboBox');
+    	var txtShipper = Ext.getCmp('txtShipper');
+    	var txtConsignee = Ext.getCmp('txtConsignee');
+    	var btnCreateBkg = Ext.getCmp('btnCreateBkg');
+    	var chkWtValid = Ext.getCmp('chkWtValid');
+    	var chkGoodCust = Ext.getCmp('chkGoodCust');
+    	var chkDocsApproved = Ext.getCmp('chkDocsApproved');
+    	
+    	var store = Ext.getStore('ShipperConsigneeStore');
+    	var companies = [];
+    	Ext.Ajax.request({
+    	    url : 'getParty',
+    	    method : 'GET',
+    	    success : function(response){
+    	    	var res = Ext.decode(response.responseText);
+    	    	Ext.each(res, function(obj){
+    	    		var company = Ext.create('layout.model.ShipperConsigneeModel', {
+    					id : obj.id,
+    					companyName :  obj.companyName
+    				});
+//    	    		console.log(company);
+    	    		companies.push(company.data);
+    	    		
+    	    		
+    	    		
+    	    	});
+    	    	store.add(companies);
+    	    	console.log(store);
+    	    	console.log(store.getCount());
+    	    },
+    	    failure : function(response){}
+    	});
+    	
+    	
         if(openBkgType === 'view'){
-        	var txtCntrNum = Ext.getCmp('txtCntrNum');
-        	var cntrTypeComboBox = Ext.getCmp('cntrTypeComboBox');
-        	var cgoNatureRadioGrp = Ext.getCmp('cgoNatureRadioGrp');
-        	var txtCgoDesc = Ext.getCmp('txtCgoDesc');
-        	var txtGrossWeight = Ext.getCmp('txtGrossWeight');
-        	var gUnitComboBox = Ext.getCmp('gUnitComboBox');
-        	var txtNetWeight = Ext.getCmp('txtNetWeight');
-        	var nUnitComboBox = Ext.getCmp('nUnitComboBox');
-        	var fromCityComboBox = Ext.getCmp('fromCityComboBox');
-        	var toCityComboBox = Ext.getCmp('toCityComboBox');
-        	var txtShipper = Ext.getCmp('txtShipper');
-        	var txtConsignee = Ext.getCmp('txtConsignee');
-        	var btnCreateBkg = Ext.getCmp('btnCreateBkg');
-        	var chkWtValid = Ext.getCmp('chkWtValid');
-        	var chkGoodCust = Ext.getCmp('chkGoodCust');
-        	var chkDocsApproved = Ext.getCmp('chkDocsApproved');
-        	
         	txtCntrNum.disable();
         	cntrTypeComboBox.disable();
         	cgoNatureRadioGrp.disable();
@@ -129,26 +201,8 @@ Ext.define('layout.controller.BookingController', {
         	chkWtValid.disable();
         	chkGoodCust.disable();
         	chkDocsApproved.disable();
-
         }
         else if(openBkgType === 'edit'){
-        	var txtCntrNum = Ext.getCmp('txtCntrNum');
-        	var cntrTypeComboBox = Ext.getCmp('cntrTypeComboBox');
-        	var cgoNatureRadioGrp = Ext.getCmp('cgoNatureRadioGrp');
-        	var txtCgoDesc = Ext.getCmp('txtCgoDesc');
-        	var txtGrossWeight = Ext.getCmp('txtGrossWeight');
-        	var gUnitComboBox = Ext.getCmp('gUnitComboBox');
-        	var txtNetWeight = Ext.getCmp('txtNetWeight');
-        	var nUnitComboBox = Ext.getCmp('nUnitComboBox');
-        	var fromCityComboBox = Ext.getCmp('fromCityComboBox');
-        	var toCityComboBox = Ext.getCmp('toCityComboBox');
-        	var txtShipper = Ext.getCmp('txtShipper');
-        	var txtConsignee = Ext.getCmp('txtConsignee');
-        	var btnCreateBkg = Ext.getCmp('btnCreateBkg');
-        	var chkWtValid = Ext.getCmp('chkWtValid');
-        	var chkGoodCust = Ext.getCmp('chkGoodCust');
-        	var chkDocsApproved = Ext.getCmp('chkDocsApproved');
-        	
         	txtCntrNum.setValue("OOLU123456");
         	cgoNatureRadioGrp.setValue("");
         	txtCgoDesc.setValue("Toys");
