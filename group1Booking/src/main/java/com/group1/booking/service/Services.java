@@ -74,6 +74,8 @@ public class Services implements IServices {
 		 * System.out.println("UserId: " + login.getUserid());
 		 * System.out.println("Role: " + login.getRole());
 		 */
+		//Mon Local Test
+			System.err.println(ias.searchCustomerByCriteria("wazza", "wazza").size());
 
 		/*
 		 * acct.setAcctID(2017055); acct.setUsername("testBaby");
@@ -139,14 +141,9 @@ public class Services implements IServices {
 		return customerDao.CreateCustomer(customer, account);
 	}
 
-	public ArrayList<Customer> searchCustomerCriteria(String id, String CompanyName) {
+	public ArrayList<Customer> searchCustomerByCriteria(String CompanyName,String Address) {
 		// TODO Auto-generated method stub
-		return customerDao.searchCustomerCriteria(id, CompanyName);
-	}
-
-	public ArrayList<Customer> searchCustomerCriteria(String CompanyName) {
-		// TODO Auto-generated method stub
-		return customerDao.searchCustomerCriteria(CompanyName);
+		return customerDao.searchCustomerByCriteria(CompanyName,Address);
 	}
 
 	// ---------------BookingInfo

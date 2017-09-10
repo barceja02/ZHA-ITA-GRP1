@@ -32,8 +32,7 @@ public interface IServices {
 	public String CreateCustomer(Customer customer,Account account);
 	public String UpdateCustomer(Customer customer);
 	public String DeleteCustomer(String id);
-	public ArrayList<Customer> searchCustomerCriteria(String CompanyName);
-	public ArrayList<Customer> searchCustomerCriteria(String id, String CompanyName);
+	public ArrayList<Customer> searchCustomerByCriteria(String CompanyName,String Address);
 	
 	//-----------------BookinfInfoDAO-------------
 	public ArrayList<BookingInfo> searchBookingInfoByCriteria(String bkgNumber, String cntrNumber, String frCity,

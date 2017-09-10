@@ -155,37 +155,17 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	// ALLARRA: Search Customer by criteria CompanyName
 	@SuppressWarnings("unchecked")
-	public ArrayList<Customer> searchCustomerCriteria(String CompanyName) {
+	public ArrayList<Customer> searchCustomerByCriteria(String CompanyName, String Address) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
 		List<Customer> tempHold = null;
 		try {
 			tx = session.beginTransaction();
-			Query query = session.createQuery("FROM Customer " + "WHERE companyName = :companyName");
-			query.setParameter("companyName", CompanyName);
-			tempHold = (List<Customer>) query.list();
-			session.flush();
-			tx.commit();
-		} catch (HibernateException x) {
-			if (tx != null)
-				tx.rollback();
-		} finally {
-			session.close();
-		}
-		return (ArrayList<Customer>) tempHold;
-	}
-
-	public ArrayList<Customer> searchCustomerCriteria(String id, String CompanyName) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		List<Customer> tempHold = null;
-		try {
-			tx = session.beginTransaction();
-			Query query = session
-					.createQuery("FROM Customer " + "WHERE customerId = :id or companyName = :companyName");
-			query.setParameter("id", id);
-			query.setParameter("companyName", CompanyName);
+			Query query = session.createQuery("FROM Customer "+ 
+				"WHERE companyName LIKE :companyName OR address LIKE :address");
+												
+				query.setParameter("companyName", "%"+CompanyName+"%");						
+				query.setParameter("address","%"+ Address+ "%");
 			tempHold = (List<Customer>) query.list();
 			session.flush();
 			tx.commit();
