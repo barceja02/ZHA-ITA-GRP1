@@ -1,5 +1,6 @@
 package com.group1.booking.impl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class LocationDAOImpl implements LocationDAO {
 		
 		try {
 			tx = session.beginTransaction();
-			sqlQuery = "FROM Location WHERE LOC_CITY_NAME LIKE = '" + cityCode + "%'";
+			sqlQuery = "FROM Location WHERE locCityCode LIKE '%" + cityCode + "%'";
 			List Location = session.createQuery(sqlQuery).list();
 			
 			for (Iterator iterator = Location.iterator(); iterator.hasNext();) {
@@ -58,6 +59,29 @@ public class LocationDAOImpl implements LocationDAO {
 		String result = null;
 		Session session = sessionFactory.openSession();
 		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	public ArrayList<Location> getAllLocation() {
+		ArrayList<Location> ListLocations = null;
+		Transaction tx = null;
+		Session session = sessionFactory.openSession();
+
+		try {
+			tx = session.beginTransaction();
+			sqlQuery = "FROM Location";
+			ListLocations = (ArrayList<Location>) session.createQuery(sqlQuery).list();
+			tx.commit();
+		} catch (HibernateException e) {
+			if(tx != null) {
+				tx.rollback();
+				e.printStackTrace();
+			}
+		}finally {
+			session.close();
+		}
+		
+		return ListLocations;
 	}
 	
 	

@@ -33,5 +33,6 @@
       <property name="isWeightValid" column="IS_WEIGHT_VALID" type="int"/> 
       <property name="isCustomerGood" column="IS_GOOD_CUSTOMER" type="int"/> 
       <property name="isDocumentApproved" column="IS_DOCUMENTS_APPROVED" type="int"/> 
+      <property name="isConfirmed" column="IS_CONFIRMED" type="int"/> 
    </class>
 </hibernate-mapping>

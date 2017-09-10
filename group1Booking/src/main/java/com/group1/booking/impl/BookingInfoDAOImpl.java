@@ -35,20 +35,36 @@ public class BookingInfoDAOImpl implements BookingInfoDAO {
 
 			String sql = "FROM BookingInfo WHERE ";
 
-			if (!"".equals(bkgNumber)) {
-				sql += " BOOKING_NUM = " + bkgNumber + " AND";
-			}
-			if (!"".equals(cntrNumber)) {
-				sql += " CONTAINER_NUM = '" + cntrNumber + "' AND";
-			}
-			if (!"".equals(toCity)) {
-				sql += " TO_CITY = '" + toCity + "' AND";
-			}
-			if (!"".equals(frCity)) {
-				sql += " FROM_CITY = '" + frCity + "' AND";
-			}
-			sql += " IS_ACTIVE=1";
+			if (bkgNumber.length() > 10) {
+				sql += " BOOKING_NUM in ( ";
 
+				String bookingNumbers[] = bkgNumber.split(",");
+
+				for (int i = 0; i < bookingNumbers.length; i++) {
+					if (bookingNumbers[i].length() != 10) {
+						return null;
+					} else {
+						sql+= "'" + bookingNumbers[i] + "',";
+					}
+				}
+				sql+= sql.substring(0, sql.length()-1);
+
+			} else {
+
+				if (!"".equals(bkgNumber)) {
+					sql += " BOOKING_NUM = " + bkgNumber + " AND";
+				}
+				if (!"".equals(cntrNumber)) {
+					sql += " CONTAINER_NUM = '" + cntrNumber + "' AND";
+				}
+				if (!"".equals(toCity) && toCity != null) {
+					sql += " TO_CITY = '" + toCity + "' AND";
+				}
+				if (!"".equals(frCity) && toCity != null) {
+					sql += " FROM_CITY = '" + frCity + "' AND";
+				}
+				sql += " IS_ACTIVE=1";
+			}
 			List BookingInfo = session.createQuery(sql).list();
 
 			for (Object object : BookingInfo) {
@@ -69,12 +85,12 @@ public class BookingInfoDAOImpl implements BookingInfoDAO {
 	public boolean isBookingValid(BookingInfo booking) {
 		Session session = null;
 		try {
-			 session = sessionFactory.openSession();
-			session.getTransaction();
+			session = sessionFactory.openSession();
+			session.beginTransaction();
 
-			String sql = "FROM BookingInfo WHERE CONTAINER_NUM = '" + booking.getContainerNumber() + "'";
+			String sql = "FROM BookingInfo WHERE CONTAINER_NUM = '" + booking.getContainerNumber() + "' AND IS_ACTIVE = 1";
 
-			List BookingInfo = session.createSQLQuery(sql).list();
+			List BookingInfo = session.createQuery(sql).list();
 			if (BookingInfo.isEmpty()) {
 				return true;
 
@@ -94,11 +110,19 @@ public class BookingInfoDAOImpl implements BookingInfoDAO {
 		if (!isBookingValid(booking)) {
 			return "Container is already Used";
 		}
-		
+
 		Session session = sessionFactory.openSession();
 
 		String bkgNumber = "";
+		booking.setIsActive(1);
 		
+		if (booking.getIsCustomerGood() == 1 && booking.getisDocumentApproved() == 1 && booking.getIsWeightValid() == 1) {
+			booking.setIsConfirmed(1);			
+		} else {
+			booking.setIsConfirmed(0);
+		}
+		
+
 		try {
 			session.beginTransaction();
 
@@ -106,6 +130,7 @@ public class BookingInfoDAOImpl implements BookingInfoDAO {
 
 			session.getTransaction().commit();
 		} catch (Exception e) {
+			session.getTransaction().rollback();
 			e.printStackTrace();
 			return "Failed";
 		} finally {
@@ -130,10 +155,16 @@ public class BookingInfoDAOImpl implements BookingInfoDAO {
 			BookingInfo oldBooking = (BookingInfo) BookingInfo.iterator().next();
 
 			oldBooking.setBooking(booking);
+			if (oldBooking.getIsCustomerGood() == 1 && oldBooking.getisDocumentApproved() == 1 && oldBooking.getIsWeightValid() == 1) {
+				oldBooking.setIsConfirmed(1);			
+			} else {
+				oldBooking.setIsConfirmed(0);
+			}
 
 			session.getTransaction().commit();
 			session.close();
 		} catch (HibernateException e) {
+			session.getTransaction().rollback();
 			e.printStackTrace();
 			return "Fail";
 		} finally {

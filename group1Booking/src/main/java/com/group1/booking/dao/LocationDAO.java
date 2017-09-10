@@ -7,4 +7,5 @@ public interface LocationDAO {
 	public Location getLocationByCityCode(String cityCode);
 	public String createLocation(Location location);
 	public String updateLocation(Location location);
+	public ArrayList<Location> getAllLocation();
 }

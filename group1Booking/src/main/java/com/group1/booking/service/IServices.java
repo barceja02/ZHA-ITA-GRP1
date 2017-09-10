@@ -7,6 +7,7 @@ import com.group1.booking.models.Account;
 import com.group1.booking.models.BookingInfo;
 import com.group1.booking.models.Customer;
 import com.group1.booking.returnModels.CustomerReturnModel;
+import com.group1.booking.models.Location;
 import com.group1.booking.returnModels.Login;;
 
 public interface IServices {
@@ -41,4 +42,10 @@ public interface IServices {
 	public String insertBooking(BookingInfo booking);
 	public String updateBooking(BookingInfo booking);
 	public String deactivateBooking(ArrayList<String> bookingNumbers);
+	
+	//---------------LocationDAO
+	public Location getLocationByCityCode(String cityCode);
+	public String createLocation(Location location);
+	public String updateLocation(Location location);
+	public ArrayList<Location> getAllLocation();
 }
