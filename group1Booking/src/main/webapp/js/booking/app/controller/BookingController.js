@@ -57,8 +57,6 @@ Ext.define('layout.controller.BookingController', {
         	Ext.getCmp('nUnitComboBox').setValue(selectedRow.data.netUnit);
         	Ext.getCmp('fromCityComboBox').setValue(selectedRow.data.fromCity);
         	Ext.getCmp('toCityComboBox').setValue(selectedRow.data.toCity);
-        	Ext.getCmp('txtShipper').setValue(selectedRow.data.shipperId);
-        	Ext.getCmp('txtConsignee').setValue(selectedRow.data.consigneeId);
         	Ext.getCmp('chkWtValid').setValue(selectedRow.data.isWeightValid);
         	Ext.getCmp('chkGoodCust').setValue(selectedRow.data.isCustomerGood);
         	Ext.getCmp('chkDocsApproved').setValue(selectedRow.data.isDocumentApproved);
@@ -70,6 +68,9 @@ Ext.define('layout.controller.BookingController', {
         	if(cgoNature === "GC"){ Ext.getCmp('GCRadioButton').setValue(true); }
         	
        		createbkg.show();
+       
+       		Ext.getCmp('txtShipper').setValue(selectedRow.data.shipperId);
+        	Ext.getCmp('txtConsignee').setValue(selectedRow.data.consigneeId);
        		createbkg.setTitle("Edit");  
        		
        		//populate
@@ -299,8 +300,6 @@ Ext.define('layout.controller.BookingController', {
         	Ext.getCmp('nUnitComboBox').setValue(selectedRow.data.netUnit);
         	Ext.getCmp('fromCityComboBox').setValue(selectedRow.data.fromCity);
         	Ext.getCmp('toCityComboBox').setValue(selectedRow.data.toCity);
-        	Ext.getCmp('txtShipper').setValue(selectedRow.data.shipperId);
-        	Ext.getCmp('txtConsignee').setValue(selectedRow.data.consigneeId);
         	Ext.getCmp('chkWtValid').setValue(selectedRow.data.isWeightValid);
         	Ext.getCmp('chkGoodCust').setValue(selectedRow.data.isCustomerGood);
         	Ext.getCmp('chkDocsApproved').setValue(selectedRow.data.isDocumentApproved);
@@ -312,6 +311,9 @@ Ext.define('layout.controller.BookingController', {
         	if(cgoNature === "GC"){ Ext.getCmp('GCRadioButton').setValue(true); }
         	
        		createbkg.show();
+       
+       		Ext.getCmp('txtShipper').setValue(selectedRow.data.shipperId);
+        	Ext.getCmp('txtConsignee').setValue(selectedRow.data.consigneeId);
        		createbkg.setTitle("View");  
        		
        		//populate

@@ -223,7 +223,6 @@ Ext.define('layout.view.com.grp1.bkg.CreateBooking', {
                                     itemId: 'txtShipper',
                                     width: 440,
                                     fieldLabel: 'Shipper',
-                                    autoSelect: false,
                                     name: 'txtShipper',
                                     displayField: 'companyName',
                                     store: 'ShipperConsigneeStore',
