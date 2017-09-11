@@ -32,6 +32,10 @@ Ext.define('layout.controller.HomeController', {
         {
             ref: 'homeBtnViewBkg',
             selector: '#homeBtnViewBkg'
+        },
+        {
+            ref: 'btnLogout',
+            selector: '#btnLogout'
         }
     ],
 
@@ -82,7 +86,10 @@ Ext.define('layout.controller.HomeController', {
     	var city = Ext.getCmp('tabHomeTxtFFrmCity').setValue('');
     	var tcity = Ext.getCmp('tabHomeTxtFToCity').setValue('');
     },
-
+    onBtnLogoutClick: function(panel, eOpts) {
+		//Ext.getCmp('com.grp1.bkg.vpHome').destroy();
+		window.location.reload();
+    },
     init: function(application) {
         this.control({
             "#tabHomebtnSearch": {
@@ -90,6 +97,9 @@ Ext.define('layout.controller.HomeController', {
             },
             "#tabHomebtnReset": {
                 click: this.onTabHomebtnResetClick
+            },
+            "#btnLogout": {
+                click: this.onBtnLogoutClick
             }
         });
     }
