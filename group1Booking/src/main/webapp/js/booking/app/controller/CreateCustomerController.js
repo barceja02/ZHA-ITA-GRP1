@@ -78,6 +78,16 @@ Ext.define('layout.controller.CreateCustomerController', {
          }
   		customerWindow.setTitle("Browse Customer");
   		customerWindow.show();
+  		//readonly
+  		 Ext.getCmp('customertxtfFirstName').setReadOnly(true);
+  		Ext.getCmp('customertxtfLastName').setReadOnly(true);
+  		Ext.getCmp('customerwindowtxtfAddress').setReadOnly(true);
+  		Ext.getCmp('customerwindowtxtfCompanyName').setReadOnly(true);
+  		Ext.getCmp('customertxtfContactNumber').setReadOnly(true);
+  		Ext.getCmp('customertxtfEmail').setReadOnly(true);
+  		Ext.getCmp('customertxtfRole').setReadOnly(true);
+  		Ext.getCmp('customerchkboxActive').setReadOnly(true);
+  		//hide 
         Ext.getCmp('customertxtfCustomerId').setVisible(false);
   		Ext.getCmp('customertxtfUsername').setVisible(false);
   		Ext.getCmp('customertxtfPassword').setVisible(false);
