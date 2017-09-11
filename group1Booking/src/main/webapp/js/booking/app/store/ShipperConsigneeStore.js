@@ -30,12 +30,11 @@ Ext.define('layout.store.ShipperConsigneeStore', {
             storeId: 'ShipperConsigneeStore',
             proxy: {
                 type: 'ajax',
-                url: '../../getParty',
+                url: '../group1Booking/getParty',
                 reader: {
                     type: 'json',
                     idProperty: 'id',
-                    root: 'data.rows',
-                    totalProperty: 'data.totalCount'
+                    root: 'data'
                 }
             }
         }, cfg)]);

@@ -242,32 +242,6 @@ Ext.define('layout.controller.BookingController', {
     	var chkGoodCust = Ext.getCmp('chkGoodCust');
     	var chkDocsApproved = Ext.getCmp('chkDocsApproved');
     	
-    	var store = Ext.getStore('ShipperConsigneeStore');
-    	var companies = [];
-    	Ext.Ajax.request({
-    	    url : 'getParty',
-    	    method : 'GET',
-    	    success : function(response){
-    	    	var res = Ext.decode(response.responseText);
-    	    	Ext.each(res, function(obj){
-    	    		var company = Ext.create('layout.model.ShipperConsigneeModel', {
-    					id : obj.id,
-    					companyName :  obj.companyName
-    				});
-//    	    		console.log(company);
-    	    		companies.push(company.data);
-    	    		
-    	    		
-    	    		
-    	    	});
-    	    	store.add(companies);
-    	    	console.log(store);
-    	    	console.log(store.getCount());
-    	    },
-    	    failure : function(response){}
-    	});
-    	
-    	
         if(openBkgType === 'view'){
         	txtCntrNum.disable();
         	cntrTypeComboBox.disable();

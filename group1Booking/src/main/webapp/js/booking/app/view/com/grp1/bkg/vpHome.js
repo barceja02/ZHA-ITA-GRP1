@@ -576,6 +576,7 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                                 {
                                                                     xtype: 'radiogroup',
                                                                     flex: 1,
+                                                                    id: 'tabAdminRdoAction',
                                                                     width: 400,
                                                                     fieldLabel: 'Action',
                                                                     items: [
@@ -591,7 +592,8 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                                             id: 'tabAdminRbUpdate',
                                                                             itemId: 'tabAdminRbUpdate',
                                                                             name: 'ActionRb',
-                                                                            boxLabel: 'Update'
+                                                                            boxLabel: 'Update',
+                                                                            checked: true
                                                                         }
                                                                     ]
                                                                 }
@@ -639,28 +641,42 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                                     xtype: 'gridpanel',
                                                                     height: 200,
                                                                     id: 'tabAdminGridAcctList',
+                                                                    itemId: 'tabAdminGridAcctList',
+                                                                    store: 'AccountListsStore',
+                                                                    viewConfig: {
+                                                                        id: 'acctGrid',
+                                                                        itemId: 'acctGrid'
+                                                                    },
                                                                     title: 'Account List',
+                                                                    selModel: Ext.create('Ext.selection.RowModel',{
+                                                                    	
+                                                                    }),
                                                                     columns: [
                                                                         {
                                                                             xtype: 'gridcolumn',
-                                                                            dataIndex: 'string',
-                                                                            text: 'String'
+                                                                            dataIndex: 'acctID',
+                                                                            text: 'Account ID'
                                                                         },
                                                                         {
-                                                                            xtype: 'numbercolumn',
-                                                                            dataIndex: 'number',
-                                                                            text: 'Number'
+                                                                            xtype: 'gridcolumn',
+                                                                            dataIndex: 'username',
+                                                                            text: 'Username'
                                                                         },
                                                                         {
-                                                                            xtype: 'datecolumn',
-                                                                            dataIndex: 'date',
-                                                                            text: 'Date'
+                                                                            xtype: 'gridcolumn',
+                                                                            dataIndex: 'password',
+                                                                            text: 'Password'
                                                                         },
                                                                         {
-                                                                            xtype: 'booleancolumn',
-                                                                            dataIndex: 'bool',
-                                                                            text: 'Boolean'
-                                                                        }
+                                                                            xtype: 'gridcolumn',
+                                                                            dataIndex: 'role',
+                                                                            text: 'Role'
+                                                                        },
+                                                                        {
+                                                                            xtype: 'gridcolumn',
+                                                                            dataIndex: 'custID',
+                                                                            text: 'Customer ID'
+                                                                        },
                                                                     ]
                                                                 }
                                                             ]
@@ -703,9 +719,8 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                                             itemId: 'tabAdminCbRole',
                                                                             fieldLabel: 'Role',
                                                                             store: [
-                                                                                'Customer',
                                                                                 'CSV',
-                                                                                'Admin'
+                                                                                'ADMIN'
                                                                             ]
                                                                         },
                                                                         {
@@ -771,6 +786,7 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
         var store = Ext.getStore('LoginResponseStore');
         Ext.getCmp('txtfUsername').setValue(store.data.items[0].data.username);
         Ext.getCmp('txtfAcctId').setValue(store.data.items[0].data.accountId);
+        
         var role = store.data.items[0].data.role;
         if(role == "CUSTOMER"){
             Ext.getCmp('pnlMain').getComponent('pnlTabHome').tab.hide();

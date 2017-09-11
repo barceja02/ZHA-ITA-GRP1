@@ -33,7 +33,6 @@ Ext.define('layout.controller.AdminController', {
                 	alert('Not Found');
                 	resultGrid.getStore().removeAll();
                 	resultGrid.getStore().sync();
-                	resultGrid.getStore().refresh();
                 }
                 	
             },
@@ -48,14 +47,19 @@ Ext.define('layout.controller.AdminController', {
     	Ext.getCmp('tabAdminTxtfSearch').setValue('');
     	resultGrid.getStore().removeAll();
     	resultGrid.getStore().sync();
-    	resultGrid.getStore().refresh();
+
+		Ext.getCmp('tabAdminTxtfUsername').setValue('');
+		Ext.getCmp('tabAdminTxtfPassword').setValue('');
+		Ext.getCmp('tabAdminCbRole').setValue('');
     },
     
     onTabAdminRbCreateChange: function(field, newValue, oldValue, eOpts) {
     	var create = Ext.getCmp('tabAdminRbCreate').getValue();
-
+    	
         if(create)
         {
+        	Ext.getCmp('tabAdminRbUpdate').setValue(false);
+        	Ext.getCmp('tabAdminRbCreate').setValue(true);
             Ext.getCmp('tabAdminGridAcctList').disable();
             Ext.getCmp('tabAdminTxtfSearch').disable();
             Ext.getCmp('tabAdminBtnRefresh').disable();
@@ -65,14 +69,118 @@ Ext.define('layout.controller.AdminController', {
         	Ext.getCmp('tabAdminTxtfSearch').setValue('');
         	resultGrid.getStore().removeAll();
         	resultGrid.getStore().sync();
-        	resultGrid.getStore().refresh();
+        	Ext.getCmp('tabAdminTxtfUsername').setValue('');
+    		Ext.getCmp('tabAdminTxtfPassword').setValue('');
+    		Ext.getCmp('tabAdminCbRole').setValue('');
         }
         else{
+        	Ext.getCmp('tabAdminRbUpdate').setValue(true);
+        	Ext.getCmp('tabAdminRbCreate').setValue(false);
         	Ext.getCmp('tabAdminGridAcctList').enable();
             Ext.getCmp('tabAdminTxtfSearch').enable();
             Ext.getCmp('tabAdminBtnRefresh').enable();
             Ext.getCmp('tabAdminBtnSearch').enable();
+            Ext.getCmp('tabAdminTxtfUsername').setValue('');
+    		Ext.getCmp('tabAdminTxtfPassword').setValue('');
+    		Ext.getCmp('tabAdminCbRole').setValue('');
         }
+    },
+    
+    onTabAdminGridAcctListSelect: function(rowmodel, record, index, eOpts) {
+    	var acctGrid = Ext.getCmp('tabAdminGridAcctList');
+    	if (acctGrid.getSelectionModel().hasSelection()) {
+    		   var row = acctGrid.getSelectionModel().getSelection()[0];
+    		   var username = row.data.username;
+    		   var password = row.data.password;
+    		   var role = row.data.role;
+    		   Ext.getCmp('tabAdminTxtfUsername').setValue(username);
+    		   Ext.getCmp('tabAdminTxtfPassword').setValue(password);
+    		   Ext.getCmp('tabAdminCbRole').setValue(role);
+    		}
+    },
+    
+    onTabAdminBtnResetClick: function(button, e, eOpts) {
+		   Ext.getCmp('tabAdminTxtfUsername').setValue('');
+		   Ext.getCmp('tabAdminTxtfPassword').setValue('');
+		   Ext.getCmp('tabAdminCbRole').setValue('');
+    },
+    
+    onTabAdminBtnSaveClick: function(button, e, eOpts) {
+    	var create = Ext.getCmp('tabAdminRbCreate').getValue();
+    	var Username = Ext.getCmp('tabAdminTxtfUsername').getValue();
+    	var Password = Ext.getCmp('tabAdminTxtfPassword').getValue();
+    	var Role = Ext.getCmp('tabAdminCbRole').getValue();
+    	var acctGrid = Ext.getCmp('tabAdminGridAcctList');
+    	if (acctGrid.getSelectionModel().hasSelection()) {
+ 		   var row = acctGrid.getSelectionModel().getSelection()[0];
+    	}
+    	
+    	var acct;
+    	
+    	if (create) { //create acct
+    		acct= Ext.create('layout.model.AccountModel', {
+	    		username : Username,
+	            password : Password,
+	            acctID : 123,
+	            custID : 123 ,
+	            role : Role
+			});
+    		Ext.Ajax.request({
+    			url : 'createAccount',
+    	        method : 'POST',
+    	        jsonData : Ext.encode(acct.data),
+    	        success : function(response){
+    	        	console.log(response.responseText);
+    	        	if(response.responseText === 'true'){
+    	        		alert('Account Successfully Created');
+    	        		Ext.getCmp('tabAdminTxtfUsername').setValue('');
+    	        		Ext.getCmp('tabAdminTxtfPassword').setValue('');
+    	        		Ext.getCmp('tabAdminCbRole').setValue('');
+    	        	}
+    	        	else {
+    	        		alert('Account Failed to Create');
+    	        	}
+    	        },
+    	        failure : function(response){
+    	        	alert('Account Failed to Create');
+    	        }
+    		 });
+    	}
+    	else { //edit acct
+    		acct = Ext.create('layout.model.AccountModel', {
+        		username : Username,
+                password : Password,
+                acctID : row.data.acctID,
+                custID : 123,
+                role : Role
+    		});
+    		Ext.Ajax.request({
+	            url : 'updateAccount',
+	            method : 'POST',
+	            jsonData : Ext.encode(acct.data),
+	            success : function(response){
+	            	console.log(response.responseText);
+	            	if(response.responseText === 'true'){
+	            		alert('Account Successfully Updated');
+	         		   	Ext.getCmp('tabAdminTxtfUsername').setValue('');
+	         		   	Ext.getCmp('tabAdminTxtfPassword').setValue('');
+	         		   	Ext.getCmp('tabAdminCbRole').setValue('');
+	            	}
+	            	else {
+	            		alert('Account Failed to Update');
+	            	}
+	            },
+	            failure : function(response){
+	            	alert('Account Failed to Update');
+	            }
+		 });
+    	}
+    	
+    	
+    },
+
+    onTabAdminBtnDeleteClick: function(button, e, eOpts) {
+
     },
     
     init: function(application) {
@@ -85,6 +193,18 @@ Ext.define('layout.controller.AdminController', {
             },
             "#tabAdminRbCreate": {
                 change: this.onTabAdminRbCreateChange
+            },
+            "#tabAdminGridAcctList": {
+                select: this.onTabAdminGridAcctListSelect
+            },
+            "#tabAdminBtnReset": {
+                click: this.onTabAdminBtnResetClick
+            },
+            "#tabAdminBtnSave": {
+                click: this.onTabAdminBtnSaveClick
+            },
+            "#tabAdminBtnDelete": {
+                click: this.onTabAdminBtnDeleteClick
             }
         });
     }

@@ -39,7 +39,8 @@ Ext.application({
         'LocationStore',
         'LoginResponseStore',
         'BookingInfoStore',
-        'ShipperConsigneeStore'
+        'ShipperConsigneeStore',
+        'AccountListsStore'
     ],
     views: [
         'com.grp1.bkg.vpHome',
@@ -51,7 +52,8 @@ Ext.application({
         'LoginControllers',
         'HomeController',
         'BookingController',
-        'CreateCustomerController'
+        'CreateCustomerController',
+        'AdminController'
     ],
     name: 'layout',
 

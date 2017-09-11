@@ -81,6 +81,28 @@ public class BookingController {
 		// return jsonMapper.writeValueAsString(accounts);
 		return "hello";
 	}
+	
+	@RequestMapping(value = "/searchAccounts", method = RequestMethod.POST)
+	public @ResponseBody String searchAccounts(@RequestBody String params)
+			throws JsonParseException, JsonMappingException, IOException {
+		ArrayList<Account> acct = new ArrayList<Account>();
+		acct.add(serv.SearchAccountById(params.replace("\"", "")));
+		return jsonMapper.writeValueAsString(acct);
+	}
+	
+	@RequestMapping(value = "/createAccount", method = RequestMethod.POST)
+	public @ResponseBody String createAccount(@RequestBody String params)
+			throws JsonParseException, JsonMappingException, IOException {
+		Account account = jsonMapper.readValue(params, Account.class);
+		return serv.CreateAccount(account);
+	}
+	
+	@RequestMapping(value = "/updateAccount", method = RequestMethod.POST)
+	public @ResponseBody String updateAccount(@RequestBody String params)
+			throws JsonParseException, JsonMappingException, IOException {
+		Account account = jsonMapper.readValue(params, Account.class);
+		return serv.UpdateAccountBy(account);
+	}
 
 	@RequestMapping(value = "/homeSearch", method = RequestMethod.POST)
 	public @ResponseBody String bookingSearch(@RequestBody String params) throws JsonProcessingException, IOException {
