@@ -269,7 +269,7 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
-                                                                    dataIndex: 'cargoDescription',
+                                                                    dataIndex: 'cargoDescrpiption',
                                                                     text: 'CARGO_DESCRIPTION'
                                                                 },
                                                                 {
