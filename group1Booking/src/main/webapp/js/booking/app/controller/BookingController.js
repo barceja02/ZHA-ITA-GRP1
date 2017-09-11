@@ -322,7 +322,15 @@ Ext.define('layout.controller.BookingController', {
             alert('Select only 1 record to View');
         }
     },
-
+    
+    onNUnitComboBoxSelect: function(combo, records, eOpts) {
+    	Ext.getCmp('gUnitComboBox').setValue(Ext.getCmp('nUnitComboBox').getValue());
+    },
+    
+    onGUnitComboBoxSelect: function(combo, records, eOpts) {
+    	Ext.getCmp('nUnitComboBox').setValue(Ext.getCmp('gUnitComboBox').getValue());
+    },
+    
     init: function(application) {
         this.control({
             "#homeBtnViewBooking": {
@@ -343,6 +351,12 @@ Ext.define('layout.controller.BookingController', {
             "#CreateBooking": {
                 beforeshow: this.onCreateBookingBeforeShow,
                 close: this.onCreateBookingClose
+            },
+            "#nUnitComboBox": {
+                select: this.onNUnitComboBoxSelect
+            },
+            "#gUnitComboBox": {
+                select: this.onGUnitComboBoxSelect
             }
         });
     }

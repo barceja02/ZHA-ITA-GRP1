@@ -116,66 +116,69 @@ Ext.define('layout.controller.AdminController', {
     	}
     	
     	var acct;
-    	
-    	if (create) { //create acct
-    		acct= Ext.create('layout.model.AccountModel', {
-	    		username : Username,
-	            password : Password,
-	            acctID : 123,
-	            custID : 123 ,
-	            role : Role
-			});
-    		Ext.Ajax.request({
-    			url : 'createAccount',
-    	        method : 'POST',
-    	        jsonData : Ext.encode(acct.data),
-    	        success : function(response){
-    	        	console.log(response.responseText);
-    	        	if(response.responseText === 'true'){
-    	        		alert('Account Successfully Created');
-    	        		Ext.getCmp('tabAdminTxtfUsername').setValue('');
-    	        		Ext.getCmp('tabAdminTxtfPassword').setValue('');
-    	        		Ext.getCmp('tabAdminCbRole').setValue('');
-    	        	}
-    	        	else {
+    	if(Username !== null && Password !== null && Role !== null ){
+    		if (create) { //create acct
+    			acct= Ext.create('layout.model.AccountModel', {
+	    			username : Username,
+	            	password : Password,
+	            	acctID : 123,
+	            	custID : 123 ,
+	            	role : Role
+				});
+    			Ext.Ajax.request({
+    				url : 'createAccount',
+    	        	method : 'POST',
+    	        	jsonData : Ext.encode(acct.data),
+    	        	success : function(response){
+    	        		console.log(response.responseText);
+    	        		if(response.responseText === 'true'){
+    	        			alert('Account Successfully Created');
+    	        			Ext.getCmp('tabAdminTxtfUsername').setValue('');
+    	        			Ext.getCmp('tabAdminTxtfPassword').setValue('');
+    	        			Ext.getCmp('tabAdminCbRole').setValue('');
+    	        		}
+    	        		else {
+    	        			alert('Account Failed to Create');
+    	        		}
+    	        	},
+    	        	failure : function(response){
     	        		alert('Account Failed to Create');
     	        	}
-    	        },
-    	        failure : function(response){
-    	        	alert('Account Failed to Create');
-    	        }
-    		 });
-    	}
-    	else { //edit acct
-    		acct = Ext.create('layout.model.AccountModel', {
-        		username : Username,
-                password : Password,
-                acctID : row.data.acctID,
-                custID : 123,
-                role : Role
-    		});
-    		Ext.Ajax.request({
-	            url : 'updateAccount',
-	            method : 'POST',
-	            jsonData : Ext.encode(acct.data),
-	            success : function(response){
-	            	console.log(response.responseText);
-	            	if(response.responseText === 'true'){
-	            		alert('Account Successfully Updated');
-	         		   	Ext.getCmp('tabAdminTxtfUsername').setValue('');
-	         		   	Ext.getCmp('tabAdminTxtfPassword').setValue('');
-	         		   	Ext.getCmp('tabAdminCbRole').setValue('');
-	            	}
-	            	else {
+    			});
+    		}
+    		else { //edit acct
+    			acct = Ext.create('layout.model.AccountModel', {
+        			username : Username,
+                	password : Password,
+                	acctID : row.data.acctID,
+                	custID : 123,
+                	role : Role
+    			});
+    			Ext.Ajax.request({
+	            	url : 'updateAccount',
+	            	method : 'POST',
+	            	jsonData : Ext.encode(acct.data),
+	            	success : function(response){
+	            		console.log(response.responseText);
+	            		if(response.responseText === 'true'){
+	            			alert('Account Successfully Updated');
+	         		   		Ext.getCmp('tabAdminTxtfUsername').setValue('');
+	         		   		Ext.getCmp('tabAdminTxtfPassword').setValue('');
+	         		   		Ext.getCmp('tabAdminCbRole').setValue('');
+	            		}
+	            		else {
+	            			alert('Account Failed to Update');
+	            		}
+	            	},
+	            	failure : function(response){
 	            		alert('Account Failed to Update');
 	            	}
-	            },
-	            failure : function(response){
-	            	alert('Account Failed to Update');
-	            }
-		 });
+    			});
+    		}
     	}
-    	
+    	else{
+    		alert('Fill all Fields!');
+    	}
     	
     },
 
