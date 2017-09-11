@@ -816,15 +816,18 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
         var store = Ext.getStore('LoginResponseStore');
         Ext.getCmp('txtfUsername').setValue(store.data.items[0].data.username);
         Ext.getCmp('txtfAcctId').setValue(store.data.items[0].data.accountId);
-        
+       
         var role = store.data.items[0].data.role;
         if(role == "CUSTOMER"){
-            Ext.getCmp('pnlMain').getComponent('pnlTabHome').tab.hide();
+        	//pnlTabHome
+            Ext.getCmp('pnlMain').getComponent('tabCustomer').tab.hide();
             Ext.getCmp('pnlMain').getComponent('pnlTabAdmin').tab.hide();
-            Ext.getCmp('pnlMain').setActiveTab('tabCustomer');
+            Ext.getCmp('homeBtnCreateBkg').hide();
+            Ext.getCmp('homeBtnEditBkg').hide();
+            Ext.getCmp('pnlMain').setActiveTab('pnlTabHome');
         }else if(role == "CSV"){
              Ext.getCmp('pnlMain').getComponent('pnlTabAdmin').tab.hide();
-            Ext.getCmp('pnlMain').setActiveTab('pnlTabHome');
+             Ext.getCmp('pnlMain').setActiveTab('pnlTabHome');
         }else if(role == "ADMIN"){
             Ext.getCmp('pnlMain').setActiveTab('pnlTabHome');
         }else{
