@@ -191,7 +191,15 @@ Ext.define('layout.view.com.grp1.bkg.CreateBooking', {
                                     itemId: 'fromCityComboBox',
                                     width: 437,
                                     fieldLabel: 'From City',
-                                    name: 'fromCityComboBox'
+                                    name: 'fromCityComboBox',
+                                    store: [
+                                        'HKG',
+                                        'LGB',
+                                        'MNL',
+                                        'SIN',
+                                        'PUS',
+                                        'RTM'
+                                    ]
                                 },
                                 {
                                     xtype: 'combobox',
@@ -199,7 +207,15 @@ Ext.define('layout.view.com.grp1.bkg.CreateBooking', {
                                     itemId: 'toCityComboBox',
                                     width: 436,
                                     fieldLabel: 'To City',
-                                    name: 'toCityComboBox'
+                                    name: 'toCityComboBox',
+                                    store: [
+                                    	'HKG',
+                                        'LGB',
+                                        'MNL',
+                                        'SIN',
+                                        'PUS',
+                                        'RTM'
+                                    ]
                                 },
                                 {
                                     xtype: 'combobox',

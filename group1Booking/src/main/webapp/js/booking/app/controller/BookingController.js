@@ -132,90 +132,100 @@ Ext.define('layout.controller.BookingController', {
         
         //create or edit
         if(cntrNum !== null && cntrType !== null && cgoDesc !== null && FromCity !== null && ToCity !== null && shipper !== null && consignee !== null){
-        	if(isWtValid && isGoodCust && isDocApproved){
-        		var bkg = Ext.create('layout.model.BookingInfoModel', {
-        			bookingNum : 201700027,
-        			shipperId : Ext.getCmp('txtShipper').getValue(),
-        			consigneeId : Ext.getCmp('txtConsignee').getValue(),
-        			containerNumber : cntrNum,
-        			containerType : cntrType,
-        			cargoNature : cgoNature,
-        			cargoDescrpiption : cgoDesc,
-        			grossWeight : GrossWeight,
-        			netWeight : NetWeight,
-        			fromCity : FromCity,
-        			toCity : ToCity,
-        			createdBy : Ext.getCmp('txtfUsername').getValue(),
-        			createDate : "12/12/2017",
-        			updatedBy : Ext.getCmp('txtfUsername').getValue(),
-        			updateDate : "12/12/2017",
-        			isActive : 0,
-        			grossUnit : GrossUnit,
-        			netUnit : NetUnit,
-        			isWeightValid : isWtValid,
-        			isCustomerGood : isGoodCust,
-        			isDocumentApproved : isDocApproved,
-        			isConfirmed : 1
-        		});
-        	}else{
-        		var bkg = Ext.create('layout.model.BookingInfoModel', {
-        			bookingNum : 201700027,
-        			shipperId : Ext.getCmp('txtShipper').getValue(),
-        			consigneeId : Ext.getCmp('txtConsignee').getValue(),
-        			containerNumber : cntrNum,
-        			containerType : cntrType,
-        			cargoNature : cgoNature,
-        			cargoDescrpiption : cgoDesc,
-        			grossWeight : GrossWeight,
-        			netWeight : NetWeight,
-        			fromCity : FromCity,
-        			toCity : ToCity,
-        			createdBy : Ext.getCmp('txtfUsername').getValue(),
-        			createDate : "20170101",
-        			updatedBy : Ext.getCmp('txtfUsername').getValue(),
-        			updateDate : "20170101",
-        			isActive : 0,
-        			grossUnit : GrossUnit,
-        			netUnit : NetUnit,
-        			isWeightValid : isWtValid,
-        			isCustomerGood : isGoodCust,
-        			isDocumentApproved : isDocApproved,
-        			isConfirmed : 0
-        		});
-        	}
-        	if(openBkgType === "create"){
-        			Ext.Ajax.request({
-        				url : 'createBkg',
-        				method : 'POST',
-        				jsonData : Ext.encode(bkg.data),
-        				success : function(response){
-        					alert(response.responseText);
-        					this.createbkg.close();
-        				},
-        				failure : function(response) {
-        					alert("Create Booking Failed");
-        					console.log(response);
-        					console.log("Update function ajax request failed");
-        				}
-        			});
-            }else if(openBkgType === "edit"){
-        			Ext.Ajax.request({
-        				url : 'editBkg',
-        				method : 'POST',
-        				jsonData : Ext.encode(bkg.data),
-        				success : function(response){
-        					alert(response.responseText);
-        					this.createbkg.close();
-        				},
-        				failure : function(response) {
-        					alert("Update Booking Failed");
-        					console.log(response);
-        					console.log("Update function ajax request failed");
-        				}
-        			});
+        	if(FromCity !== ToCity){
+        		if(GrossWeight > NetWeight){
+        			if(isWtValid && isGoodCust && isDocApproved){
+                		var bkg = Ext.create('layout.model.BookingInfoModel', {
+                			bookingNum : 201700027,
+                			shipperId : Ext.getCmp('txtShipper').getValue(),
+                			consigneeId : Ext.getCmp('txtConsignee').getValue(),
+                			containerNumber : cntrNum,
+                			containerType : cntrType,
+                			cargoNature : cgoNature,
+                			cargoDescrpiption : cgoDesc,
+                			grossWeight : GrossWeight,
+                			netWeight : NetWeight,
+                			fromCity : FromCity,
+                			toCity : ToCity,
+                			createdBy : Ext.getCmp('txtfUsername').getValue(),
+                			createDate : "12/12/2017",
+                			updatedBy : Ext.getCmp('txtfUsername').getValue(),
+                			updateDate : "12/12/2017",
+                			isActive : 0,
+                			grossUnit : GrossUnit,
+                			netUnit : NetUnit,
+                			isWeightValid : isWtValid,
+                			isCustomerGood : isGoodCust,
+                			isDocumentApproved : isDocApproved,
+                			isConfirmed : 1
+                		});
+                	}else{
+                		var bkg = Ext.create('layout.model.BookingInfoModel', {
+                			bookingNum : 201700027,
+                			shipperId : Ext.getCmp('txtShipper').getValue(),
+                			consigneeId : Ext.getCmp('txtConsignee').getValue(),
+                			containerNumber : cntrNum,
+                			containerType : cntrType,
+                			cargoNature : cgoNature,
+                			cargoDescrpiption : cgoDesc,
+                			grossWeight : GrossWeight,
+                			netWeight : NetWeight,
+                			fromCity : FromCity,
+                			toCity : ToCity,
+                			createdBy : Ext.getCmp('txtfUsername').getValue(),
+                			createDate : "20170101",
+                			updatedBy : Ext.getCmp('txtfUsername').getValue(),
+                			updateDate : "20170101",
+                			isActive : 0,
+                			grossUnit : GrossUnit,
+                			netUnit : NetUnit,
+                			isWeightValid : isWtValid,
+                			isCustomerGood : isGoodCust,
+                			isDocumentApproved : isDocApproved,
+                			isConfirmed : 0
+                		});
+                	}
+                	if(openBkgType === "create"){
+                			Ext.Ajax.request({
+                				url : 'createBkg',
+                				method : 'POST',
+                				jsonData : Ext.encode(bkg.data),
+                				success : function(response){
+                					alert(response.responseText);
+                					this.createbkg.close();
+                				},
+                				failure : function(response) {
+                					alert("Create Booking Failed");
+                					console.log(response);
+                					console.log("Update function ajax request failed");
+                				}
+                			});
+                    }else if(openBkgType === "edit"){
+                			Ext.Ajax.request({
+                				url : 'editBkg',
+                				method : 'POST',
+                				jsonData : Ext.encode(bkg.data),
+                				success : function(response){
+                					alert(response.responseText);
+                					this.createbkg.close();
+                				},
+                				failure : function(response) {
+                					alert("Update Booking Failed");
+                					console.log(response);
+                					console.log("Update function ajax request failed");
+                				}
+                			});
+                		}
+                	else{
+                        Ext.Msg.alert("Can't Create Booking", "Validation Should be all true");
+                	}
         		}
+        		else{
+        			Ext.Msg.alert("Can't Create Booking", "Gross Weight Must be greater than Net Weight");
+        		}
+        	}
         	else{
-                Ext.Msg.alert("Can't Create Booking", "Validation Should be all true");
+        		Ext.Msg.alert("Can't Create Booking", "To City must not be the same as From City");
         	}
         }
         else{
