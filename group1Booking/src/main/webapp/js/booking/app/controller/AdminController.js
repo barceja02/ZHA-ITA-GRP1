@@ -180,7 +180,44 @@ Ext.define('layout.controller.AdminController', {
     },
 
     onTabAdminBtnDeleteClick: function(button, e, eOpts) {
-
+    	var create = Ext.getCmp('tabAdminRbCreate').getValue();
+    	var Username = Ext.getCmp('tabAdminTxtfUsername').getValue();
+    	var Password = Ext.getCmp('tabAdminTxtfPassword').getValue();
+    	var Role = Ext.getCmp('tabAdminCbRole').getValue();
+    	var acctGrid = Ext.getCmp('tabAdminGridAcctList');
+    	if (acctGrid.getSelectionModel().hasSelection()) {
+ 		   var row = acctGrid.getSelectionModel().getSelection()[0];
+    	}
+    	
+    	var acct = Ext.create('layout.model.AccountModel', {
+    		username : Username,
+            password : Password,
+            acctID : row.data.acctID,
+            custID : row.data.custID,
+            role : Role
+		});
+		Ext.Ajax.request({
+            url : 'deleteAccount',
+            method : 'POST',
+            jsonData : Ext.encode(acct.data),
+            success : function(response){
+            	console.log(response.responseText);
+            	if(response.responseText === 'true'){
+            		alert('Account Successfully Deleted');
+         		   	Ext.getCmp('tabAdminTxtfUsername').setValue('');
+         		   	Ext.getCmp('tabAdminTxtfPassword').setValue('');
+         		   	Ext.getCmp('tabAdminCbRole').setValue('');
+         		    acctGrid.getStore().removeAll();
+         		    acctGrid.getStore().sync();
+            	}
+            	else {
+            		alert('Account Failed to Delete');
+            	}
+            },
+            failure : function(response){
+            	alert('Account Failed to Delete');
+            }
+	 });
     },
     
     init: function(application) {

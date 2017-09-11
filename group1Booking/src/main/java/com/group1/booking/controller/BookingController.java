@@ -103,6 +103,14 @@ public class BookingController {
 		Account account = jsonMapper.readValue(params, Account.class);
 		return serv.UpdateAccountBy(account);
 	}
+	
+	@RequestMapping(value = "/deleteAccount", method = RequestMethod.POST)
+	public @ResponseBody String deleteAccount(@RequestBody String params)
+			throws JsonParseException, JsonMappingException, IOException {
+		Account account = jsonMapper.readValue(params, Account.class);
+		String accountId = String.valueOf(account.getAcctID());
+		return serv.DeleteAccountBy(accountId);
+	}
 
 	@RequestMapping(value = "/homeSearch", method = RequestMethod.POST)
 	public @ResponseBody String bookingSearch(@RequestBody String params) throws JsonProcessingException, IOException {
