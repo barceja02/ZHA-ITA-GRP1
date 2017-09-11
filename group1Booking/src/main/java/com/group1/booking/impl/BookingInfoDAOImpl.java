@@ -57,10 +57,10 @@ public class BookingInfoDAOImpl implements BookingInfoDAO {
 				if (!"".equals(cntrNumber)) {
 					sql += " CONTAINER_NUM = '" + cntrNumber + "' AND";
 				}
-				if (!"".equals(toCity) && toCity != null) {
+				if (!"".equals(toCity) && toCity != null && !toCity.equals("null")) {
 					sql += " TO_CITY = '" + toCity + "' AND";
 				}
-				if (!"".equals(frCity) && toCity != null) {
+				if (!"".equals(frCity) && toCity != null && !frCity.equals("null")) {
 					sql += " FROM_CITY = '" + frCity + "' AND";
 				}
 				sql += " IS_ACTIVE=1";

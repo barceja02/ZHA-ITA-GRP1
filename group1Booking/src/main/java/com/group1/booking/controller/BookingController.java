@@ -86,11 +86,11 @@ public class BookingController {
 	public @ResponseBody String bookingSearch(@RequestBody String params) throws JsonProcessingException, IOException {
 		JsonNode rootNode = new ObjectMapper().readTree(new StringReader(params)); // convert to readable note
 		// rootNode.get("parameter") returns the value of the parameter
-		String username = rootNode.get("bookingNo").toString().replace("\"", "");
-		String password = rootNode.get("containerNo").toString().replace("\"", "");
-		System.err.println(serv.searchBookingInfoByCriteria("201700000", "", "", "").size());
-		System.out.println(jsonMapper.writeValueAsString(serv.searchBookingInfoByCriteria("201700000", "", "", "")));
-		return jsonMapper.writeValueAsString(serv.searchBookingInfoByCriteria("", "", "", "LGB"));
+		String bookingNo = rootNode.get("bookingNo").toString().replace("\"", "");
+		String containerNo = rootNode.get("containerNo").toString().replace("\"", "");
+		String frmCity = rootNode.get("frmCity").toString().replace("\"", "");
+		String toCity = rootNode.get("toCity").toString().replace("\"", "");
+		return jsonMapper.writeValueAsString(serv.searchBookingInfoByCriteria(bookingNo, containerNo, frmCity,toCity ));
 	}
 
 	@RequestMapping(value = "/createCustomer", method = RequestMethod.POST)
