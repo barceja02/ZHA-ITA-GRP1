@@ -332,6 +332,11 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                                     xtype: 'gridcolumn',
                                                                     dataIndex: 'updateDate',
                                                                     text: 'UPDATE_DATE'
+                                                                },
+                                                                {
+                                                                	xtype: 'gridcolumn',
+                                                                	dataIndex: 'isConfirmed',
+                                                                	text: 'Confirmed'
                                                                 }
 //                                                                {
 //                                                                    xtype: 'gridcolumn',

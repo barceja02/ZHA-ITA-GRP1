@@ -325,10 +325,48 @@ Ext.define('layout.controller.BookingController', {
     
     onNUnitComboBoxSelect: function(combo, records, eOpts) {
     	Ext.getCmp('gUnitComboBox').setValue(Ext.getCmp('nUnitComboBox').getValue());
+    	var valueGross = Ext.getCmp('txtGrossWeight').getValue();
+    	var valueNet = Ext.getCmp('txtNetWeight').getValue();
+    	
+    	if(Ext.getCmp('nUnitComboBox').getValue() === 'LBS'){
+    		if(valueGross !== null){
+    			Ext.getCmp('txtGrossWeight').setValue(valueGross*2.20);
+    		}
+    		if(valueNet !== null){
+    			Ext.getCmp('txtNetWeight').setValue(valueNet*2.20);
+    		}
+    	}
+    	else if(Ext.getCmp('nUnitComboBox').getValue() === 'KG'){
+    		if(valueGross !== null){
+    			Ext.getCmp('txtGrossWeight').setValue(valueGross/2.20);
+    		}
+    		if(valueNet !== null){
+    			Ext.getCmp('txtNetWeight').setValue(valueNet/2.20);
+    		}
+    	}
     },
     
     onGUnitComboBoxSelect: function(combo, records, eOpts) {
     	Ext.getCmp('nUnitComboBox').setValue(Ext.getCmp('gUnitComboBox').getValue());
+    	var valueGross = Ext.getCmp('txtGrossWeight').getValue();
+    	var valueNet = Ext.getCmp('txtNetWeight').getValue();
+    	
+    	if(Ext.getCmp('gUnitComboBox').getValue() === 'LBS'){
+    		if(valueGross !== null){
+    			Ext.getCmp('txtGrossWeight').setValue(valueGross*2.20);
+    		}
+    		if(valueNet !== null){
+    			Ext.getCmp('txtNetWeight').setValue(valueNet*2.20);
+    		}
+    	}
+    	else if(Ext.getCmp('gUnitComboBox').getValue() === 'KG'){
+    		if(valueGross !== null){
+    			Ext.getCmp('txtGrossWeight').setValue(valueGross/2.20);
+    		}
+    		if(valueNet !== null){
+    			Ext.getCmp('txtNetWeight').setValue(valueNet/2.20);
+    		}
+    	}
     },
     
     init: function(application) {
