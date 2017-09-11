@@ -74,15 +74,23 @@ Ext.define('layout.controller.HomeController', {
         			}
         		});
     },
+    
+
+    onTabHomebtnResetClick: function(panel, eOpts) {
+		var bkg =Ext.getCmp('tabHometxtfBkgNo').setValue('');
+    	var cntr = Ext.getCmp('tabHomeTxtFCntrNo').setValue('');
+    	var city = Ext.getCmp('tabHomeTxtFFrmCity').setValue('');
+    	var tcity = Ext.getCmp('tabHomeTxtFToCity').setValue('');
+    },
 
     init: function(application) {
         this.control({
             "#tabHomebtnSearch": {
                 click: this.onTabHomebtnSearchClick
             },
-            "#homeBtnViewBkg": {
-                click: this.onHomeBtnViewBkgClick
-            }
+            "#tabHomebtnReset": {
+                click: this.onTabHomebtnResetClick
+            },
         });
     }
 

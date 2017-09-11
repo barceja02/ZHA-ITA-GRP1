@@ -32,32 +32,7 @@ Ext.define('layout.controller.BookingController', {
     ],
 
     onHomeBtnViewBkgClick: function(button, e, eOpts) {
-        var grid = Ext.getCmp('mygridpanel');
-        if(grid.getSelectionModel().getSelection().length===1){
-        var selected = grid.getSelectionModel().getSelection();
-        var selectedBooking =[];
-        Ext.iterate(selected,function(key){
-        selectedBooking.push({BOOKING_NUM:key.data.BOOKING_NUM}) ;
-        openBkgType = "view";
-        createbkg = Ext.create('layout.view.com.grp1.bkg.CreateBooking');
-		Ext.getCmp('txtBkgNum').setValue(selectedBooking[0].BOOKING_NUM);
-        createbkg.show();
-        createbkg.setTitle("View");
-
-       
-
-        });
-        }else{
-            alert('Select only 1 record to view');
-        }
-
-
-
-
-
-
-
-
+        alert('Hello');
     },
 
     onHomeBtnCreateBkgClick: function(button, e, eOpts) {
@@ -67,10 +42,41 @@ Ext.define('layout.controller.BookingController', {
     },
 
     onHomeBtnEditBkgClick: function(button, e, eOpts) {
-        openBkgType = "edit";
-        createbkg = Ext.create('layout.view.com.grp1.bkg.CreateBooking');
-        createbkg.show();
-        createbkg.setTitle("Edit");
+    	var grid = Ext.getCmp('mygridpanel');
+        if(grid.getSelectionModel().getSelection().length===1){
+        	var selectedRow = grid.getSelectionModel().getSelection()[0];
+        	openBkgType = "edit";
+        	createbkg = Ext.create('layout.view.com.grp1.bkg.CreateBooking');//need to create first
+      		Ext.getCmp('txtBkgNum').setValue(selectedRow.data.bookingNum);
+        	Ext.getCmp('txtCntrNum').setValue(selectedRow.data.containerNumber);
+        	Ext.getCmp('cntrTypeComboBox').setValue(selectedRow.data.containerType);
+        	Ext.getCmp('txtCgoDesc').setValue(selectedRow.data.cargoDescrpiption);
+        	Ext.getCmp('txtGrossWeight').setValue(selectedRow.data.grossWeight);
+        	Ext.getCmp('gUnitComboBox').setValue(selectedRow.data.grossUnit);
+        	Ext.getCmp('txtNetWeight').setValue(selectedRow.data.netWeight);
+        	Ext.getCmp('nUnitComboBox').setValue(selectedRow.data.netUnit);
+        	Ext.getCmp('fromCityComboBox').setValue(selectedRow.data.fromCity);
+        	Ext.getCmp('toCityComboBox').setValue(selectedRow.data.toCity);
+        	Ext.getCmp('txtShipper').setValue(selectedRow.data.shipperId);
+        	Ext.getCmp('txtConsignee').setValue(selectedRow.data.consigneeId);
+        	Ext.getCmp('chkWtValid').setValue(selectedRow.data.isWeightValid);
+        	Ext.getCmp('chkGoodCust').setValue(selectedRow.data.isCustomerGood);
+        	Ext.getCmp('chkDocsApproved').setValue(selectedRow.data.isDocumentApproved);
+        	
+        	var cgoNature = selectedRow.data.cargoNature;
+        	if(cgoNature === "AW"){ Ext.getCmp('AWRadioButton').setValue(true); }
+        	if(cgoNature === "RF"){ Ext.getCmp('RFRadioButton').setValue(true); }
+        	if(cgoNature === "DG"){ Ext.getCmp('DGRadioButton').setValue(true); }
+        	if(cgoNature === "GC"){ Ext.getCmp('GCRadioButton').setValue(true); }
+        	
+       		createbkg.show();
+       		createbkg.setTitle("Edit");  
+       		
+       		//populate
+       		
+        }else{
+            alert('Select only 1 record to edit');
+        }
     },
 
     onTxtCntrNumBlur: function(component, e, eOpts) {
@@ -129,6 +135,7 @@ Ext.define('layout.controller.BookingController', {
         { isGoodCust = 1; } else { isGoodCust = 0; }
         if(Ext.getCmp('chkDocsApproved').getValue() === true)
         { isDocApproved = 1; } else { isDocApproved = 0; }
+        var confirmed = isWtValid && isGoodCust && isDocApproved;
         
         //create or edit
         if(cntrNum !== null && cntrType !== null && cgoDesc !== null && FromCity !== null && ToCity !== null && shipper !== null && consignee !== null){
@@ -136,7 +143,7 @@ Ext.define('layout.controller.BookingController', {
         		if(GrossWeight > NetWeight){
         			if(isWtValid && isGoodCust && isDocApproved){
                 		var bkg = Ext.create('layout.model.BookingInfoModel', {
-                			bookingNum : 201700027,
+                			bookingNum : Ext.getCmp('txtBkgNum').getValue(),
                 			shipperId : Ext.getCmp('txtShipper').getValue(),
                 			consigneeId : Ext.getCmp('txtConsignee').getValue(),
                 			containerNumber : cntrNum,
@@ -151,17 +158,17 @@ Ext.define('layout.controller.BookingController', {
                 			createDate : "12/12/2017",
                 			updatedBy : Ext.getCmp('txtfUsername').getValue(),
                 			updateDate : "12/12/2017",
-                			isActive : 0,
+                			isActive : 1,
                 			grossUnit : GrossUnit,
                 			netUnit : NetUnit,
                 			isWeightValid : isWtValid,
                 			isCustomerGood : isGoodCust,
                 			isDocumentApproved : isDocApproved,
-                			isConfirmed : 1
+                			isConfirmed : confirmed
                 		});
                 	}else{
                 		var bkg = Ext.create('layout.model.BookingInfoModel', {
-                			bookingNum : 201700027,
+                			bookingNum : Ext.getCmp('txtBkgNum').getValue(),
                 			shipperId : Ext.getCmp('txtShipper').getValue(),
                 			consigneeId : Ext.getCmp('txtConsignee').getValue(),
                 			containerNumber : cntrNum,
@@ -176,13 +183,13 @@ Ext.define('layout.controller.BookingController', {
                 			createDate : "20170101",
                 			updatedBy : Ext.getCmp('txtfUsername').getValue(),
                 			updateDate : "20170101",
-                			isActive : 0,
+                			isActive : 1,
                 			grossUnit : GrossUnit,
                 			netUnit : NetUnit,
                 			isWeightValid : isWtValid,
                 			isCustomerGood : isGoodCust,
                 			isDocumentApproved : isDocApproved,
-                			isConfirmed : 0
+                			isConfirmed : confirmed
                 		});
                 	}
                 	if(openBkgType === "create"){
@@ -270,26 +277,54 @@ Ext.define('layout.controller.BookingController', {
         	chkGoodCust.disable();
         	chkDocsApproved.disable();
         }
-        else if(openBkgType === 'edit'){
-        	txtCntrNum.setValue("OOLU123456");
-        	cgoNatureRadioGrp.setValue("");
-        	txtCgoDesc.setValue("Toys");
-        	txtGrossWeight.setValue("20");
-        	txtNetWeight.setValue("20");
-        	txtShipper.setValue("OOCL");
-        	txtConsignee.setValue("COSCO");
-        	btnCreateBkg.setText('Update');
-        }
     },
 
     onCreateBookingClose: function(panel, eOpts) {
         createbkg.destroy();
     },
+    
+    onHomeBtnViewBookingClick: function(panel, eOpts) {
+    	var grid = Ext.getCmp('mygridpanel');
+        if(grid.getSelectionModel().getSelection().length===1){
+        	var selectedRow = grid.getSelectionModel().getSelection()[0];
+        	openBkgType = "view";
+        	createbkg = Ext.create('layout.view.com.grp1.bkg.CreateBooking');//need to create first
+      		Ext.getCmp('txtBkgNum').setValue(selectedRow.data.bookingNum);
+        	Ext.getCmp('txtCntrNum').setValue(selectedRow.data.containerNumber);
+        	Ext.getCmp('cntrTypeComboBox').setValue(selectedRow.data.containerType);
+        	Ext.getCmp('txtCgoDesc').setValue(selectedRow.data.cargoDescrpiption);
+        	Ext.getCmp('txtGrossWeight').setValue(selectedRow.data.grossWeight);
+        	Ext.getCmp('gUnitComboBox').setValue(selectedRow.data.grossUnit);
+        	Ext.getCmp('txtNetWeight').setValue(selectedRow.data.netWeight);
+        	Ext.getCmp('nUnitComboBox').setValue(selectedRow.data.netUnit);
+        	Ext.getCmp('fromCityComboBox').setValue(selectedRow.data.fromCity);
+        	Ext.getCmp('toCityComboBox').setValue(selectedRow.data.toCity);
+        	Ext.getCmp('txtShipper').setValue(selectedRow.data.shipperId);
+        	Ext.getCmp('txtConsignee').setValue(selectedRow.data.consigneeId);
+        	Ext.getCmp('chkWtValid').setValue(selectedRow.data.isWeightValid);
+        	Ext.getCmp('chkGoodCust').setValue(selectedRow.data.isCustomerGood);
+        	Ext.getCmp('chkDocsApproved').setValue(selectedRow.data.isDocumentApproved);
+        	
+        	var cgoNature = selectedRow.data.cargoNature;
+        	if(cgoNature === "AW"){ Ext.getCmp('AWRadioButton').setValue(true); }
+        	if(cgoNature === "RF"){ Ext.getCmp('RFRadioButton').setValue(true); }
+        	if(cgoNature === "DG"){ Ext.getCmp('DGRadioButton').setValue(true); }
+        	if(cgoNature === "GC"){ Ext.getCmp('GCRadioButton').setValue(true); }
+        	
+       		createbkg.show();
+       		createbkg.setTitle("View");  
+       		
+       		//populate
+       		
+        }else{
+            alert('Select only 1 record to View');
+        }
+    },
 
     init: function(application) {
         this.control({
-            "#homeBtnViewBkg": {
-                click: this.onHomeBtnViewBkgClick
+            "#homeBtnViewBooking": {
+                click: this.onHomeBtnViewBookingClick
             },
             "#homeBtnCreateBkg": {
                 click: this.onHomeBtnCreateBkgClick

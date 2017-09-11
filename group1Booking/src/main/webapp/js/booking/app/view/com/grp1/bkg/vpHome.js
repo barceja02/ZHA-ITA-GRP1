@@ -167,13 +167,29 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                                             xtype: 'combobox',
                                                                             flex: 1,
                                                                             id: 'tabHomeTxtFFrmCity',
-                                                                            fieldLabel: 'From City'
+                                                                            fieldLabel: 'From City',
+                                                                            store: [
+                                                                                'HKG',
+                                                                                'LGB',
+                                                                                'MNL',
+                                                                                'SIN',
+                                                                                'PUS',
+                                                                                'RTM'
+                                                                            ]
                                                                         },
                                                                         {
                                                                             xtype: 'combobox',
                                                                             flex: 1,
                                                                             id: 'tabHomeTxtFToCity',
-                                                                            fieldLabel: 'To City'
+                                                                            fieldLabel: 'To City',
+                                                                            store: [
+                                                                                'HKG',
+                                                                                'LGB',
+                                                                                'MNL',
+                                                                                'SIN',
+                                                                                'PUS',
+                                                                                'RTM'
+                                                                            ]
                                                                         }
                                                                     ]
                                                                 }
@@ -193,8 +209,8 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                             items: [
                                                                 {
                                                                     xtype: 'button',
-                                                                    id: 'homeBtnViewBkg',
-                                                                    itemId: 'homeBtnViewBkg',
+                                                                    id: 'homeBtnViewBooking',
+                                                                    itemId: 'homeBtnViewBooking',
                                                                     text: 'View Booking'
                                                                 },
                                                                 {
@@ -362,6 +378,8 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                         {
                                                             xtype: 'button',
                                                             iconAlign: 'right',
+                                                            id: 'tabHomebtnReset',
+                                                            itemId: 'tabHomebtnReset',
                                                             text: 'Reset'
                                                         }
                                                     ]

@@ -271,7 +271,7 @@ Ext.define('layout.view.com.grp1.bkg.CreateBooking', {
                                     xtype: 'button',
                                     id: 'btnCreateBkg',
                                     itemId: 'btnCreateBkg',
-                                    text: 'Create'
+                                    text: 'Save'
                                 }
                             ]
                         }
