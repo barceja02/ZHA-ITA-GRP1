@@ -27,12 +27,12 @@ Ext.define('layout.view.com.grp1.bkg.CreateCustomer', {
     ],
 
     border: 5,
-    draggable: false,
+    draggable: true,
     id: 'CreateCustomer',
     itemId: 'CreateCustomer',
     layout: 'fit',
     bodyBorder: true,
-    title: 'Create Booking',
+    title: 'Create Customer',
 
     initComponent: function() {
         var me = this;
@@ -41,8 +41,8 @@ Ext.define('layout.view.com.grp1.bkg.CreateCustomer', {
             items: [
                 {
                     xtype: 'container',
-                    id: 'createBkgContainer1',
-                    itemId: 'createBkgContainer',
+                    id: 'createCustContainer1',
+                    itemId: 'createCustContainer',
                     layout: {
                         type: 'vbox',
                         align: 'center',
@@ -51,8 +51,8 @@ Ext.define('layout.view.com.grp1.bkg.CreateCustomer', {
                     items: [
                         {
                             xtype: 'form',
-                            id: 'createBkgForm1',
-                            itemId: 'createBkgForm',
+                            id: 'createCustForm1',
+                            itemId: 'createCustForm',
                             layout: 'vbox',
                             bodyBorder: true,
                             bodyPadding: 10,
@@ -86,8 +86,8 @@ Ext.define('layout.view.com.grp1.bkg.CreateCustomer', {
                                 {
                                     xtype: 'textfield',
                                     flex: 1,
-                                    id: 'customertxtfAddress',
-                                    itemId: 'customertxtfAddress',
+                                    id: 'customerwindowtxtfAddress',
+                                    itemId: 'customerwindowtxtfAddress',
                                     fieldLabel: 'Address',
                                     name: 'txtGrossWeight'
                                 },
@@ -102,8 +102,8 @@ Ext.define('layout.view.com.grp1.bkg.CreateCustomer', {
                                 {
                                     xtype: 'textfield',
                                     flex: 1,
-                                    id: 'customertxtfCompanyName',
-                                    itemId: 'customertxtfCompanyName',
+                                    id: 'customerwindowtxtfCompanyName',
+                                    itemId: 'customerwindowtxtfCompanyName',
                                     fieldLabel: 'Company Name',
                                     name: 'txtGrossWeight'
                                 },

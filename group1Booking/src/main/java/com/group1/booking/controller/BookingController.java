@@ -131,11 +131,12 @@ public class BookingController {
 		Account account = new Account();
 		customer.setCompanyName(CA.getCompanyName());
 		customer.setAddress(CA.getAddress());
-		customer.setContactNumber(CA.getAddress());
+		customer.setContactNumber(CA.getContactNumber());
 		customer.setFirstname(CA.getFirstname());
 		customer.setLastname(CA.getLastname());
 		customer.setMailAddress(CA.getMailAddress());
 		customer.setRole(CA.getRole());
+		customer.setIsActive(CA.getIsActive());
 		account.setUsername(CA.getUsername());
 		account.setPassword(CA.getPassword());
 		account.setRole(CA.getRole());
@@ -151,15 +152,26 @@ public class BookingController {
 //		Account account = new Account();
 		customer.setCompanyName(CA.getCompanyName());
 		customer.setAddress(CA.getAddress());
-		customer.setContactNumber(CA.getAddress());
+		customer.setContactNumber(CA.getContactNumber());
 		customer.setFirstname(CA.getFirstname());
 		customer.setLastname(CA.getLastname());
 		customer.setMailAddress(CA.getMailAddress());
 		customer.setRole(CA.getRole());
+		customer.setCustomerId(CA.getCustomerId());
 //		account.setUsername(CA.getUsername());
 //		account.setPassword(CA.getPassword());
 //		account.setRole(CA.getRole());
 		
 		return jsonMapper.writeValueAsString(serv.UpdateCustomer(customer));
+	}
+	
+	@RequestMapping(value = "/searchCustomerByCriteria", method = RequestMethod.POST)
+	public @ResponseBody String searchCustomerByCriteria(@RequestBody String param)
+			throws JsonParseException, JsonMappingException, IOException {
+		JsonNode rootNode = new ObjectMapper().readTree(new StringReader(param)); // convert to readable note
+		// rootNode.get("parameter") returns the value of the parameter
+		String companyName = rootNode.get("companyName").toString().replace("\"", "");
+		String address = rootNode.get("address").toString().replace("\"", "");
+		return jsonMapper.writeValueAsString(serv.searchCustomerByCriteria(companyName, address));
 	}
 }

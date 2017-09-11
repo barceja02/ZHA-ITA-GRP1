@@ -425,14 +425,14 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                                     items: [
                                                                         {
                                                                             xtype: 'textfield',
-                                                                            id: 'txtfCompanyName',
+                                                                            id: 'customertxtfCompanyName',
                                                                             itemId: 'txtfCompanyName',
                                                                             width: 150,
                                                                             fieldLabel: 'Company Name:'
                                                                         },
                                                                         {
                                                                             xtype: 'textfield',
-                                                                            id: 'txtfAddress',
+                                                                            id: 'customertxtfAddress',
                                                                             fieldLabel: 'Address:'
                                                                         }
                                                                     ]
@@ -474,8 +474,8 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                                 },
                                                                 {
                                                                     xtype: 'button',
-                                                                    id: 'btnSearch',
-                                                                    itemId: 'btnSearch',
+                                                                    id: 'tabCustomerBtnSearch',
+                                                                    itemId: 'tabCustomerBtnSearch',
                                                                     text: 'Search'
                                                                 }
                                                             ]
@@ -493,38 +493,50 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                             xtype: 'gridpanel',
                                                             flex: 1,
                                                             title: 'Customers',
+                                                            id: 'customerGridPanel',
+                                                            itemId: 'customerGridPanel',
+                                                            store: 'CustomerStore',
+                                                            selModel: Ext.create('Ext.selection.CheckboxModel', {
+                                                            }),
                                                             columns: [
                                                                 {
-                                                                    xtype: 'numbercolumn',
-                                                                    dataIndex: 'number',
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'customerId',
                                                                     text: 'Customer Id'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    dataIndex: 'address',
                                                                     text: 'Address'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    dataIndex: 'contactNumber',
                                                                     text: 'Contact Number'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    dataIndex: 'mailAddress',
                                                                     text: 'Email Address'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    dataIndex: 'role',
                                                                     text: 'Role'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    dataIndex: 'firstname',
                                                                     text: 'First Name'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
+                                                                    dataIndex: 'lastname',
                                                                     text: 'Last Name'
                                                                 },
                                                                 {
                                                                     xtype: 'numbercolumn',
+                                                                    dataIndex: 'isActive',
                                                                     text: 'Is Active',
                                                                     format: '0'
                                                                 }

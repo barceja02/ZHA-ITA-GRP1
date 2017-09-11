@@ -31,7 +31,8 @@ Ext.application({
         'LoginResponse',
         'LoginModel',
         'ShipperConsigneeModel',
-        'CustomerCreationModel'
+        'CustomerCreationModel',
+        'SearchCustomerModel'
     ],
     stores: [
         'CustomerStore',

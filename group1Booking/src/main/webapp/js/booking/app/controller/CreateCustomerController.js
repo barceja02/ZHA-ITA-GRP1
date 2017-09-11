@@ -12,7 +12,8 @@
  *
  * Do NOT hand edit this file.
  */
-
+var customerWindow;
+var action;
 Ext.define('layout.controller.CreateCustomerController', {
     extend: 'Ext.app.Controller',
 
@@ -26,15 +27,92 @@ Ext.define('layout.controller.CreateCustomerController', {
         {
             ref: 'customerbtnCreate',
             selector: '#customerbtnCreate'
+        },
+        {
+            ref: 'tabCustomerBtnSearch',
+            selector: '#tabCustomerBtnSearch'
+        },
+        {
+            ref: 'tabCustomerBtnEdit',
+            selector: '#tabCustomerBtnEdit'
         }
     ],
 
     onTabCustomerBtnCreateClick: function(button, e, eOpts) {
-        var createCustomerWindow = Ext.create('layout.view.com.grp1.bkg.CreateCustomer');
-        createCustomerWindow.show();
+    	action = 'Create';
+        customerWindow = Ext.create('layout.view.com.grp1.bkg.CreateCustomer');
+        customerWindow.show();
+    },
+    
+    onTabCustomerBtnEditClick: function(button, e, eOpts) {
+    	action = 'Update';
+    	 var grid = Ext.getCmp('customerGridPanel');
+         if(grid.getSelectionModel().getSelection().length===1){
+         var selected = grid.getSelectionModel().getSelection();
+         var selectedCustomer = [];
+         Ext.iterate(selected,function(key){
+         selectedCustomer.push({selected:key.data}) ;
+        
+         });
+         console.log('---');
+         console.log(selectedCustomer[0]);
+         customerWindow = Ext.create('layout.view.com.grp1.bkg.CreateCustomer');
+  		Ext.getCmp('customertxtfCustomerId').setValue(selectedCustomer[0].selected.customerId);
+         Ext.getCmp('customertxtfFirstName').setValue(selectedCustomer[0].selected.firstname);
+         Ext.getCmp('customertxtfLastName').setValue(selectedCustomer[0].selected.lastname);
+         Ext.getCmp('customerwindowtxtfAddress').setValue(selectedCustomer[0].selected.address);
+         Ext.getCmp('customerwindowtxtfCompanyName').setValue(selectedCustomer[0].selected.companyName);
+         Ext.getCmp('customertxtfContactNumber').setValue(selectedCustomer[0].selected.contactNumber);
+         Ext.getCmp('customertxtfEmail').setValue(selectedCustomer[0].selected.mailAddress);
+         Ext.getCmp('customertxtfRole').setValue(selectedCustomer[0].selected.role);
+         if(selectedCustomer[0].selected.isActive==true){
+         	Ext.getCmp('customerchkboxActive').setValue(true);
+         }else{
+         	Ext.getCmp('customerchkboxActive').setValue(false);
+         }
+  		customerWindow.show();
+  		customerWindow.setTitle("Update Customer");
+  		customerWindow.show();
+  		Ext.getCmp('customertxtfUsername').setVisible(false);
+  		Ext.getCmp('customertxtfPassword').setVisible(false);
+         }else{
+             alert('Select only 1 record to view');
+         }
+        
+     
+       
+    },
+    onTabCustomerBtnSearchClick: function(button, e, eOpts) {
+    	
+       var modelId = 'layout.model.';
+       
+    	var searchCustomer = Ext.create(modelId + 'SearchCustomerModel',{
+    		companyName: Ext.getCmp('customertxtfCompanyName').getValue(),
+    		address: Ext.getCmp('customertxtfAddress').getValue()
+    	});
+    	
+        Ext.Ajax.request({
+			url : 'searchCustomerByCriteria',
+			method : 'POST',
+			jsonData : Ext.encode(searchCustomer.data),
+			success : function(response) {
+				//var res = Ext.decode(response.responseText);
+				var res = JSON.parse(response.responseText);
+                var store = Ext.getStore('CustomerStore');
+                store.removeAll();
+                store.add(res);
+                console.log(store);
+			},
+			failure : function(response) {
+                alert('Failed to search');
+			}
+		});
+    	
     },
 
     onCustomerbtnCreateClick: function(button, e, eOpts) {
+    	if(action==='Create'){
+    		console.log('Create CUstomer');
         var modelId = 'layout.model.';
         var checkActive;
         if(Ext.getCmp('customerchkboxActive').getValue()===true){
@@ -42,8 +120,7 @@ Ext.define('layout.controller.CreateCustomerController', {
         }else{
             checkActive = 0;
         }
-
-        		var user = Ext.create(modelId + 'CustomerCreationModel', {
+        		var customer = Ext.create(modelId + 'CustomerCreationModel', {
                     firstname : Ext.getCmp('customertxtfFirstName').getValue(),
                     lastname : Ext.getCmp('customertxtfLastName').getValue(),
                      address : Ext.getCmp('customertxtfAddress').getValue(),
@@ -60,15 +137,53 @@ Ext.define('layout.controller.CreateCustomerController', {
         Ext.Ajax.request({
         			url : 'createCustomer',
         			method : 'POST',
-        			jsonData : Ext.encode(user.data),
+        			jsonData : Ext.encode(customer.data),
         			success : function(response) {
         				var res = Ext.decode(response.responseText);
-
+        				console.log(res)
         			},
         			failure : function(response) {
                         alert('Failed to save');
         			}
         		});
+    	}else if(action==='Update'){
+    		console.log('Update CUstomer');
+    		var modelId = 'layout.model.';
+            var checkActive;
+            if(Ext.getCmp('customerchkboxActive').getValue()===true){
+                checkActive = 1;
+            }else{
+                checkActive = 0;
+            }
+            		var customer = Ext.create(modelId + 'CustomerCreationModel', {
+            			customerId : Ext.getCmp('customertxtfCustomerId').getValue(),
+                        firstname : Ext.getCmp('customertxtfFirstName').getValue(),
+                        lastname : Ext.getCmp('customertxtfLastName').getValue(),
+                         address : Ext.getCmp('customerwindowtxtfAddress').getValue(),
+                         companyName : Ext.getCmp('customerwindowtxtfCompanyName').getValue(),
+                        contactNumber : Ext.getCmp('customertxtfContactNumber').getValue(),
+                         mailAddress : Ext.getCmp('customertxtfEmail').getValue(),
+                        role : Ext.getCmp('customertxtfRole').getValue(),
+                        isActive : checkActive,
+                        username : Ext.getCmp('customertxtfUsername').getValue(),
+                        password : Ext.getCmp('customertxtfPassword').getValue()
+            		});
+
+
+            Ext.Ajax.request({
+            			url : 'updateCustomer',
+            			method : 'POST',
+            			jsonData : Ext.encode(customer.data),
+            			success : function(response) {
+            				var res = Ext.decode(response.responseText);
+            				console.log(res);
+            				alert('Successfully Saved');
+            			},
+            			failure : function(response) {
+                            alert('Failed to save');
+            			}
+            		});
+    	}
     },
 
     init: function(application) {
@@ -78,6 +193,12 @@ Ext.define('layout.controller.CreateCustomerController', {
             },
             "#customerbtnCreate": {
                 click: this.onCustomerbtnCreateClick
+            },
+            "#tabCustomerBtnSearch": {
+                click: this.onTabCustomerBtnSearchClick
+            },
+            "#tabCustomerBtnEdit": {
+                click: this.onTabCustomerBtnEditClick
             }
         });
     }

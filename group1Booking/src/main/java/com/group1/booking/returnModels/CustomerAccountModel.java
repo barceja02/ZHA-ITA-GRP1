@@ -9,7 +9,7 @@ public class CustomerAccountModel {
 	String firstname;
 	String lastname;
 	String address;
-	String role = "Customer";
+	String role = "CUSTOMER";
 	String contactNumber;
 	String mailAddress;
 	int isActive;
