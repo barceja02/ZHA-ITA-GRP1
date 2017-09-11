@@ -169,7 +169,6 @@ public class BookingInfo {
 		this.fromCity = booking.getFromCity();
 		this.toCity = booking.getToCity();
 		this.updatedBy = booking.getUpdatedBy();
-		this.updateDate = booking.getUpdateDate();
 		this.isActive = booking.getIsActive();
 		this.grossUnit = booking.getGrossUnit();
 		this.netUnit = booking.getNetUnit();

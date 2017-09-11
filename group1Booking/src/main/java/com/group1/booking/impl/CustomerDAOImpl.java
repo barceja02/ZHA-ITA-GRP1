@@ -169,12 +169,16 @@ public class CustomerDAOImpl implements CustomerDAO {
 		List<Customer> tempHold = null;
 		try {
 			tx = session.beginTransaction();
-			Query query = session.createQuery("FROM Customer "+ 
-				"WHERE companyName LIKE :companyName OR address LIKE :address");
-												
-				query.setParameter("companyName", "%"+CompanyName+"%");						
-				query.setParameter("address","%"+ Address+ "%");
-			tempHold = (List<Customer>) query.list();
+			String query = ("FROM Customer WHERE ");
+			query += !CompanyName.equals("") && !CompanyName.equals("null") && !CompanyName.equals(null)? "companyName LIKE :companyName " : "";
+			query += query.contains("companyName")?"AND ":"";
+			query += !Address.equals("") && !Address.equals("null") && !Address.equals(null)? "address LIKE :address " : "";
+					
+
+			Query test = session.createQuery(query);								
+				test.setParameter("companyName", "%"+CompanyName+"%");						
+				test.setParameter("address","%"+ Address+ "%");
+			tempHold = (List<Customer>) test.list();
 			session.flush();
 			tx.commit();
 		} catch (HibernateException x) {
