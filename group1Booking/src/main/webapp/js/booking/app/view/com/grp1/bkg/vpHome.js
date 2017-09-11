@@ -294,9 +294,19 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                                     text: 'GROSS_WEIGHT'
                                                                 },
                                                                 {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'grossUnit',
+                                                                    text: 'GROSS_UNIT'
+                                                                },
+                                                                {
                                                                     xtype: 'numbercolumn',
                                                                     dataIndex: 'netWeight',
                                                                     text: 'NET_WEIGHT'
+                                                                },
+                                                                {
+                                                                    xtype: 'gridcolumn',
+                                                                    dataIndex: 'netUnit',
+                                                                    text: 'NET_UNIT'
                                                                 },
                                                                 {
                                                                     xtype: 'gridcolumn',
@@ -322,22 +332,13 @@ Ext.define('layout.view.com.grp1.bkg.vpHome', {
                                                                     xtype: 'gridcolumn',
                                                                     dataIndex: 'updateDate',
                                                                     text: 'UPDATE_DATE'
-                                                                },
-                                                                {
-                                                                    xtype: 'gridcolumn',
-                                                                    dataIndex: 'isActive',
-                                                                    text: 'IS_ACTIVE'
-                                                                },
-                                                                {
-                                                                    xtype: 'gridcolumn',
-                                                                    dataIndex: 'grossUnit',
-                                                                    text: 'GROSS_UNIT'
-                                                                },
-                                                                {
-                                                                    xtype: 'gridcolumn',
-                                                                    dataIndex: 'netUnit',
-                                                                    text: 'NET_UNIT'
-                                                                }/*,
+                                                                }
+//                                                                {
+//                                                                    xtype: 'gridcolumn',
+//                                                                    dataIndex: 'isActive',
+//                                                                    text: 'IS_ACTIVE'
+//                                                                },
+                                                                /*,
                                                                 {
                                                                     xtype: 'gridcolumn',
                                                                     dataIndex: 'isWeightValid',
