@@ -140,9 +140,6 @@ public class BookingController {
 		account.setUsername(CA.getUsername());
 		account.setPassword(CA.getPassword());
 		account.setRole(CA.getRole());
-
-		serv.CreateCustomer(customer, account);
-
 		return jsonMapper.writeValueAsString(serv.CreateCustomer(customer, account));
 	}
 	@RequestMapping(value = "/updateCustomer", method = RequestMethod.POST)

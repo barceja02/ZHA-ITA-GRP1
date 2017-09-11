@@ -113,6 +113,7 @@ Ext.define('layout.view.com.grp1.bkg.CreateCustomer', {
                                     id: 'customertxtfEmail',
                                     itemId: 'customertxtfEmail',
                                     fieldLabel: 'Email Address',
+                                    vtype: 'email',
                                     name: 'txtGrossWeight'
                                 },
                                 {

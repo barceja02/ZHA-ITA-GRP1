@@ -90,7 +90,7 @@ Ext.define('layout.controller.HomeController', {
             },
             "#tabHomebtnReset": {
                 click: this.onTabHomebtnResetClick
-            },
+            }
         });
     }
 
