@@ -48,7 +48,8 @@ public class PremiumMemberIMPL {
 		return alM;	
 	}
 	
-	public String CreatePremiumMember(PremiumMember premiumMember) {
+	//Add Premium Member recurring schedule
+	public String AddPremiumMemberSchedule(PremiumMember premiumMember) {
 		// TODO Auto-generated method stub
 		String isCreated = "false";
 		Session session = setHibernateOpenSession();
@@ -71,6 +72,9 @@ public class PremiumMemberIMPL {
 
 		System.out.println("PREMIUM MEMBER CREATED: " + isCreated);
 		return isCreated;
+	}
+	public void updateMemberSchedule() {
+		
 	}
 	
 	

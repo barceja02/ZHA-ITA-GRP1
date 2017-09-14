@@ -33,7 +33,6 @@ public class PremiumMemberTest {
 		premiumMember.setRecurringDay("MONDAY");
 		premiumMember.setRecurringSlot("9:00-11:00");
 		premiumMember.setIsActive(1);
-		
 		Assert.assertEquals(new PremiumMemberIMPL().CreatePremiumMember(premiumMember), "true");	
 	}
 }
