@@ -33,6 +33,7 @@
    <mapping resource="BookingInfo.hbm.xml"/>
    <mapping resource="Customer.hbm.xml"/>
    <mapping resource="Location.hbm.xml"/>
+   <mapping resource = "PremiumMember.hbm.xml"/>
    
 </session-factory>
 </hibernate-configuration>
