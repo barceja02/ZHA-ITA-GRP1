@@ -4,7 +4,8 @@ public class PremiumMember {
 	int memberId;
 	String recurringDay;
 	String recurringSlot;
-	String isActive;
+	String prefferedCourt;
+
 	public int getMemberId() {
 		return memberId;
 	}
@@ -23,10 +24,10 @@ public class PremiumMember {
 	public void setRecurringSlot(String recurringSlot) {
 		this.recurringSlot = recurringSlot;
 	}
-	public String getIsActive() {
-		return isActive;
+	public String getPrefferedCourt() {
+		return prefferedCourt;
 	}
-	public void setIsActive(String isActive) {
-		this.isActive = isActive;
+	public void setPrefferedCourt(String prefferedCourt) {
+		this.prefferedCourt = prefferedCourt;
 	}
 }

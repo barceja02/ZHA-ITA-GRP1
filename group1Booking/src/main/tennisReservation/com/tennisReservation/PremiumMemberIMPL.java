@@ -42,8 +42,7 @@ public class PremiumMemberIMPL {
 		} finally {
 			session.close();
 		}
-		
-		
+
 		return alM;	
 	}
 	
@@ -58,8 +57,7 @@ public class PremiumMemberIMPL {
 			tx = session.beginTransaction();
 			pMember.setMemberId((Integer) session.save(premiumMember));
 			ArrayList<PremiumMember> alM = getAllPremiumMember();
-			isRule1Accepted(alM, premiumMember);
-			
+			PremiumMemberRule1(alM, premiumMember);
 			session.flush();
 			isCreated = "true";
 			tx.commit();
@@ -82,11 +80,9 @@ public class PremiumMemberIMPL {
 			tx = session.beginTransaction();
 			
 			PremiumMember updatePremiumMember = (PremiumMember) session.get(PremiumMember.class, pm.getMemberId());
-			
-			isRule1Accepted(alM, pm);
+			PremiumMemberRule1(alM, pm);
 			updatePremiumMember.setRecurringDay(pm.getRecurringDay()!=null&&!pm.getRecurringDay().equals("")?pm.getRecurringDay():updatePremiumMember.getRecurringDay());
-			updatePremiumMember.setRecurringSlot(pm.getRecurringSlot()!=null&&!pm.getRecurringSlot().equals("")?pm.getRecurringSlot():updatePremiumMember.getRecurringSlot());
-					
+			updatePremiumMember.setRecurringSlot(pm.getRecurringSlot()!=null&&!pm.getRecurringSlot().equals("")?pm.getRecurringSlot():updatePremiumMember.getRecurringSlot());	
 			session.update(updatePremiumMember);
 			tx.commit();
 			isSuccess = "true";
@@ -101,10 +97,11 @@ public class PremiumMemberIMPL {
 	}
 	
 	
-	public String isRule1Accepted(ArrayList<PremiumMember> alM, PremiumMember pm){
-		
+	public String PremiumMemberRule1(ArrayList<PremiumMember> alM, PremiumMember pm){
 		for(PremiumMember temp:alM) {
-			if(temp.getMemberId()!= pm.getMemberId() && temp.getRecurringDay().equals(pm.getRecurringDay()) && temp.getRecurringSlot().equals(pm.getRecurringSlot())) {
+			if(temp.getMemberId()!= pm.getMemberId() && temp.getPrefferedCourt().equals(pm.getPrefferedCourt()) 
+						&& temp.getRecurringDay().equals(pm.getRecurringDay()) 
+							&& temp.getRecurringSlot().equals(pm.getRecurringSlot())) {
 				throw new HibernateException("fail");
 			}
 		}

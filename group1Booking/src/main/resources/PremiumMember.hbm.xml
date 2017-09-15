@@ -15,7 +15,7 @@
       </id>
       <property name="recurringDay" column="RECURRING_DAY" type="string"/>
       <property name="recurringSlot" column="RECURRING_SLOT" type="string"/>
-      <property name="isActive" column="ISACTIVE" type="string"/>
+      <property name="prefferedCourt" column="PREFFERED_COURT" type="string"/>
       </class>
       
 </hibernate-mapping>
