@@ -5,20 +5,15 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import com.group1.booking.configurations.HibernateContext;
-import com.group1.booking.impl.AccountDAOImpl;
-import com.group1.booking.models.Account;
-import com.group1.booking.models.Customer;
 
 public class PremiumMemberIMPL {
-	HibernateContext HC = new HibernateContext();
 	Session session;
 
 	public Session setHibernateOpenSession() {
-		return HC.GetSessionFactory().openSession();
+		return new HibernateContext().GetSessionFactory().openSession();
 	}
 	
 //	public void main(String[] args) {
@@ -26,15 +21,19 @@ public class PremiumMemberIMPL {
 //		session.close();
 //	}
 	
+	@SuppressWarnings("unchecked")
 	public ArrayList<PremiumMember> getAllPremiumMember() {
 		ArrayList<PremiumMember> alM = null;
 		
 		Session session = setHibernateOpenSession();
 		Transaction tx = null;
 		List<PremiumMember> tempHold = null;
+		System.err.println("asdfasdfasdfasdfasdfasd");
 		try {
 			tx = session.beginTransaction();
 			tempHold = (List<PremiumMember>) session.createQuery("FROM PremiumMember").list();
+			alM = (ArrayList<PremiumMember>) tempHold;
+			System.err.println("asdfasdfasdfasdfsadfasdfasdf"+alM.size());
 			session.flush();
 			tx.commit();
 		} catch (HibernateException x) {
@@ -43,7 +42,7 @@ public class PremiumMemberIMPL {
 		} finally {
 			session.close();
 		}
-		alM = (ArrayList<PremiumMember>) tempHold;
+		
 		
 		return alM;	
 	}
@@ -58,6 +57,8 @@ public class PremiumMemberIMPL {
 		try {
 			tx = session.beginTransaction();
 			pMember.setMemberId((Integer) session.save(premiumMember));
+			ArrayList<PremiumMember> alM = getAllPremiumMember();
+			isRule1Accepted(alM, premiumMember);
 			
 			session.flush();
 			isCreated = "true";
@@ -69,14 +70,44 @@ public class PremiumMemberIMPL {
 		} finally {
 			session.close();
 		}
-
-		System.out.println("PREMIUM MEMBER CREATED: " + isCreated);
 		return isCreated;
 	}
-	public void updateMemberSchedule() {
-		
+	//updateMember recurring scheduling
+	public String updateMemberSchedule(PremiumMember pm) {
+		session = setHibernateOpenSession();
+		Transaction tx = null;
+		String isSuccess = "false";
+		ArrayList<PremiumMember> alM = getAllPremiumMember();
+		try {
+			tx = session.beginTransaction();
+			
+			PremiumMember updatePremiumMember = (PremiumMember) session.get(PremiumMember.class, pm.getMemberId());
+			
+			isRule1Accepted(alM, pm);
+			updatePremiumMember.setRecurringDay(pm.getRecurringDay()!=null&&!pm.getRecurringDay().equals("")?pm.getRecurringDay():updatePremiumMember.getRecurringDay());
+			updatePremiumMember.setRecurringSlot(pm.getRecurringSlot()!=null&&!pm.getRecurringSlot().equals("")?pm.getRecurringSlot():updatePremiumMember.getRecurringSlot());
+					
+			session.update(updatePremiumMember);
+			tx.commit();
+			isSuccess = "true";
+		}catch (HibernateException e) {
+			if (tx != null)
+				isSuccess = "false";
+			tx.rollback();
+		}finally {
+			session.close();
+		}
+		return isSuccess;
 	}
 	
 	
-	
+	public String isRule1Accepted(ArrayList<PremiumMember> alM, PremiumMember pm){
+		
+		for(PremiumMember temp:alM) {
+			if(temp.getMemberId()!= pm.getMemberId() && temp.getRecurringDay().equals(pm.getRecurringDay()) && temp.getRecurringSlot().equals(pm.getRecurringSlot())) {
+				throw new HibernateException("fail");
+			}
+		}
+		return "true";
+	}
 }
