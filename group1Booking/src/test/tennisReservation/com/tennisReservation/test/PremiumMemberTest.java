@@ -43,6 +43,7 @@ public class PremiumMemberTest {
 	}
 	@Test
 	public void testUpdateSuccessPremiumMember() {
+		//AddTest: please have the FF data Change when testing is true(based on Database)
 		
 	}
 	
@@ -62,12 +63,13 @@ public class PremiumMemberTest {
 		testPremiumRuleValue3();
 		Assert.assertEquals(premiumImpl.PremiumMemberRule1(locListPremiumMem, premiumMember), "true");
 	}
-	@Test (expected = HibernateException.class)
+	
+	//
+	@Test(expected = HibernateException.class)
 	public void testPremiumRule4() {
 		testPremiumRuleValue4();
-		Assert.assertEquals(premiumImpl.PremiumMemberRule1(locListPremiumMem, premiumMember), "false");
+		Assert.assertEquals(premiumImpl.PremiumMemberRule1(locListPremiumMem, premiumMember), "true");
 	}
-	
 	
 	
 	
@@ -134,9 +136,9 @@ public class PremiumMemberTest {
 	then: true*/
 	public void testPremiumRuleValue4() {
 		
-		premiumMember.setPrefferedCourt("COURT1");
+		premiumMember.setPrefferedCourt("COURT2");
 		premiumMember.setRecurringDay("MONDAY");
-		premiumMember.setRecurringSlot("9:00-11:00");
+		premiumMember.setRecurringSlot("13:00-15:00");
 
 	}
 	
